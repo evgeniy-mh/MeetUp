@@ -27,15 +27,25 @@ namespace MeetUp
 
             using (UserContext db = new UserContext())
             {
-                db.Employees.Add(new Employee { FirstName = "Hello" });
+                /*db.Employees.Add(new Employee { FirstName = "Hello" });
                 db.Employees.Add(new Employee { FirstName = "Hello2" });
                 db.Employees.Add(new Employee { FirstName = "Hello3" });
 
-                db.SaveChanges();
+                db.SaveChanges();*/
 
                 List<Employee> empls = new List<Employee>();
                 UsersListView.ItemsSource = db.Employees.ToList();
             }
+        }
+
+        private void AddEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Кнопка нажата");
+        }
+
+        private void DeleteEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Кнопка нажата");
         }
     }
 }
