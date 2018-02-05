@@ -63,7 +63,8 @@
     </ApplicationDefinition>
     <Compile Include="Conference.cs" />
     <Compile Include="Employee.cs" />
-    <Compile Include="UserContext.cs" />
+    <Compile Include="EmployeesVM.cs" />
+    <Compile Include="MeetUpContext.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

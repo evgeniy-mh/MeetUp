@@ -6,20 +6,16 @@
         xmlns:local="clr-namespace:MeetUp"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <!--<ListView x:Name="UsersListView" HorizontalAlignment="Left" Height="299" Margin="10,10,0,0" VerticalAlignment="Top" Width="497">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}"/>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=FirstName}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>-->
 
+    <Window.Resources>
+        <local:EmployeesVM x:Key="EmployeesVM" />
+    </Window.Resources>
+    
+    <Grid>
         <TabControl>
-            <TabItem Header="Сотрудники" >
+            <TabItem Header="Сотрудники" DataContext="{StaticResource EmployeesVM}">
                 <StackPanel Orientation="Vertical" >
-                    <ListView x:Name="UsersListView" Margin="5,0" Height="268" VerticalAlignment="Top">
+                    <ListView x:Name="UsersListView" Margin="5,0" Height="268" VerticalAlignment="Top" ItemsSource="{Binding Employees}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}"/>

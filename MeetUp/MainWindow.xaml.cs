@@ -24,18 +24,7 @@ namespace MeetUp
         {
             InitializeComponent();
 
-
-            using (UserContext db = new UserContext())
-            {
-                /*db.Employees.Add(new Employee { FirstName = "Hello" });
-                db.Employees.Add(new Employee { FirstName = "Hello2" });
-                db.Employees.Add(new Employee { FirstName = "Hello3" });
-
-                db.SaveChanges();*/
-
-                List<Employee> empls = new List<Employee>();
-                UsersListView.ItemsSource = db.Employees.ToList();
-            }
+            //DataContext = new EmployeesVM();
         }
 
         private void AddEmployee_Click(object sender, RoutedEventArgs e)

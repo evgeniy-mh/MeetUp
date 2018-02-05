@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace MeetUp
 {
-    class UserContext: DbContext
+    class MeetUpContext: DbContext
     {
-        public UserContext() : base("MeetUpDb")
+        public MeetUpContext() : base("MeetUpDb")
         {
 
         }
