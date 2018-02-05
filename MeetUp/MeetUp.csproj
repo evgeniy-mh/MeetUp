@@ -61,6 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Conference.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="UserContext.cs" />
     <Page Include="MainWindow.xaml">
