@@ -9,9 +9,11 @@ namespace MeetUp
 {
     class UserContext: DbContext
     {
-        public UserContext() : base("DbConnection")
+        public UserContext() : base("MeetUpDb")
         {
 
         }
+
+        public DbSet<Employee> Employees { get; set; }
     }
 }

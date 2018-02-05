@@ -23,6 +23,19 @@ namespace MeetUp
         public MainWindow()
         {
             InitializeComponent();
+
+
+            using (UserContext db = new UserContext())
+            {
+                db.Employees.Add(new Employee { FirstName = "Hello" });
+                db.Employees.Add(new Employee { FirstName = "Hello2" });
+                db.Employees.Add(new Employee { FirstName = "Hello3" });
+
+                db.SaveChanges();
+
+                List<Employee> empls = new List<Employee>();
+                UsersListView.ItemsSource = db.Employees.ToList();
+            }
         }
     }
 }
