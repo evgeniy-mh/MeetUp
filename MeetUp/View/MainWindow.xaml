@@ -44,21 +44,20 @@
 
 
         <StackPanel Grid.Column="0">
-            <ListBox>
-                <ListBoxItem>
-                    Сотрудники
-                </ListBoxItem>
-                <ListBoxItem>
-                    Совещания
-                </ListBoxItem>
+            <ListBox x:Name="MenuItemsListBox" SelectionChanged="MenuSelector_OnSelectionChanged" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="18" Text="{Binding Path=Name}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
-        
+
         <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
         HorizontalAlignment="Center" VerticalAlignment="Stretch" />
 
         <Grid x:Name="MainView" Grid.Column="2">
-            
+
         </Grid>
 
     </Grid>
