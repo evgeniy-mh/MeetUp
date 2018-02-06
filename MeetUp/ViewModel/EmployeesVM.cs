@@ -55,6 +55,18 @@ namespace MeetUp
             }
         }
 
+        private RelayCommand changeCommand;
+        public RelayCommand ChangeCommand
+        {
+            get
+            {
+                return changeCommand ?? (changeCommand = new RelayCommand(obj =>
+                {
+
+                }));
+            }
+        }
+
         private RelayCommand removeCommand;
         public RelayCommand RemoveCommand
         {
@@ -76,7 +88,7 @@ namespace MeetUp
                         employeeModel.RemoveEmployee(SelectedEmployee);
                         Employees = employeeModel.GetEmployees();
                     }
-                }));
+                }, (obj) => { return SelectedEmployee != null; }));
             }
         }
 

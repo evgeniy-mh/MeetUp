@@ -23,8 +23,9 @@
                 </ListView>
 
                 <StackPanel Orientation="Horizontal" Margin="5">
-                    <Button x:Name="AddEmployeeButton" Content="Добавить сотрудника" Command="{Binding AddCommand}" />
-                    <Button x:Name="DeleteEmployeeButton" Content="Удалить сотрудника" Command="{Binding RemoveCommand}" Margin="5,0,0,0" />
+                    <Button Content="Добавить сотрудника" Command="{Binding AddCommand}" />
+                    <Button Content="Изменить сотрудника" Command="{Binding ChangeCommand}"  Margin="5,0,0,0"/>
+                    <Button Content="Удалить сотрудника" Command="{Binding RemoveCommand}" Margin="5,0,0,0" />
                 </StackPanel>
             </StackPanel>
         </TabItem>
