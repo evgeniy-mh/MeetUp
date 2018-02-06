@@ -13,16 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MeetUp
+namespace MeetUp.View
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for EmployeeControl.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class EmployeeControl : UserControl
     {
-        public UserControl1()
+        public EmployeeControl()
         {
             InitializeComponent();
+            DataContext = new EmployeesVM();
         }
     }
 }

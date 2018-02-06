@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeetUp.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -12,15 +13,13 @@ namespace MeetUp
 {
     class EmployeesVM : INotifyPropertyChanged
     {
+        private EmployeeModel employeeModel;
         public ObservableCollection<Employee> Employees { get; set; }
 
         public EmployeesVM()
         {
-            
-            using (MeetUpContext db=new MeetUpContext())
-            {
-                Employees = new ObservableCollection<Employee>(db.Employees.ToList());
-            }
+            employeeModel = new EmployeeModel();
+            Employees = employeeModel.GetEmployees();
         }
 
         private RelayCommand addCommand;

@@ -19,7 +19,7 @@ namespace MeetUp
     public partial class MainWindow : Window
     {
         List<MainMenuItem> menuItems = new List<MainMenuItem> {
-            new MainMenuItem { Name = "Сотрудники", View = new UserControl1() },
+            new MainMenuItem { Name = "Сотрудники", View = new EmployeeControl() },
             new MainMenuItem { Name = "Совет", View = new ConferenceControll() }
             };
 
@@ -38,7 +38,7 @@ namespace MeetUp
         }
 
         public void MenuSelector_OnSelectionChanged(object sender, RoutedEventArgs e)
-        {
+        { 
             MainView.Children.Clear();
             MainMenuItem item = MenuItemsListBox.SelectedItem as MainMenuItem;
             MainView.Children.Add(item.View);

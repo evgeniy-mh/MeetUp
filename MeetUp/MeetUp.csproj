@@ -63,17 +63,22 @@
     </ApplicationDefinition>
     <Compile Include="DBEntityModels\Conference.cs" />
     <Compile Include="DBEntityModels\Employee.cs" />
-    <Compile Include="ViewModels\EmployeesVM.cs" />
+    <Compile Include="Model\EmployeeModel.cs" />
+    <Compile Include="ViewModel\EmployeesVM.cs" />
     <Compile Include="MeetUpContext.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="View\ConferenceControll.xaml.cs">
       <DependentUpon>ConferenceControll.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainMenuItem.cs" />
-    <Compile Include="View\UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
+    <Compile Include="View\EmployeeControl.xaml.cs">
+      <DependentUpon>EmployeeControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MainMenuItem.cs" />
     <Page Include="View\ConferenceControll.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EmployeeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -89,10 +94,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\UserControl1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -121,5 +122,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
