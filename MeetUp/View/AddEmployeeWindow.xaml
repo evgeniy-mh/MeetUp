@@ -14,27 +14,26 @@
 
         <StackPanel>
             <TextBlock>Фамилия:</TextBlock>
-            <TextBox Name="MiddleNameBox" MinWidth="250" Text="{Binding Path=MiddleName, Mode=TwoWay}"></TextBox>
-            
+            <TextBox Name="MiddleNameBox" MinWidth="250" Text="{Binding Path=MiddleName}"></TextBox>
+
             <TextBlock>Имя:</TextBlock>
-            <TextBox Name="FirstNameBox" MinWidth="250"></TextBox>
-            
+            <TextBox Name="FirstNameBox" MinWidth="250" Text="{Binding Path=FirstName}"></TextBox>
+
             <TextBlock>Отчество:</TextBlock>
-            <TextBox Name="LastNameBox" MinWidth="250"></TextBox>
-            
+            <TextBox Name="LastNameBox" MinWidth="250" Text="{Binding Path=LastName}"></TextBox>
+
             <TextBlock>Должность:</TextBlock>
-            <TextBox Name="PositionBox" MinWidth="250"></TextBox>
-            
+            <TextBox Name="PositionBox" MinWidth="250" Text="{Binding Path=Position}"></TextBox>
+
             <TextBlock>Дата рождения:</TextBlock>
-            <DatePicker Name="BirthDatePicker" IsDropDownOpen="True" SelectedDateFormat="Short" />
-            
+            <DatePicker Name="BirthDatePicker" SelectedDateFormat="Short"  SelectedDate="{Binding Path=BirthDate}"/>
+
             <TextBlock>Номер телефона:</TextBlock>
-            
-            <TextBox Name="TelephoneNumberBox" MinWidth="250"></TextBox>
-            
+            <TextBox Name="TelephoneNumberBox" MinWidth="250" Text="{Binding Path=TelephoneNumber}"></TextBox>
+
             <TextBlock>E-mail:</TextBlock>
-            <TextBox Name="EmailBox" MinWidth="250"></TextBox>     
-            
+            <TextBox Name="EmailBox" MinWidth="250" Text="{Binding Path=Email}"></TextBox>
+
         </StackPanel>
 
         <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,15,0,0">

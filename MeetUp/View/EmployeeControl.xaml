@@ -8,7 +8,7 @@
     <TabControl>
         <TabItem Header="Сотрудники">
             <StackPanel Orientation="Vertical" >
-                <ListView x:Name="UsersListView" Margin="5,0" Height="268" VerticalAlignment="Top" ItemsSource="{Binding Employees}">
+                <ListView x:Name="UsersListView" Margin="5,0" Height="268" VerticalAlignment="Top" ItemsSource="{Binding Employees, Mode=TwoWay}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}"/>

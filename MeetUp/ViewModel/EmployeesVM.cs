@@ -15,7 +15,30 @@ namespace MeetUp
     class EmployeesVM : INotifyPropertyChanged
     {
         private EmployeeModel employeeModel;
-        public ObservableCollection<Employee> Employees { get; set; }
+
+        private ObservableCollection<Employee> _employees;
+        public ObservableCollection<Employee> Employees
+        {
+            get
+            {
+                return _employees;
+            }
+            set
+            {
+                _employees = value;
+                OnPropertyChanged("Employees");
+            }
+        }
+
+        /*public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(string info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+                MessageBox.Show(info);
+            }
+        }*/
 
         public EmployeesVM()
         {
@@ -31,13 +54,10 @@ namespace MeetUp
                 return addCommand ?? (addCommand = new RelayCommand(obj =>
                 {
                     AddEmployeeWindow window = new AddEmployeeWindow();
-                    if (window.ShowDialog()==true)
+                    if (window.ShowDialog() == true)
                     {
-                        MessageBox.Show(window.NewEmployee.ToString());
-                    }
-                    else
-                    {
-                        MessageBox.Show("cancel");
+                        employeeModel.AddEmployee(window.NewEmployee);
+                        Employees = employeeModel.GetEmployees();
                     }
                 }));
             }
