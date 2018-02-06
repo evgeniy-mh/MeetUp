@@ -8,11 +8,16 @@
     <TabControl>
         <TabItem Header="Сотрудники">
             <StackPanel Orientation="Vertical" >
-                <ListView x:Name="UsersListView" Margin="5,0" Height="268" VerticalAlignment="Top" ItemsSource="{Binding Employees, Mode=TwoWay}">
+                <ListView x:Name="UsersListView" Height="268" VerticalAlignment="Top" ItemsSource="{Binding Employees, Mode=TwoWay}" SelectedItem="{Binding SelectedEmployee}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}"/>
-                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=FirstName}"/>
+                            <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding Path=MiddleName}"/>
+                            <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Path=FirstName}"/>
+                            <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding Path=LastName}"/>
+                            <GridViewColumn Header="Должность" DisplayMemberBinding="{Binding Path=Position}"/>
+                            <GridViewColumn Header="Дата рождения" DisplayMemberBinding="{Binding Path=BirthDate}"/>
+                            <GridViewColumn Header="Телефон" DisplayMemberBinding="{Binding Path=TelephoneNumber}"/>
+                            <GridViewColumn Header="E-mail" DisplayMemberBinding="{Binding Path=Email}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

@@ -14,6 +14,8 @@ namespace MeetUp
 {
     class EmployeesVM : INotifyPropertyChanged
     {
+        public Employee SelectedEmployee { get; set; }
+
         private EmployeeModel employeeModel;
 
         private ObservableCollection<Employee> _employees;
@@ -29,16 +31,6 @@ namespace MeetUp
                 OnPropertyChanged("Employees");
             }
         }
-
-        /*public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(string info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-                MessageBox.Show(info);
-            }
-        }*/
 
         public EmployeesVM()
         {
@@ -70,7 +62,20 @@ namespace MeetUp
             {
                 return removeCommand ?? (removeCommand = new RelayCommand(obj =>
                 {
-                    MessageBox.Show("remove");
+                    MessageBoxButton button = MessageBoxButton.OKCancel;
+                    MessageBoxImage icon = MessageBoxImage.Warning;
+                    MessageBoxResult result = MessageBox.Show(
+                        String.Format("Вы действительно хотите удалить сотрудника {0} {1} {2} ?",
+                        SelectedEmployee.MiddleName,
+                        SelectedEmployee.FirstName,
+                        SelectedEmployee.LastName),
+                        "Удалить сотрудника?", button, icon);
+
+                    if (result == MessageBoxResult.OK)
+                    {
+                        employeeModel.RemoveEmployee(SelectedEmployee);
+                        Employees = employeeModel.GetEmployees();
+                    }
                 }));
             }
         }
