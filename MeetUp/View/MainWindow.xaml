@@ -10,9 +10,9 @@
     <Window.Resources>
         <local:EmployeesVM x:Key="EmployeesVM" />
     </Window.Resources>
-    
+
     <Grid>
-        <TabControl>
+        <!--<TabControl>
             <TabItem Header="Сотрудники" DataContext="{StaticResource EmployeesVM}">
                 <StackPanel Orientation="Vertical" >
                     <ListView x:Name="UsersListView" Margin="5,0" Height="268" VerticalAlignment="Top" ItemsSource="{Binding Employees}">
@@ -34,7 +34,32 @@
             <TabItem Header="Совет">
 
             </TabItem>
-        </TabControl>
+        </TabControl>-->
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.4*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+
+        <StackPanel Grid.Column="0">
+            <ListBox>
+                <ListBoxItem>
+                    Сотрудники
+                </ListBoxItem>
+                <ListBoxItem>
+                    Совещания
+                </ListBoxItem>
+            </ListBox>
+        </StackPanel>
+        
+        <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
+        HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+
+        <Grid x:Name="MainView" Grid.Column="2">
+            
+        </Grid>
 
     </Grid>
 </Window>

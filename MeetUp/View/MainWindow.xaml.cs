@@ -22,6 +22,8 @@ namespace MeetUp
             InitializeComponent();
 
             //DataContext = new EmployeesVM();
+
+            MainView.Children.Add(new UserControl1());
         }
     }
 }
