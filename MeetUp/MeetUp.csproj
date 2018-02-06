@@ -67,6 +67,9 @@
     <Compile Include="ViewModel\EmployeesVM.cs" />
     <Compile Include="MeetUpContext.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="View\AddEmployeeWindow.xaml.cs">
+      <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ConferenceControll.xaml.cs">
       <DependentUpon>ConferenceControll.xaml</DependentUpon>
     </Compile>
@@ -74,6 +77,10 @@
       <DependentUpon>EmployeeControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainMenuItem.cs" />
+    <Page Include="View\AddEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ConferenceControll.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

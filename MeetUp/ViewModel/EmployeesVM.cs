@@ -1,4 +1,5 @@
 ﻿using MeetUp.Model;
+using MeetUp.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,7 +30,15 @@ namespace MeetUp
             {
                 return addCommand ?? (addCommand = new RelayCommand(obj =>
                 {
-                    MessageBox.Show("add");
+                    AddEmployeeWindow window = new AddEmployeeWindow();
+                    if (window.ShowDialog()==true)
+                    {
+                        MessageBox.Show(window.NewEmployee.ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show("cancel");
+                    }
                 }));
             }
         }

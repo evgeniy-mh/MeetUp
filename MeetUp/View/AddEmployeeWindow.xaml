@@ -1,0 +1,46 @@
+﻿<Window x:Class="MeetUp.View.AddEmployeeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MeetUp.View"
+        mc:Ignorable="d"
+        Title="Новый сотрудник" Height="400" Width="350">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock>Фамилия:</TextBlock>
+            <TextBox Name="MiddleNameBox" MinWidth="250" Text="{Binding Path=MiddleName, Mode=TwoWay}"></TextBox>
+            
+            <TextBlock>Имя:</TextBlock>
+            <TextBox Name="FirstNameBox" MinWidth="250"></TextBox>
+            
+            <TextBlock>Отчество:</TextBlock>
+            <TextBox Name="LastNameBox" MinWidth="250"></TextBox>
+            
+            <TextBlock>Должность:</TextBlock>
+            <TextBox Name="PositionBox" MinWidth="250"></TextBox>
+            
+            <TextBlock>Дата рождения:</TextBlock>
+            <DatePicker Name="BirthDatePicker" IsDropDownOpen="True" SelectedDateFormat="Short" />
+            
+            <TextBlock>Номер телефона:</TextBlock>
+            
+            <TextBox Name="TelephoneNumberBox" MinWidth="250"></TextBox>
+            
+            <TextBlock>E-mail:</TextBlock>
+            <TextBox Name="EmailBox" MinWidth="250"></TextBox>     
+            
+        </StackPanel>
+
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <Button IsDefault="True" Click="Accept_Click" MinWidth="60" Margin="0,0,10,0">OK</Button>
+            <Button IsCancel="True" MinWidth="60">Отмена</Button>
+        </WrapPanel>
+
+    </Grid>
+</Window>

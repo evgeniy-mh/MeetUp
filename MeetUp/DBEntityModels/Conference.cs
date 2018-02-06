@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MeetUp
 {
-    class Conference
+    public class Conference
     {
         public int Id { get; set; }
         public string Name { get; set; }
