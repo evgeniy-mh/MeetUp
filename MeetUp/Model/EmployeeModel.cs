@@ -27,6 +27,16 @@ namespace MeetUp.Model
             db.SaveChanges();
         }
 
+        public void UpdateEmployee(Employee employee)
+        {
+            var result = db.Employees.SingleOrDefault(e => e.Id==employee.Id);
+            if (result != null)
+            {
+                db.Entry(result).CurrentValues.SetValues(employee);
+                db.SaveChanges();
+            }
+        }
+
         public void RemoveEmployee(Employee employee)
         {
             db.Employees.Remove(employee);

@@ -45,10 +45,12 @@ namespace MeetUp
             {
                 return addCommand ?? (addCommand = new RelayCommand(obj =>
                 {
-                    AddEmployeeWindow window = new AddEmployeeWindow();
+                    //AddEmployeeWindow window = new AddEmployeeWindow();
+                    
+                    EmployeeWindow window = new EmployeeWindow(new Employee());
                     if (window.ShowDialog() == true)
                     {
-                        employeeModel.AddEmployee(window.NewEmployee);
+                        employeeModel.AddEmployee(window.Employee);
                         Employees = employeeModel.GetEmployees();
                     }
                 }));
@@ -62,8 +64,14 @@ namespace MeetUp
             {
                 return changeCommand ?? (changeCommand = new RelayCommand(obj =>
                 {
+                    EmployeeWindow window = new EmployeeWindow(SelectedEmployee);
+                    if (window.ShowDialog() == true)
+                    {
+                        employeeModel.UpdateEmployee(window.Employee);
+                        Employees = employeeModel.GetEmployees();
+                    }
 
-                }));
+                }, (obj) => { return SelectedEmployee != null; }));
             }
         }
 

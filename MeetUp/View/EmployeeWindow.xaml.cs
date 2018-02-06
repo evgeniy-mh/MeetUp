@@ -15,17 +15,17 @@ using System.Windows.Shapes;
 namespace MeetUp.View
 {
     /// <summary>
-    /// Interaction logic for AddEmployeeWindow.xaml
+    /// Interaction logic for EmployeeWindow.xaml
     /// </summary>
-    public partial class AddEmployeeWindow : Window
+    public partial class EmployeeWindow : Window
     {
-        public Employee NewEmployee { get; set; }
+        public Employee Employee { get; set; }
 
-        public AddEmployeeWindow()
+        public EmployeeWindow(Employee employee)
         {
             InitializeComponent();
-            NewEmployee = new Employee();
-            this.DataContext = NewEmployee;
+            this.Employee = employee;
+            this.DataContext = Employee;
         }
 
         private void Accept_Click(object sender, RoutedEventArgs e)
