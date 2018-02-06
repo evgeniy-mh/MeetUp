@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MeetUp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="600" Width="800">
 
     <Window.Resources>
         <local:EmployeesVM x:Key="EmployeesVM" />
@@ -25,8 +25,8 @@
                     </ListView>
 
                     <StackPanel Orientation="Horizontal" Margin="5">
-                        <Button x:Name="AddEmployeeButton" Content="Добавить сотрудника" Click="AddEmployee_Click" />
-                        <Button x:Name="DeleteEmployeeButton" Content="Удалить сотрудника" Click="DeleteEmployee_Click" Margin="5,0,0,0" />
+                        <Button x:Name="AddEmployeeButton" Content="Добавить сотрудника" Command="{Binding AddCommand}" />
+                        <Button x:Name="DeleteEmployeeButton" Content="Удалить сотрудника" Command="{Binding RemoveCommand}" Margin="5,0,0,0" />
                     </StackPanel>
                 </StackPanel>
             </TabItem>
