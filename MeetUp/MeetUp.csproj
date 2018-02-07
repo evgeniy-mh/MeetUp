@@ -67,6 +67,7 @@
     <Compile Include="DBRepositories\EFGenericRepository.cs" />
     <Compile Include="DBRepositories\IGenericRepository.cs" />
     <Compile Include="EmployeesControll\EmployeesControllVM.cs" />
+    <Compile Include="EmployeeWindow\EmployeeWindowVM.cs" />
     <Compile Include="MeetUpContext.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ConferencesControll\ConferenceControll.xaml.cs">
@@ -75,8 +76,8 @@
     <Compile Include="EmployeesControll\EmployeeControl.xaml.cs">
       <DependentUpon>EmployeeControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EmployeeWindow\EmployeeWindow.xaml.cs">
-      <DependentUpon>EmployeeWindow.xaml</DependentUpon>
+    <Compile Include="EmployeeWindow\EmployeeWindowView.xaml.cs">
+      <DependentUpon>EmployeeWindowView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow\MainMenuItem.cs" />
     <Page Include="ConferencesControll\ConferenceControll.xaml">
@@ -87,11 +88,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EmployeeWindow\EmployeeWindow.xaml">
+    <Page Include="EmployeeWindow\EmployeeWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow\MainWindow.xaml">
+    <Page Include="MainWindow\MainWindowView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -99,8 +100,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="MainWindow\MainWindowView.xaml.cs">
+      <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

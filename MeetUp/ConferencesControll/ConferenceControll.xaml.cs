@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MeetUp.View
+namespace MeetUp.ConferencesControll
 {
     /// <summary>
     /// Interaction logic for ConferenceControll.xaml

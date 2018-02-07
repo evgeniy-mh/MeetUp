@@ -1,9 +1,10 @@
-﻿using MeetUp.EmployeesControl;
-using MeetUp.View;
+﻿using MeetUp.ConferencesControll;
+using MeetUp.EmployeesControl;
+using MeetUp.MainWindow;
 using System.Collections.Generic;
 using System.Windows;
 
-namespace MeetUp
+namespace MeetUp.MainWindowView
 {
     public partial class MainWindow : Window
     {

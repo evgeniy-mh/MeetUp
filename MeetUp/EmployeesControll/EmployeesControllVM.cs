@@ -1,12 +1,12 @@
 ﻿using MeetUp.DBRepositories;
-using MeetUp.View;
+using MeetUp.EmployeeWindow;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
-namespace MeetUp
+namespace MeetUp.EmployeesControl
 {
     class EmployeesControllVM : INotifyPropertyChanged
     {
@@ -39,7 +39,7 @@ namespace MeetUp
             {
                 return addCommand ?? (addCommand = new RelayCommand(obj =>
                 {
-                    EmployeeWindow window = new EmployeeWindow(new Employee());
+                    EmployeeWindowView window = new EmployeeWindowView(new Employee());
                     if (window.ShowDialog() == true)
                     {
                         EmployeeRepository.Create(window.Employee);
@@ -56,7 +56,7 @@ namespace MeetUp
             {
                 return changeCommand ?? (changeCommand = new RelayCommand(obj =>
                 {
-                    EmployeeWindow window = new EmployeeWindow(SelectedEmployee);
+                    EmployeeWindowView window = new EmployeeWindowView(SelectedEmployee);
                     if (window.ShowDialog() == true)
                     {
                         EmployeeRepository.Update(window.Employee);

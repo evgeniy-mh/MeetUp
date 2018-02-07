@@ -12,23 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MeetUp.View
+namespace MeetUp.EmployeeWindow
 {
     /// <summary>
     /// Interaction logic for EmployeeWindow.xaml
     /// </summary>
-    public partial class EmployeeWindow : Window
+    public partial class EmployeeWindowView : Window
     {
         public Employee Employee { get; set; }
 
-        public EmployeeWindow()
+        public EmployeeWindowView()
         {
             InitializeComponent();
             this.Employee = new Employee();
             this.DataContext = Employee;
         }
 
-        public EmployeeWindow(Employee employee)
+        public EmployeeWindowView(Employee employee)
         {
             InitializeComponent();
             this.Employee = new Employee(employee);
