@@ -17,7 +17,15 @@
             <TextBox Name="MiddleNameBox" MinWidth="250" Text="{Binding Path=MiddleName}"></TextBox>
 
             <TextBlock>Имя:</TextBlock>
-            <TextBox Name="FirstNameBox" MinWidth="250" Text="{Binding Path=FirstName}"></TextBox>
+            <TextBox Name="FirstNameBox" MinWidth="250">
+                <TextBox.Text>
+                    <Binding Path="FirstName">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBlock>Отчество:</TextBlock>
             <TextBox Name="LastNameBox" MinWidth="250" Text="{Binding Path=LastName}"></TextBox>

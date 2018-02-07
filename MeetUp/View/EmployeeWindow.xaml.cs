@@ -21,10 +21,17 @@ namespace MeetUp.View
     {
         public Employee Employee { get; set; }
 
+        public EmployeeWindow()
+        {
+            InitializeComponent();
+            this.Employee = new Employee();
+            this.DataContext = Employee;
+        }
+
         public EmployeeWindow(Employee employee)
         {
             InitializeComponent();
-            this.Employee = employee;
+            this.Employee = new Employee(employee);
             this.DataContext = Employee;
         }
 
