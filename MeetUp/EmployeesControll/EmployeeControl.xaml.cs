@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MeetUp.View
+namespace MeetUp.EmployeesControl
 {
     /// <summary>
     /// Interaction logic for EmployeeControl.xaml
