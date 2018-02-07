@@ -63,7 +63,7 @@
     </ApplicationDefinition>
     <Compile Include="DBEntityModels\Conference.cs" />
     <Compile Include="DBEntityModels\Employee.cs" />
-    <Compile Include="Model\EmployeeModel.cs" />
+    <Compile Include="EmployeesControll\EmployeeModel.cs" />
     <Compile Include="EmployeesControll\EmployeesVM.cs" />
     <Compile Include="MeetUpContext.cs" />
     <Compile Include="RelayCommand.cs" />
