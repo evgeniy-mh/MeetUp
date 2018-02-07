@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace MeetUp
 {
-    class EmployeesVM : INotifyPropertyChanged
+    class EmployeesControllVM : INotifyPropertyChanged
     {
         public Employee SelectedEmployee { get; set; }
         private EFGenericRepository<Employee> EmployeeRepository;
@@ -26,7 +26,7 @@ namespace MeetUp
             }
         }
 
-        public EmployeesVM()
+        public EmployeesControllVM()
         {
             EmployeeRepository = new EFGenericRepository<Employee>(new MeetUpContext());
             Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
