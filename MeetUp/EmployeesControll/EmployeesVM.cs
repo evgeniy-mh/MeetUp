@@ -1,13 +1,9 @@
-﻿using MeetUp.Model;
+﻿using MeetUp.DBRepositories;
 using MeetUp.View;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MeetUp
@@ -15,9 +11,7 @@ namespace MeetUp
     class EmployeesVM : INotifyPropertyChanged
     {
         public Employee SelectedEmployee { get; set; }
-
-        private EmployeeModel employeeModel;
-
+        private EFGenericRepository<Employee> EmployeeRepository;
         private ObservableCollection<Employee> _employees;
         public ObservableCollection<Employee> Employees
         {
@@ -34,8 +28,8 @@ namespace MeetUp
 
         public EmployeesVM()
         {
-            employeeModel = new EmployeeModel();
-            Employees = employeeModel.GetEmployees();
+            EmployeeRepository = new EFGenericRepository<Employee>(new MeetUpContext());
+            Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
         }
 
         private RelayCommand addCommand;
@@ -45,13 +39,11 @@ namespace MeetUp
             {
                 return addCommand ?? (addCommand = new RelayCommand(obj =>
                 {
-                    //AddEmployeeWindow window = new AddEmployeeWindow();
-                    
                     EmployeeWindow window = new EmployeeWindow(new Employee());
                     if (window.ShowDialog() == true)
                     {
-                        employeeModel.AddEmployee(window.Employee);
-                        Employees = employeeModel.GetEmployees();
+                        EmployeeRepository.Create(window.Employee);
+                        Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
                     }
                 }));
             }
@@ -67,10 +59,9 @@ namespace MeetUp
                     EmployeeWindow window = new EmployeeWindow(SelectedEmployee);
                     if (window.ShowDialog() == true)
                     {
-                        employeeModel.UpdateEmployee(window.Employee);
-                        Employees = employeeModel.GetEmployees();
+                        EmployeeRepository.Update(window.Employee);
+                        Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
                     }
-
                 }, (obj) => { return SelectedEmployee != null; }));
             }
         }
@@ -93,8 +84,8 @@ namespace MeetUp
 
                     if (result == MessageBoxResult.OK)
                     {
-                        employeeModel.RemoveEmployee(SelectedEmployee);
-                        Employees = employeeModel.GetEmployees();
+                        EmployeeRepository.Remove(SelectedEmployee);
+                        Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
                     }
                 }, (obj) => { return SelectedEmployee != null; }));
             }

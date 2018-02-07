@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeetUp.DBEntityModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MeetUp
 {
-    public class Employee : IDataErrorInfo
+    public class Employee : IDataErrorInfo, IHasId
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
