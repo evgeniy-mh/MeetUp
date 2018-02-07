@@ -1,24 +1,25 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace MeetUp.EmployeeWindow
 {
     class EmployeeWindowVM : INotifyPropertyChanged
     {
-        private Window EmployeeWindowView;
+        private EmployeeWindowView employeeWindowView;
 
         public Employee Employee { get; set; }
 
-        public EmployeeWindowVM(Window employeeWindowView)
+        public EmployeeWindowVM(EmployeeWindowView employeeWindowView)
         {
-            this.EmployeeWindowView = employeeWindowView;
+            this.employeeWindowView = employeeWindowView;
             this.Employee = new Employee();
         }
 
-        public EmployeeWindowVM(Window employeeWindowView, Employee employee)
+        public EmployeeWindowVM(EmployeeWindowView employeeWindowView, Employee employee)
         {
-            this.EmployeeWindowView = employeeWindowView;
+            this.employeeWindowView = employeeWindowView;
             this.Employee = new Employee(employee);
         }
 
@@ -29,8 +30,8 @@ namespace MeetUp.EmployeeWindow
             {
                 return accept_Click ?? (accept_Click = new RelayCommand(obj =>
                 {
-                    EmployeeWindowView.DialogResult = true;
-                }));
+                    employeeWindowView.DialogResult = true;
+                }, (obj) => { return IsAllFieldsValid(employeeWindowView.EmployeeInfoPanel); }));
             }
         }
 
@@ -38,6 +39,23 @@ namespace MeetUp.EmployeeWindow
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        private bool IsAllFieldsValid(DependencyObject obj)
+        {
+            foreach (object child in LogicalTreeHelper.GetChildren(obj))
+            {
+                TextBox element = child as TextBox;
+                if (element == null) continue;
+
+                if (Validation.GetHasError(element))
+                {
+                    return false;
+                }
+
+                IsAllFieldsValid(element);
+            }
+            return true;
         }
     }
 }

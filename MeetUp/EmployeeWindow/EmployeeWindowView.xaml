@@ -6,15 +6,37 @@
         xmlns:local="clr-namespace:MeetUp.EmployeeWindow"
         mc:Ignorable="d"
         Title="EmployeeWindow" Height="400" Width="350">
+
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip"
+                       Value="{Binding RelativeSource={RelativeSource Self},
+                       Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
-        <StackPanel DataContext="{Binding Employee}">
+        <StackPanel x:Name="EmployeeInfoPanel" DataContext="{Binding Employee}">
             <TextBlock>Фамилия:</TextBlock>
-            <TextBox Name="MiddleNameBox" MinWidth="250" Text="{Binding Path=MiddleName}"></TextBox>
+            <TextBox Name="MiddleNameBox" MinWidth="250">
+                <TextBox.Text>
+                    <Binding Path="MiddleName">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBlock>Имя:</TextBlock>
             <TextBox Name="FirstNameBox" MinWidth="250">
@@ -28,7 +50,15 @@
             </TextBox>
 
             <TextBlock>Отчество:</TextBlock>
-            <TextBox Name="LastNameBox" MinWidth="250" Text="{Binding Path=LastName}"></TextBox>
+            <TextBox Name="LastNameBox" MinWidth="250">
+                <TextBox.Text>
+                    <Binding Path="LastName">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBlock>Должность:</TextBlock>
             <TextBox Name="PositionBox" MinWidth="250" Text="{Binding Path=Position}"></TextBox>

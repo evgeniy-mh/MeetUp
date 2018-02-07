@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace MeetUp.EmployeeWindow
 {
@@ -26,6 +27,6 @@ namespace MeetUp.EmployeeWindow
             InitializeComponent();
             employeeWindowVM = new EmployeeWindowVM(this, employee);
             DataContext = employeeWindowVM;
-        }
+        }        
     }
 }

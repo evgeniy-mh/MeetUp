@@ -50,7 +50,19 @@ namespace MeetUp
                     case "FirstName":
                         if (FirstName == null || FirstName.Length == 0)
                         {
-                            error = "sadsad";
+                            error = "Вы не ввели имя сотрудника";
+                        }
+                        break;
+                    case "MiddleName":
+                        if (MiddleName == null || MiddleName.Length == 0)
+                        {
+                            error = "Вы не ввели фамилию сотрудника";
+                        }
+                        break;
+                    case "LastName":
+                        if (LastName == null || LastName.Length == 0)
+                        {
+                            error = "Вы не ввели отчество сотрудника";
                         }
                         break;
                 }
