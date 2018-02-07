@@ -39,7 +39,7 @@ namespace MeetUp.EmployeesControl
             {
                 return addCommand ?? (addCommand = new RelayCommand(obj =>
                 {
-                    EmployeeWindowView window = new EmployeeWindowView(new Employee());
+                    EmployeeWindowView window = new EmployeeWindowView();
                     if (window.ShowDialog() == true)
                     {
                         EmployeeRepository.Create(window.Employee);

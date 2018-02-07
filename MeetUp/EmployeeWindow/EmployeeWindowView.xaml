@@ -12,7 +12,7 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
-        <StackPanel>
+        <StackPanel DataContext="{Binding Employee}">
             <TextBlock>Фамилия:</TextBlock>
             <TextBox Name="MiddleNameBox" MinWidth="250" Text="{Binding Path=MiddleName}"></TextBox>
 
@@ -45,7 +45,8 @@
         </StackPanel>
 
         <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,15,0,0">
-            <Button IsDefault="True" Click="Accept_Click" MinWidth="60" Margin="0,0,10,0">OK</Button>
+            <!--<Button IsDefault="True" Click="Accept_Click" MinWidth="60" Margin="0,0,10,0">OK</Button>-->
+            <Button IsDefault="True" Command="{Binding Accept_Click}" MinWidth="60" Margin="0,0,10,0">OK</Button>
             <Button IsCancel="True" MinWidth="60">Отмена</Button>
         </WrapPanel>
 
