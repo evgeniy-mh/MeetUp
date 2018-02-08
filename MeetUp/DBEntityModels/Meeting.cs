@@ -7,11 +7,13 @@ namespace MeetUp.DBEntityModels
     {
         public int Id { get; set; }
         public DateTime? Date { get; set; }
+        public string Agenda { get; set; }
 
         public int? ConcilId { get; set; }
         public Concil Concil { get; set; }
 
         public ICollection<Employee> Employees { get; set; }
+        public ICollection<Record> Records { get; set; }
 
         public Meeting()
         {

@@ -13,5 +13,6 @@ namespace MeetUp
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Concil> Concils { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
+        public DbSet<Record> Records { get; set; }
     }
 }
