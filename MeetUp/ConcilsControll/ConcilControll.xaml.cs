@@ -13,16 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MeetUp.ConferencesControll
+namespace MeetUp.ConcilsControll
 {
     /// <summary>
     /// Interaction logic for ConferenceControll.xaml
     /// </summary>
-    public partial class ConferenceControll : UserControl
+    public partial class ConcilControll : UserControl
     {
-        public ConferenceControll()
+        public ConcilControll()
         {
             InitializeComponent();
+            DataContext = new ConcilsControllVM();
         }
     }
 }

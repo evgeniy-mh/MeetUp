@@ -1,4 +1,4 @@
-﻿using MeetUp.ConferencesControll;
+﻿using MeetUp.ConcilsControll;
 using MeetUp.EmployeesControl;
 using MeetUp.MainWindow;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace MeetUp.MainWindowView
     {
         List<MainMenuItem> menuItems = new List<MainMenuItem> {
             new MainMenuItem { Name = "Сотрудники", View = new EmployeeControl() },
-            new MainMenuItem { Name = "Совет", View = new ConferenceControll() }
+            new MainMenuItem { Name = "Совет", View = new ConcilControll() }
             };
 
         MainMenuItem selectedMenuItem { get; set; }
@@ -22,9 +22,6 @@ namespace MeetUp.MainWindowView
             MenuItemsListBox.ItemsSource = menuItems;
             MenuItemsListBox.SelectedItem = selectedMenuItem;
             MenuItemsListBox.SelectedIndex = 0;
-
-            //DataContext = new EmployeesVM();
-            //MainView.Children.Add(new UserControl1());
         }
 
         public void MenuSelector_OnSelectionChanged(object sender, RoutedEventArgs e)
