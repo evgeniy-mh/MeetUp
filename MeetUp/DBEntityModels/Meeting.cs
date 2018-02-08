@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MeetUp
+namespace MeetUp.DBEntityModels
 {
-    public class Conference
+    public class Meeting : IHasId
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public DateTime? Date { get; set; }
+
+        public int? ConcilId { get; set; }
+        public Concil Concil { get; set; }
 
         public ICollection<Employee> Employees { get; set; }
-        public Conference()
+
+        public Meeting()
         {
             Employees = new List<Employee>();
         }

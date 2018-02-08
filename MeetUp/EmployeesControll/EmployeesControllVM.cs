@@ -1,4 +1,5 @@
-﻿using MeetUp.DBRepositories;
+﻿using MeetUp.DBEntityModels;
+using MeetUp.DBRepositories;
 using MeetUp.EmployeeWindow;
 using System;
 using System.Collections.ObjectModel;

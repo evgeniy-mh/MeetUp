@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MeetUp.DBEntityModels;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeetUp
 {
-    class MeetUpContext: DbContext
+    class MeetUpContext : DbContext
     {
         public MeetUpContext() : base("MeetUpDb")
         {
-
+            
         }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Concil> Concils { get; set; }
+        public DbSet<Meeting> Meetings { get; set; }
     }
 }

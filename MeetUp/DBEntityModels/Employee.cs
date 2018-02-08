@@ -1,12 +1,9 @@
-﻿using MeetUp.DBEntityModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MeetUp
+namespace MeetUp.DBEntityModels
 {
     public class Employee : IDataErrorInfo, IHasId
     {
@@ -19,11 +16,13 @@ namespace MeetUp
         public string TelephoneNumber { get; set; }
         public string Email { get; set; }
 
-        public ICollection<Conference> Conferences { get; set; }
+        public ICollection<Concil> Councils { get; set; }
+        public ICollection<Meeting> Meetings { get; set; }
 
         public Employee()
         {
-            Conferences = new List<Conference>();
+            Councils = new List<Concil>();
+            Meetings = new List<Meeting>();
         }
 
         public Employee(Employee employee)
@@ -36,7 +35,7 @@ namespace MeetUp
             BirthDate = employee.BirthDate;
             TelephoneNumber = employee.TelephoneNumber;
             Email = employee.Email;
-            Conferences = employee.Conferences.ToList();
+            Councils = employee.Councils.ToList();
         }
 
         public string Error => throw new NotImplementedException();

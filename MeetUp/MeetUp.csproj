@@ -61,9 +61,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DBEntityModels\Conference.cs" />
+    <Compile Include="DBEntityModels\Council.cs" />
     <Compile Include="DBEntityModels\Employee.cs" />
     <Compile Include="DBEntityModels\IHasId.cs" />
+    <Compile Include="DBEntityModels\Meeting.cs" />
     <Compile Include="DBRepositories\EFGenericRepository.cs" />
     <Compile Include="DBRepositories\IGenericRepository.cs" />
     <Compile Include="EmployeesControll\EmployeesControllVM.cs" />
