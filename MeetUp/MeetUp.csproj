@@ -68,9 +68,10 @@
     <Compile Include="DBEntityModels\Record.cs" />
     <Compile Include="DBRepositories\EFGenericRepository.cs" />
     <Compile Include="DBRepositories\IGenericRepository.cs" />
+    <Compile Include="DB\MeetUpContextInitializer.cs" />
     <Compile Include="EmployeesControll\EmployeesControllVM.cs" />
     <Compile Include="EmployeeWindow\EmployeeWindowVM.cs" />
-    <Compile Include="MeetUpContext.cs" />
+    <Compile Include="DB\MeetUpContext.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ConferencesControll\ConferenceControll.xaml.cs">
       <DependentUpon>ConferenceControll.xaml</DependentUpon>

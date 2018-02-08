@@ -1,10 +1,15 @@
 ﻿using MeetUp.DBEntityModels;
 using System.Data.Entity;
 
-namespace MeetUp
+namespace MeetUp.DB
 {
     class MeetUpContext : DbContext
     {
+        static MeetUpContext()
+        {
+            Database.SetInitializer<MeetUpContext>(new MeetUpContextInitializer());
+        }
+
         public MeetUpContext() : base("MeetUpDb")
         {
             
