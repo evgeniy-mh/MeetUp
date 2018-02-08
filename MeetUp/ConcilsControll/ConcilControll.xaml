@@ -12,7 +12,19 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
 
-                    <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{Binding Path=Name}" Grid.Column="0" Grid.Row="0"></TextBlock>
+                        <Button Content="Подробнее..." Grid.Column="1" Grid.Row="0" Margin="25,0,0,0" ></Button>
+                    </Grid>
 
                 </DataTemplate>
             </ListBox.ItemTemplate>
