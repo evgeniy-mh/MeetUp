@@ -33,7 +33,7 @@ namespace MeetUp.EmployeesControl
         public EmployeesControllVM()
         {
             EmployeeRepository = new EFGenericRepository<Employee>(new MeetUpContext());
-            Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
+            Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
         }
 
         private RelayCommand addCommand;
@@ -47,7 +47,7 @@ namespace MeetUp.EmployeesControl
                     if (window.ShowDialog() == true)
                     {
                         EmployeeRepository.Create(window.Employee);
-                        Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
+                        Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
                     }
                 }));
             }
@@ -64,7 +64,7 @@ namespace MeetUp.EmployeesControl
                     if (window.ShowDialog() == true)
                     {
                         EmployeeRepository.Update(window.Employee);
-                        Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
+                        Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
                     }
                 }, (obj) => { return SelectedEmployee != null; }));
             }
@@ -89,7 +89,7 @@ namespace MeetUp.EmployeesControl
                     if (result == MessageBoxResult.OK)
                     {
                         EmployeeRepository.Remove(SelectedEmployee);
-                        Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
+                        Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
                     }
                 }, (obj) => { return SelectedEmployee != null; }));
             }

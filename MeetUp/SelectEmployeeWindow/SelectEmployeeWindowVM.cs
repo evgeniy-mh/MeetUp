@@ -1,4 +1,5 @@
-﻿using MeetUp.DBEntityModels;
+﻿using MeetUp.DB;
+using MeetUp.DBEntityModels;
 using MeetUp.DBRepositories;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,8 @@ namespace MeetUp.SelectEmployeeWindow
         public SelectEmployeeWindowVM(SelectEmployeeWindowView selectEmployeeWindowView)
         {
             this.selectEmployeeWindowView = selectEmployeeWindowView;
-            this.EmployeeRepository = new EmployeeRepository();
-            this.Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAllEmployees());
+            this.EmployeeRepository = new EmployeeRepository(new MeetUpContext());
+            this.Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
         }
 
         public SelectEmployeeWindowVM(SelectEmployeeWindowView selectEmployeeWindowView, IEnumerable<Employee> employees)

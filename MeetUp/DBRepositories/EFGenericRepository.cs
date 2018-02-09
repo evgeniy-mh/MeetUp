@@ -19,7 +19,7 @@ namespace MeetUp.DBRepositories
             DBSet = context.Set<TEntity>();
         }
 
-        public IEnumerable<TEntity> Get()
+        public IEnumerable<TEntity> GetAll()
         {
             return DBSet.ToList();
         }

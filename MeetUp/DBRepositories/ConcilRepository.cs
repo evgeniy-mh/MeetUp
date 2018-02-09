@@ -2,35 +2,31 @@
 using MeetUp.DBEntityModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MeetUp.DBRepositories
 {
-    class ConcilRepository
+    class ConcilRepository : EFGenericRepository<Concil>
     {
-        private EFGenericRepository<Concil> Repository;
-
-        public ConcilRepository()
+        public ConcilRepository(DbContext context) : base(context)
         {
-            Repository = new EFGenericRepository<Concil>(new MeetUpContext());
         }
 
-        public void Create(Concil concil)
-        {
-            Repository.Create(concil);
-        }
 
-        public IEnumerable<Concil> GetConcils()
+        public class ConcilIdComparer : IEqualityComparer<Concil>
         {
-            return Repository.Get();
-        }
+            public bool Equals(Concil x, Concil y)
+            {
+                return x.Id == y.Id;
+            }
 
-        public ICollection<Employee> GetEmployees(Concil concil)
-        {
-            return Repository.Get("Employees").FirstOrDefault((c) => { return c.Id == concil.Id; }).Employees;
+            public int GetHashCode(Concil obj)
+            {
+                return obj.GetHashCode();
+            }
         }
-
     }
 }

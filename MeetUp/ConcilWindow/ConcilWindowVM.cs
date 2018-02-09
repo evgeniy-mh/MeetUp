@@ -19,24 +19,24 @@ namespace MeetUp.ConcilWindow
     class ConcilWindowVM : INotifyPropertyChanged
     {
         private ConcilWindowView concilWindowView;
-        private ConcilRepository ConcilRepository;
+        private EmployeeRepository ConcilRepository;
 
         public Concil Concil { get; set; }
 
         public ConcilWindowVM(ConcilWindowView concilWindowView)
         {
-            ConcilRepository = new ConcilRepository();
+            ConcilRepository = new EmployeeRepository(new MeetUpContext());
             this.concilWindowView = concilWindowView;
             this.Concil = new Concil();
         }
 
         public ConcilWindowVM(ConcilWindowView concilWindowView, Concil concil)
         {
-            ConcilRepository = new ConcilRepository();
+            ConcilRepository = new EmployeeRepository(new MeetUpContext());
             this.concilWindowView = concilWindowView;
             this.Concil = new Concil(concil);
 
-            this.Concil.Employees = ConcilRepository.GetEmployees(this.Concil);
+            this.Concil.Employees = ConcilRepository.GetEmployeesForConcil(this.Concil).ToList();
         }
 
         private RelayCommand addCommand;
@@ -56,7 +56,7 @@ namespace MeetUp.ConcilWindow
                     SelectEmployeeWindowView window = new SelectEmployeeWindowView();
                     if (window.ShowDialog() == true)
                     {
-                        
+
                     }
                 }));
             }

@@ -30,9 +30,9 @@ namespace MeetUp.ConcilsControll
 
         public ConcilsControllVM()
         {
-            ConcilRepository = new ConcilRepository();
+            ConcilRepository = new ConcilRepository(new MeetUpContext());
             //Concils = new ObservableCollection<Concil>(ConcilRepository.Get("Employees"));
-            Concils = new ObservableCollection<Concil>(ConcilRepository.GetConcils());
+            Concils = new ObservableCollection<Concil>(ConcilRepository.GetAll());
         }
 
         private RelayCommand addCommand;
@@ -53,7 +53,7 @@ namespace MeetUp.ConcilsControll
                     if (window.ShowDialog() == true)
                     {
                         ConcilRepository.Create(window.Concil);
-                        Concils = new ObservableCollection<Concil>(ConcilRepository.GetConcils());
+                        Concils = new ObservableCollection<Concil>(ConcilRepository.GetAll());
                     }
                 }));
             }

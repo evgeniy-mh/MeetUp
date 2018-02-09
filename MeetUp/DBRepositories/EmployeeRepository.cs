@@ -2,24 +2,26 @@
 using MeetUp.DBEntityModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MeetUp.DBRepositories
 {
-    class EmployeeRepository
+    class EmployeeRepository : EFGenericRepository<Employee>
     {
-        private EFGenericRepository<Employee> Repository;
-
-        public EmployeeRepository()
+        public EmployeeRepository(DbContext context) : base(context)
         {
-            Repository = new EFGenericRepository<Employee>(new MeetUpContext());
+
         }
 
-        public IEnumerable<Employee> GetAllEmployees()
+        public IEnumerable<Employee> GetEmployeesForConcil(Concil concil)
         {
-            return Repository.Get();
+            return Get("Concils").Where((employee) =>
+            {
+                return employee.Concils.Contains(concil, new ConcilRepository.ConcilIdComparer());
+            });
         }
     }
 }
