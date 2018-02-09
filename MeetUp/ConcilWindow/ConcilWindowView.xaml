@@ -26,7 +26,7 @@
 
             <TextBlock>Сотрудники совета:</TextBlock>
             
-            <ListView Height="268" VerticalAlignment="Top" ItemsSource="{Binding Employees, Mode=TwoWay}">
+            <ListView Margin="0,10,0,0" VerticalAlignment="Top" ItemsSource="{Binding Employees, Mode=TwoWay}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding Path=MiddleName}"/>
@@ -39,8 +39,8 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            
 
+            <Button Content="Добавить сотрудника в совет" Command="{Binding AddCommand}" Margin="0,10,0,0"></Button>
         </StackPanel>
 
         <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,15,0,0">

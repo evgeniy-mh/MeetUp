@@ -38,6 +38,25 @@ namespace MeetUp.ConcilWindow
             this.Concil.Employees = ConcilRepository.GetEmployees(this.Concil);
         }
 
+        private RelayCommand addCommand;
+        public RelayCommand AddCommand
+        {
+            get
+            {
+                return addCommand ?? (addCommand = new RelayCommand(obj =>
+                {
+                    /*EmployeeWindowView window = new EmployeeWindowView();
+                    if (window.ShowDialog() == true)
+                    {
+                        EmployeeRepository.Create(window.Employee);
+                        Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
+                    }*/
+
+
+                }));
+            }
+        }
+
         private RelayCommand accept_Click;
         public RelayCommand Accept_Click
         {

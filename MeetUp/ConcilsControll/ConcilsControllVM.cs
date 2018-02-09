@@ -12,7 +12,8 @@ namespace MeetUp.ConcilsControll
     class ConcilsControllVM : INotifyPropertyChanged
     {
         public Concil SelectedConcil { get; set; }
-        private EFGenericRepository<Concil> ConcilRepository;
+        //private EFGenericRepository<Concil> ConcilRepository;
+        private ConcilRepository ConcilRepository;
         private ObservableCollection<Concil> _concils;
         public ObservableCollection<Concil> Concils
         {
@@ -29,9 +30,9 @@ namespace MeetUp.ConcilsControll
 
         public ConcilsControllVM()
         {
-            ConcilRepository = new EFGenericRepository<Concil>(new MeetUpContext());
+            ConcilRepository = new ConcilRepository();
             //Concils = new ObservableCollection<Concil>(ConcilRepository.Get("Employees"));
-            Concils = new ObservableCollection<Concil>(ConcilRepository.Get());
+            Concils = new ObservableCollection<Concil>(ConcilRepository.GetConcils());
         }
 
         private RelayCommand addCommand;
@@ -52,7 +53,7 @@ namespace MeetUp.ConcilsControll
                     if (window.ShowDialog() == true)
                     {
                         ConcilRepository.Create(window.Concil);
-                        Concils = new ObservableCollection<Concil>(ConcilRepository.Get());
+                        Concils = new ObservableCollection<Concil>(ConcilRepository.GetConcils());
                     }
                 }));
             }
