@@ -77,6 +77,7 @@
     <Compile Include="DBEntityModels\IHasId.cs" />
     <Compile Include="DBEntityModels\Meeting.cs" />
     <Compile Include="DBEntityModels\Record.cs" />
+    <Compile Include="DBRepositories\ConcilRepository.cs" />
     <Compile Include="DBRepositories\EFGenericRepository.cs" />
     <Compile Include="DBRepositories\IGenericRepository.cs" />
     <Compile Include="DB\MeetUpContextInitializer.cs" />

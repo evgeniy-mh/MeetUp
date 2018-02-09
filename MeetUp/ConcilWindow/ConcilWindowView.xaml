@@ -26,6 +26,20 @@
 
             <TextBlock>Сотрудники совета:</TextBlock>
             
+            <ListView Height="268" VerticalAlignment="Top" ItemsSource="{Binding Employees, Mode=TwoWay}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding Path=MiddleName}"/>
+                        <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Path=FirstName}"/>
+                        <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding Path=LastName}"/>
+                        <GridViewColumn Header="Должность" DisplayMemberBinding="{Binding Path=Position}"/>
+                        <GridViewColumn Header="Дата рождения" DisplayMemberBinding="{Binding Path=BirthDate}"/>
+                        <GridViewColumn Header="Телефон" DisplayMemberBinding="{Binding Path=TelephoneNumber}"/>
+                        <GridViewColumn Header="E-mail" DisplayMemberBinding="{Binding Path=Email}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            
 
         </StackPanel>
 

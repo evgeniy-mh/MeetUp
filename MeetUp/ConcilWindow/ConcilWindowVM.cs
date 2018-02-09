@@ -18,30 +18,24 @@ namespace MeetUp.ConcilWindow
     class ConcilWindowVM : INotifyPropertyChanged
     {
         private ConcilWindowView concilWindowView;
-        private EFGenericRepository<Concil> ConcilRepository;
-        private EmployeeControl employeeControl;
+        private ConcilRepository ConcilRepository;
 
         public Concil Concil { get; set; }
 
         public ConcilWindowVM(ConcilWindowView concilWindowView)
         {
-            ConcilRepository = new EFGenericRepository<Concil>(new MeetUpContext());
+            ConcilRepository = new ConcilRepository();
             this.concilWindowView = concilWindowView;
             this.Concil = new Concil();
-
-            employeeControl = new EmployeeControl(new ObservableCollection<Employee>(this.Concil.Employees));
-            concilWindowView.ConcilInfoPanel.Children.Add(employeeControl);
         }
 
         public ConcilWindowVM(ConcilWindowView concilWindowView, Concil concil)
         {
-            ConcilRepository = new EFGenericRepository<Concil>(new MeetUpContext());
+            ConcilRepository = new ConcilRepository();
             this.concilWindowView = concilWindowView;
             this.Concil = new Concil(concil);
 
-            this.Concil.Employees = ConcilRepository.Get("Employees").FirstOrDefault((c) => { return c.Id == this.Concil.Id; }).Employees;
-            employeeControl = new EmployeeControl(new ObservableCollection<Employee>(this.Concil.Employees));
-            concilWindowView.ConcilInfoPanel.Children.Add(employeeControl);
+            this.Concil.Employees = ConcilRepository.GetEmployees(this.Concil);
         }
 
         private RelayCommand accept_Click;

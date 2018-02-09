@@ -14,11 +14,5 @@ namespace MeetUp.EmployeesControl
             InitializeComponent();
             DataContext = new EmployeesControllVM();
         }
-
-        public EmployeeControl(ObservableCollection<Employee> employees)
-        {
-            InitializeComponent();
-            DataContext = new EmployeesControllVM(employees);
-        }
     }
 }

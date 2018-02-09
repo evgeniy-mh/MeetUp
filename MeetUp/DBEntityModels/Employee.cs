@@ -16,12 +16,12 @@ namespace MeetUp.DBEntityModels
         public string TelephoneNumber { get; set; }
         public string Email { get; set; }
 
-        public ICollection<Concil> Councils { get; set; }
+        public ICollection<Concil> Concils { get; set; }
         public ICollection<Meeting> Meetings { get; set; }
 
         public Employee()
         {
-            Councils = new List<Concil>();
+            Concils = new List<Concil>();
             Meetings = new List<Meeting>();
         }
 
@@ -35,7 +35,7 @@ namespace MeetUp.DBEntityModels
             BirthDate = employee.BirthDate;
             TelephoneNumber = employee.TelephoneNumber;
             Email = employee.Email;
-            Councils = employee.Councils.ToList();
+            Concils = employee.Concils.ToList();
             Meetings = employee.Meetings.ToList();
         }
 

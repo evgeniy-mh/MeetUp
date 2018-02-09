@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
@@ -33,12 +34,6 @@ namespace MeetUp.EmployeesControl
         {
             EmployeeRepository = new EFGenericRepository<Employee>(new MeetUpContext());
             Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
-        }
-
-        public EmployeesControllVM(ObservableCollection<Employee> employees)
-        {
-            EmployeeRepository = new EFGenericRepository<Employee>(new MeetUpContext());
-            Employees = employees;
         }
 
         private RelayCommand addCommand;
