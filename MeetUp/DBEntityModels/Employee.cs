@@ -36,6 +36,7 @@ namespace MeetUp.DBEntityModels
             TelephoneNumber = employee.TelephoneNumber;
             Email = employee.Email;
             Councils = employee.Councils.ToList();
+            Meetings = employee.Meetings.ToList();
         }
 
         public string Error => throw new NotImplementedException();

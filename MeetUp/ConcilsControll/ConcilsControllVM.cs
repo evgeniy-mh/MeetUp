@@ -1,4 +1,5 @@
-﻿using MeetUp.DB;
+﻿using MeetUp.ConcilWindow;
+using MeetUp.DB;
 using MeetUp.DBEntityModels;
 using MeetUp.DBRepositories;
 using System.Collections.ObjectModel;
@@ -29,7 +30,7 @@ namespace MeetUp.ConcilsControll
         public ConcilsControllVM()
         {
             ConcilRepository = new EFGenericRepository<Concil>(new MeetUpContext());
-            Concils = new ObservableCollection<Concil>(ConcilRepository.Get());
+            Concils = new ObservableCollection<Concil>(ConcilRepository.Get());            
         }
 
         private RelayCommand addCommand;
@@ -45,6 +46,12 @@ namespace MeetUp.ConcilsControll
                         EmployeeRepository.Create(window.Employee);
                         Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
                     }*/
+
+                    ConcilWindowView window = new ConcilWindowView();
+                    if (window.ShowDialog() == true)
+                    {
+                        
+                    }
                 }));
             }
         }
@@ -106,10 +113,11 @@ namespace MeetUp.ConcilsControll
                         EmployeeRepository.Create(window.Employee);
                         Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
                     }*/
-                    MessageBox.Show("sadasdas");
+                    MessageBox.Show("asdasd");
                 }, (obj) => { return SelectedConcil != null; }));
             }
-        }
+        }        
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
