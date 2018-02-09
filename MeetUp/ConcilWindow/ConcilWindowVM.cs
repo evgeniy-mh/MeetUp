@@ -2,6 +2,7 @@
 using MeetUp.DBEntityModels;
 using MeetUp.DBRepositories;
 using MeetUp.EmployeesControl;
+using MeetUp.SelectEmployeeWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -52,7 +53,11 @@ namespace MeetUp.ConcilWindow
                         Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
                     }*/
 
-
+                    SelectEmployeeWindowView window = new SelectEmployeeWindowView();
+                    if (window.ShowDialog() == true)
+                    {
+                        
+                    }
                 }));
             }
         }

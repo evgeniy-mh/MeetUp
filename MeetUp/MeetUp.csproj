@@ -79,6 +79,7 @@
     <Compile Include="DBEntityModels\Record.cs" />
     <Compile Include="DBRepositories\ConcilRepository.cs" />
     <Compile Include="DBRepositories\EFGenericRepository.cs" />
+    <Compile Include="DBRepositories\EmployeeRepository.cs" />
     <Compile Include="DBRepositories\IGenericRepository.cs" />
     <Compile Include="DB\MeetUpContextInitializer.cs" />
     <Compile Include="EmployeesControll\EmployeesControllVM.cs" />
@@ -95,6 +96,10 @@
       <DependentUpon>EmployeeWindowView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow\MainMenuItem.cs" />
+    <Compile Include="SelectEmployeeWindow\SelectEmployeeWindowView.xaml.cs">
+      <DependentUpon>SelectEmployeeWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SelectEmployeeWindow\SelectEmployeeWindowVM.cs" />
     <Page Include="ConcilsControll\ConcilControll.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -123,6 +128,10 @@
       <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SelectEmployeeWindow\SelectEmployeeWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
