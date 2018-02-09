@@ -30,7 +30,7 @@ namespace MeetUp.ConcilsControll
         public ConcilsControllVM()
         {
             ConcilRepository = new EFGenericRepository<Concil>(new MeetUpContext());
-            Concils = new ObservableCollection<Concil>(ConcilRepository.Get());            
+            Concils = new ObservableCollection<Concil>(ConcilRepository.Get());
         }
 
         private RelayCommand addCommand;
@@ -50,7 +50,8 @@ namespace MeetUp.ConcilsControll
                     ConcilWindowView window = new ConcilWindowView();
                     if (window.ShowDialog() == true)
                     {
-                        
+                        ConcilRepository.Create(window.Concil);
+                        Concils = new ObservableCollection<Concil>(ConcilRepository.Get());
                     }
                 }));
             }
@@ -116,7 +117,7 @@ namespace MeetUp.ConcilsControll
                     MessageBox.Show("asdasd");
                 }, (obj) => { return SelectedConcil != null; }));
             }
-        }        
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

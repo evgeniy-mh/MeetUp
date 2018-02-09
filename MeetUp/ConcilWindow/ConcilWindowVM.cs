@@ -37,7 +37,7 @@ namespace MeetUp.ConcilWindow
                 return accept_Click ?? (accept_Click = new RelayCommand(obj =>
                 {
                     concilWindowView.DialogResult = true;
-                }, (obj) => { return /*IsAllFieldsValid(concilWindowView.EmployeeInfoPanel)*/ true; }));
+                }, (obj) => { return IsAllFieldsValid(concilWindowView.ConcilInfoPanel); }));
             }
         }
 
