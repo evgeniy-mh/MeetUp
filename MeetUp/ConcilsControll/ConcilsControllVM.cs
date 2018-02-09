@@ -30,6 +30,7 @@ namespace MeetUp.ConcilsControll
         public ConcilsControllVM()
         {
             ConcilRepository = new EFGenericRepository<Concil>(new MeetUpContext());
+            //Concils = new ObservableCollection<Concil>(ConcilRepository.Get("Employees"));
             Concils = new ObservableCollection<Concil>(ConcilRepository.Get());
         }
 
@@ -70,7 +71,12 @@ namespace MeetUp.ConcilsControll
                         EmployeeRepository.Update(window.Employee);
                         Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
                     }*/
-                    MessageBox.Show("ChangeCommand");
+                    ConcilWindowView window = new ConcilWindowView(SelectedConcil);
+                    if (window.ShowDialog() == true)
+                    {
+                        
+                    }
+
                 }, (obj) => { return SelectedConcil != null; }));
             }
         }

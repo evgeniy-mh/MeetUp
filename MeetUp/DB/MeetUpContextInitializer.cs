@@ -15,9 +15,9 @@ namespace MeetUp.DB
             };
 
             List<Concil> concils = new List<Concil>{
-                new Concil{Name="Общий совет", Employees=employees.GetRange(0,1) },
+                new Concil{Name="Общий совет", Employees=new List<Employee>{employees[0], employees[1] } },
                 new Concil{Name="Особо важный совет", Employees=employees },
-                new Concil{Name="Научный совет", Employees=employees.GetRange(1,1) },
+                new Concil{Name="Научный совет", Employees=new List<Employee>{employees[1], employees[2] } },
             };
 
             db.Employees.AddRange(employees);

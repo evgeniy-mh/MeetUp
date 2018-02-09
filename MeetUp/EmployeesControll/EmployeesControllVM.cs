@@ -3,6 +3,7 @@ using MeetUp.DBEntityModels;
 using MeetUp.DBRepositories;
 using MeetUp.EmployeeWindow;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -32,6 +33,12 @@ namespace MeetUp.EmployeesControl
         {
             EmployeeRepository = new EFGenericRepository<Employee>(new MeetUpContext());
             Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
+        }
+
+        public EmployeesControllVM(ObservableCollection<Employee> employees)
+        {
+            EmployeeRepository = new EFGenericRepository<Employee>(new MeetUpContext());
+            Employees = employees;
         }
 
         private RelayCommand addCommand;

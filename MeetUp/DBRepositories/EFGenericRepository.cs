@@ -24,10 +24,16 @@ namespace MeetUp.DBRepositories
             return DBSet.ToList();
         }
 
+        public IEnumerable<TEntity> Get(string include)
+        {
+            return DBSet.Include(include).ToList();
+        }
+
         public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
         {
             return DBSet.Where(predicate).ToList();
         }
+
         public TEntity FindById(int id)
         {
             return DBSet.Find(id);
