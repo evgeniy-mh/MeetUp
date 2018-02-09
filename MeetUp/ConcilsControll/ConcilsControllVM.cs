@@ -4,6 +4,7 @@ using MeetUp.DBRepositories;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace MeetUp.ConcilsControll
 {
@@ -61,6 +62,7 @@ namespace MeetUp.ConcilsControll
                         EmployeeRepository.Update(window.Employee);
                         Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
                     }*/
+                    MessageBox.Show("ChangeCommand");
                 }, (obj) => { return SelectedConcil != null; }));
             }
         }
@@ -86,6 +88,25 @@ namespace MeetUp.ConcilsControll
                         EmployeeRepository.Remove(SelectedEmployee);
                         Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
                     }*/
+                    MessageBox.Show("RemoveCommand");
+                }, (obj) => { return SelectedConcil != null; }));
+            }
+        }
+
+        private RelayCommand moreInfoCommand;
+        public RelayCommand MoreInfoCommand
+        {
+            get
+            {
+                return moreInfoCommand ?? (moreInfoCommand = new RelayCommand(obj =>
+                {
+                    /*EmployeeWindowView window = new EmployeeWindowView();
+                    if (window.ShowDialog() == true)
+                    {
+                        EmployeeRepository.Create(window.Employee);
+                        Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
+                    }*/
+                    MessageBox.Show("sadasdas");
                 }, (obj) => { return SelectedConcil != null; }));
             }
         }
