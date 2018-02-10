@@ -23,5 +23,14 @@ namespace MeetUp.DBRepositories
                 return employee.Concils.Contains(concil, new ConcilRepository.ConcilIdComparer());
             });
         }
+
+        //все работник что не входят в данный совет
+        public IEnumerable<Employee> GetAllFreeEmployeesForConcil(Concil concil)
+        {
+            return Get("Concils").Where((employee) =>
+            {
+                return !employee.Concils.Contains(concil, new ConcilRepository.ConcilIdComparer());
+            });
+        }
     }
 }

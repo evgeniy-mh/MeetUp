@@ -10,8 +10,8 @@ namespace MeetUp.DBRepositories
 {
     class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IHasId
     {
-        DbContext Context;
-        DbSet<TEntity> DBSet;
+        protected DbContext Context;
+        protected DbSet<TEntity> DBSet;
 
         public EFGenericRepository(DbContext context)
         {

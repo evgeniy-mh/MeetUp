@@ -18,7 +18,7 @@ namespace MeetUp.SelectEmployeeWindow
         private EmployeeRepository EmployeeRepository;
 
         public ObservableCollection<Employee> Employees { get; set; }
-        public Employee SelectedEmployee;
+        public Employee SelectedEmployee { get; set; }
 
         public SelectEmployeeWindowVM(SelectEmployeeWindowView selectEmployeeWindowView)
         {
@@ -41,7 +41,7 @@ namespace MeetUp.SelectEmployeeWindow
                 return accept_Click ?? (accept_Click = new RelayCommand(obj =>
                 {
                     selectEmployeeWindowView.DialogResult = true;
-                }));
+                }, (e) => { return this.SelectedEmployee != null; }));
             }
         }
 

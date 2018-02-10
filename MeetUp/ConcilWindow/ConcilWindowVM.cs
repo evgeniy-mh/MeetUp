@@ -19,24 +19,40 @@ namespace MeetUp.ConcilWindow
     class ConcilWindowVM : INotifyPropertyChanged
     {
         private ConcilWindowView concilWindowView;
-        private EmployeeRepository ConcilRepository;
+        private EmployeeRepository EmployeeRepository;
+        private ConcilRepository ConcilRepository;
 
         public Concil Concil { get; set; }
-
-        public ConcilWindowVM(ConcilWindowView concilWindowView)
+        public ObservableCollection<Employee> ConcilEmployees
         {
-            ConcilRepository = new EmployeeRepository(new MeetUpContext());
+            get
+            {
+                return new ObservableCollection<Employee>(Concil.Employees);
+            }
+            set
+            {
+                Concil.Employees = value;
+                OnPropertyChanged("ConcilEmployees");
+            }
+        }
+
+        private ConcilWindowVM()
+        {
+            EmployeeRepository = new EmployeeRepository(new MeetUpContext());
+            ConcilRepository = new ConcilRepository(new MeetUpContext());
+        }
+
+        public ConcilWindowVM(ConcilWindowView concilWindowView) : this()
+        {
             this.concilWindowView = concilWindowView;
             this.Concil = new Concil();
         }
 
-        public ConcilWindowVM(ConcilWindowView concilWindowView, Concil concil)
+        public ConcilWindowVM(ConcilWindowView concilWindowView, Concil concil) : this()
         {
-            ConcilRepository = new EmployeeRepository(new MeetUpContext());
             this.concilWindowView = concilWindowView;
             this.Concil = new Concil(concil);
-
-            this.Concil.Employees = ConcilRepository.GetEmployeesForConcil(this.Concil).ToList();
+            ConcilEmployees = new ObservableCollection<Employee>(EmployeeRepository.GetEmployeesForConcil(this.Concil).ToList());
         }
 
         private RelayCommand addCommand;
@@ -46,17 +62,12 @@ namespace MeetUp.ConcilWindow
             {
                 return addCommand ?? (addCommand = new RelayCommand(obj =>
                 {
-                    /*EmployeeWindowView window = new EmployeeWindowView();
+                    var freeEmployees = EmployeeRepository.GetAllFreeEmployeesForConcil(this.Concil);
+                    SelectEmployeeWindowView window = new SelectEmployeeWindowView(freeEmployees);
                     if (window.ShowDialog() == true)
                     {
-                        EmployeeRepository.Create(window.Employee);
-                        Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
-                    }*/
-
-                    SelectEmployeeWindowView window = new SelectEmployeeWindowView();
-                    if (window.ShowDialog() == true)
-                    {
-
+                        ConcilRepository.AddEmployeeToConcil(this.Concil, window.SelectedEmployee);
+                        ConcilEmployees = new ObservableCollection<Employee>(EmployeeRepository.GetEmployeesForConcil(this.Concil).ToList());
                     }
                 }));
             }

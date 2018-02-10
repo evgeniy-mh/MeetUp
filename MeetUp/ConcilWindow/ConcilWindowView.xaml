@@ -13,7 +13,7 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="ConcilInfoPanel" DataContext="{Binding Concil}">
+        <StackPanel x:Name="ConcilInfoPanel" DataContext="{Binding Concil, Mode=TwoWay}">
             <TextBlock>Название совета:</TextBlock>
             <TextBox MinWidth="250">
                 <TextBox.Text>
@@ -26,8 +26,8 @@
             </TextBox>
 
             <TextBlock>Сотрудники совета:</TextBlock>
-            
-            <ListView Margin="0,10,0,0" VerticalAlignment="Top" ItemsSource="{Binding Employees, Mode=TwoWay}">
+
+            <ListView Margin="0,10,0,0" VerticalAlignment="Top" ItemsSource="{Binding ElementName=MainConcilWindowControll, Path=DataContext.ConcilEmployees, Mode=TwoWay}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding Path=MiddleName}"/>

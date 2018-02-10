@@ -8,6 +8,14 @@ namespace MeetUp.SelectEmployeeWindow
     {
         private SelectEmployeeWindowVM selectEmployeeWindowVM;
 
+        public Employee SelectedEmployee
+        {
+            get
+            {
+                return selectEmployeeWindowVM.SelectedEmployee;
+            }
+        }
+
         public SelectEmployeeWindowView()
         {
             InitializeComponent();
