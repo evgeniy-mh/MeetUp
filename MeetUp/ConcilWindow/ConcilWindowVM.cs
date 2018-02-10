@@ -1,16 +1,11 @@
 ﻿using MeetUp.DB;
 using MeetUp.DBEntityModels;
 using MeetUp.DBRepositories;
-using MeetUp.EmployeesControl;
 using MeetUp.SelectEmployeeWindow;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -21,6 +16,7 @@ namespace MeetUp.ConcilWindow
         private ConcilWindowView concilWindowView;
         private EmployeeRepository EmployeeRepository;
         private ConcilRepository ConcilRepository;
+        private bool IsCreatingNewConcil;
 
         public Concil Concil { get; set; }
         public ObservableCollection<Employee> ConcilEmployees
@@ -45,12 +41,14 @@ namespace MeetUp.ConcilWindow
         public ConcilWindowVM(ConcilWindowView concilWindowView) : this()
         {
             this.concilWindowView = concilWindowView;
+            IsCreatingNewConcil = true;
             this.Concil = new Concil();
         }
 
         public ConcilWindowVM(ConcilWindowView concilWindowView, Concil concil) : this()
         {
             this.concilWindowView = concilWindowView;
+            IsCreatingNewConcil = false;
             this.Concil = new Concil(concil);
             ConcilEmployees = new ObservableCollection<Employee>(EmployeeRepository.GetEmployeesForConcil(this.Concil).ToList());
         }
@@ -66,8 +64,16 @@ namespace MeetUp.ConcilWindow
                     SelectEmployeeWindowView window = new SelectEmployeeWindowView(freeEmployees);
                     if (window.ShowDialog() == true)
                     {
-                        ConcilRepository.AddEmployeeToConcil(this.Concil, window.SelectedEmployee);
-                        ConcilEmployees = new ObservableCollection<Employee>(EmployeeRepository.GetEmployeesForConcil(this.Concil).ToList());
+                        if (IsCreatingNewConcil)
+                        {
+                            Concil.Employees.Add(window.SelectedEmployee);
+                            OnPropertyChanged("ConcilEmployees");
+                        }
+                        else
+                        {
+                            ConcilRepository.AddEmployeeToConcil(this.Concil, window.SelectedEmployee);
+                            ConcilEmployees = new ObservableCollection<Employee>(EmployeeRepository.GetEmployeesForConcil(this.Concil).ToList());
+                        }
                     }
                 }));
             }

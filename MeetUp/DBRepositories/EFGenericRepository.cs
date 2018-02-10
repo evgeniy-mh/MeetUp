@@ -11,37 +11,40 @@ namespace MeetUp.DBRepositories
     class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IHasId
     {
         protected DbContext Context;
-        protected DbSet<TEntity> DBSet;
+        protected DbSet<TEntity> _dbSet;
+        public DbSet<TEntity> DBSet { get { return _dbSet; } }
 
         public EFGenericRepository(DbContext context)
         {
             Context = context;
-            DBSet = context.Set<TEntity>();
+            _dbSet = context.Set<TEntity>();
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            return DBSet.ToList();
+            return _dbSet.ToList();
         }
 
         public IEnumerable<TEntity> Get(string include)
         {
-            return DBSet.Include(include).ToList();
+            return _dbSet.Include(include).ToList();
         }
 
         public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
         {
-            return DBSet.Where(predicate).ToList();
+            return _dbSet.Where(predicate).ToList();
         }
 
         public TEntity FindById(int id)
         {
-            return DBSet.Find(id);
+            return _dbSet.Find(id);
         }
+
+
 
         public void Create(TEntity item)
         {
-            DBSet.Add(item);
+            _dbSet.Add(item);
             Context.SaveChanges();
         }
         public void Update(TEntity item)
@@ -49,7 +52,7 @@ namespace MeetUp.DBRepositories
             //Context.Entry(item).State = EntityState.Modified;
             //Context.SaveChanges();
 
-            var result = DBSet.SingleOrDefault(e => e.Id == item.Id); ;
+            var result = _dbSet.SingleOrDefault(e => e.Id == item.Id); ;
             if (result != null)
             {
                 Context.Entry(result).CurrentValues.SetValues(item);
@@ -59,7 +62,7 @@ namespace MeetUp.DBRepositories
         public void Remove(TEntity item)
         {
 
-            DBSet.Remove(item);
+            _dbSet.Remove(item);
             Context.SaveChanges();
         }
     }

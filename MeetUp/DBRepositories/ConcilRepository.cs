@@ -18,9 +18,29 @@ namespace MeetUp.DBRepositories
             EmployeeRepository = new EmployeeRepository(context);
         }
 
+        public new void Create(Concil concil)
+        {
+            if (concil.Employees == null || concil.Employees.Count == 0)
+            {
+                base.Create(concil);
+                //Context.SaveChanges();
+            }
+            else
+            {
+                Concil c = new Concil { Name = concil.Name };
+                Create(c);
+
+                foreach (Employee e in concil.Employees)
+                {
+                    AddEmployeeToConcil(c, e);
+                }
+            }
+
+        }
+
         public void AddEmployeeToConcil(Concil concil, Employee employee)
         {
-            Concil resultConcil = DBSet.Include("Employees").SingleOrDefault(c => c.Id == concil.Id);
+            Concil resultConcil = _dbSet.Include("Employees").SingleOrDefault(c => c.Id == concil.Id);
             Employee resultEmployee = EmployeeRepository.GetAllFreeEmployeesForConcil(resultConcil).FirstOrDefault(e => e.Id == employee.Id);
 
             if (resultEmployee != null)
