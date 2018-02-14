@@ -2,6 +2,7 @@
 using MeetUp.DB;
 using MeetUp.DBEntityModels;
 using MeetUp.DBRepositories;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -57,12 +58,6 @@ namespace MeetUp.ConcilsControll
             {
                 return changeCommand ?? (changeCommand = new RelayCommand(obj =>
                 {
-                    /*EmployeeWindowView window = new EmployeeWindowView(SelectedEmployee);
-                    if (window.ShowDialog() == true)
-                    {
-                        EmployeeRepository.Update(window.Employee);
-                        Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
-                    }*/
                     ConcilWindowView window = new ConcilWindowView(SelectedConcil);
                     if (window.ShowDialog() == true)
                     {
@@ -81,21 +76,18 @@ namespace MeetUp.ConcilsControll
             {
                 return removeCommand ?? (removeCommand = new RelayCommand(obj =>
                 {
-                    /*MessageBoxButton button = MessageBoxButton.OKCancel;
+                    MessageBoxButton button = MessageBoxButton.OKCancel;
                     MessageBoxImage icon = MessageBoxImage.Warning;
                     MessageBoxResult result = MessageBox.Show(
-                        String.Format("Вы действительно хотите удалить сотрудника {0} {1} {2} ?",
-                        SelectedEmployee.MiddleName,
-                        SelectedEmployee.FirstName,
-                        SelectedEmployee.LastName),
-                        "Удалить сотрудника?", button, icon);
+                        String.Format("Вы действительно хотите удалить совет {0} ?",
+                        SelectedConcil.Name),
+                        "Удалить совет?", button, icon);
 
                     if (result == MessageBoxResult.OK)
                     {
-                        EmployeeRepository.Remove(SelectedEmployee);
-                        Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
-                    }*/
-                    MessageBox.Show("RemoveCommand");
+                        ConcilRepository.Remove(SelectedConcil);
+                        Concils = new ObservableCollection<Concil>(ConcilRepository.GetAll());
+                    }
                 }, (obj) => { return SelectedConcil != null; }));
             }
         }
