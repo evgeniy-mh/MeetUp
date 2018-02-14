@@ -85,6 +85,10 @@
     <Compile Include="EmployeesControll\EmployeesControllVM.cs" />
     <Compile Include="EmployeeWindow\EmployeeWindowVM.cs" />
     <Compile Include="DB\MeetUpContext.cs" />
+    <Compile Include="MeetingsControll\MeetingControll.xaml.cs">
+      <DependentUpon>MeetingControll.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MeetingsControll\MeetingControllVM.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ConcilsControll\ConcilControll.xaml.cs">
       <DependentUpon>ConcilControll.xaml</DependentUpon>
@@ -128,6 +132,10 @@
       <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MeetingsControll\MeetingControll.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SelectEmployeeWindow\SelectEmployeeWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1,6 +1,7 @@
 ﻿using MeetUp.ConcilsControll;
 using MeetUp.EmployeesControl;
 using MeetUp.MainWindow;
+using MeetUp.MeetingsControll;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -10,7 +11,8 @@ namespace MeetUp.MainWindowView
     {
         List<MainMenuItem> menuItems = new List<MainMenuItem> {
             new MainMenuItem { Name = "Сотрудники", View = new EmployeeControl() },
-            new MainMenuItem { Name = "Совет", View = new ConcilControll() }
+            new MainMenuItem { Name = "Советы", View = new ConcilControll() },
+            new MainMenuItem { Name = "Заседания", View = new MeetingControll()}
             };
 
         MainMenuItem selectedMenuItem { get; set; }

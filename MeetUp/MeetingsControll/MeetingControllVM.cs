@@ -1,37 +1,39 @@
 ﻿using MeetUp.DB;
 using MeetUp.DBEntityModels;
 using MeetUp.DBRepositories;
-using MeetUp.EmployeeWindow;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace MeetUp.EmployeesControl
+namespace MeetUp.MeetingsControll
 {
-    class EmployeesControllVM : INotifyPropertyChanged
+    class MeetingControllVM : INotifyPropertyChanged
     {
-        public Employee SelectedEmployee { get; set; }
-        private EFGenericRepository<Employee> EmployeeRepository;
-        private ObservableCollection<Employee> _employees;
-        public ObservableCollection<Employee> Employees
+        public Meeting SelectedMeeting { get; set; }
+        private EFGenericRepository<Meeting> MeetingRepository;
+        private ObservableCollection<Meeting> _meetings;
+        public ObservableCollection<Meeting> Meetings
         {
             get
             {
-                return _employees;
+                return _meetings;
             }
             set
             {
-                _employees = value;
-                OnPropertyChanged("Employees");
+                _meetings = value;
+                OnPropertyChanged("Meetings");
             }
         }
 
-        public EmployeesControllVM()
+        public MeetingControllVM()
         {
-            EmployeeRepository = new EFGenericRepository<Employee>(new MeetUpContext());
-            Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
+            MeetingRepository = new EFGenericRepository<Meeting>(new MeetUpContext());
+            Meetings = new ObservableCollection<Meeting>(MeetingRepository.GetAll());
         }
 
         private RelayCommand addCommand;
@@ -41,12 +43,12 @@ namespace MeetUp.EmployeesControl
             {
                 return addCommand ?? (addCommand = new RelayCommand(obj =>
                 {
-                    EmployeeWindowView window = new EmployeeWindowView();
+                    /*EmployeeWindowView window = new EmployeeWindowView();
                     if (window.ShowDialog() == true)
                     {
                         EmployeeRepository.Create(window.Employee);
                         Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
-                    }
+                    }*/
                 }));
             }
         }
@@ -58,13 +60,13 @@ namespace MeetUp.EmployeesControl
             {
                 return changeCommand ?? (changeCommand = new RelayCommand(obj =>
                 {
-                    EmployeeWindowView window = new EmployeeWindowView(SelectedEmployee);
+                    /*EmployeeWindowView window = new EmployeeWindowView(SelectedEmployee);
                     if (window.ShowDialog() == true)
                     {
                         EmployeeRepository.Update(window.Employee);
                         Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
-                    }
-                }, (obj) => { return SelectedEmployee != null; }));
+                    }*/
+                }, (obj) => { return SelectedMeeting != null; }));
             }
         }
 
@@ -75,7 +77,7 @@ namespace MeetUp.EmployeesControl
             {
                 return removeCommand ?? (removeCommand = new RelayCommand(obj =>
                 {
-                    MessageBoxButton button = MessageBoxButton.OKCancel;
+                    /*MessageBoxButton button = MessageBoxButton.OKCancel;
                     MessageBoxImage icon = MessageBoxImage.Warning;
                     MessageBoxResult result = MessageBox.Show(
                         String.Format("Вы действительно хотите удалить сотрудника {0} {1} {2} ?",
@@ -88,8 +90,8 @@ namespace MeetUp.EmployeesControl
                     {
                         EmployeeRepository.Remove(SelectedEmployee);
                         Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
-                    }
-                }, (obj) => { return SelectedEmployee != null; }));
+                    }*/
+                }, (obj) => { return SelectedMeeting != null; }));
             }
         }
 
