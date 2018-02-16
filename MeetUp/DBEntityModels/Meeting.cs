@@ -8,6 +8,7 @@ namespace MeetUp.DBEntityModels
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime? Date { get; set; }
+        public bool IsCarriedOut { get; set; }
         public string Agenda { get; set; }
 
         public int? ConcilId { get; set; }
