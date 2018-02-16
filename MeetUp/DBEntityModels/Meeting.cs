@@ -21,6 +21,7 @@ namespace MeetUp.DBEntityModels
         public Meeting()
         {
             Employees = new List<Employee>();
+            Records = new List<Record>();
         }
 
         public Meeting(Meeting meeting)
@@ -31,8 +32,9 @@ namespace MeetUp.DBEntityModels
             IsCarriedOut = meeting.IsCarriedOut; ;
             Agenda = meeting.Agenda;
             Concil = new Concil(meeting.Concil);
-            Employees = meeting.Employees.ToList();
-            Records = meeting.Records.ToList();
+
+            Employees = meeting.Employees == null ? new List<Employee>() : meeting.Employees.ToList();
+            Records = meeting.Records==null ? new List<Record>() : meeting.Records.ToList();
         }
     }
 }

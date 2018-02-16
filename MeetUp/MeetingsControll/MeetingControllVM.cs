@@ -56,7 +56,8 @@ namespace MeetUp.MeetingsControll
                     MeetingWindowView window = new MeetingWindowView();
                     if (window.ShowDialog() == true)
                     {
-
+                        MeetingRepository.Create(window.Meeting);
+                        Meetings = new ObservableCollection<Meeting>(MeetingRepository.Get("Concil"));
                     }
                 }));
             }
@@ -75,6 +76,13 @@ namespace MeetUp.MeetingsControll
                         EmployeeRepository.Update(window.Employee);
                         Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
                     }*/
+
+                    MeetingWindowView window = new MeetingWindowView(SelectedMeeting);
+                    if (window.ShowDialog() == true)
+                    {
+
+                    }
+
                 }, (obj) => { return SelectedMeeting != null; }));
             }
         }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MeetUp.MeetingWindow"
         mc:Ignorable="d"
-        Title="MeetingWindowView">
+        Title="MeetingWindowView" Height="400" Width="350">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -13,18 +13,37 @@
         </Grid.RowDefinitions>
 
         <StackPanel x:Name="MeetingInfoPanel" DataContext="{Binding Meeting}">
-            
-            <TextBlock>Фамилия:</TextBlock>
-            <TextBox Name="MiddleNameBox" MinWidth="250">
+
+            <TextBlock>Название:</TextBlock>
+            <TextBox MinWidth="250">
                 <TextBox.Text>
-                    <Binding Path="MiddleName">
-                        <Binding.ValidationRules>
+                    <Binding Path="Name">
+                        <!--<Binding.ValidationRules>
                             <DataErrorValidationRule />
-                        </Binding.ValidationRules>
+                        </Binding.ValidationRules>-->
                     </Binding>
                 </TextBox.Text>
             </TextBox>
 
+            <TextBlock>Повестка дня:</TextBlock>
+            <TextBox MinWidth="250" Height="100" TextWrapping="Wrap" AcceptsReturn="True">
+                <TextBox.Text>
+                    <Binding Path="Agenda">
+                        <!--<Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>-->
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <TextBlock Margin="0,5,0,0">Дата проведения:</TextBlock>
+            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Path=Date}"/>
+
+            <DockPanel Margin="0,5,0,0" >
+                <TextBlock Text="{Binding StringFormat=Проводящий совет: {0}, Path=Concil.Name}"/>
+                <Button HorizontalAlignment="Right">Выбрать совет</Button>
+            </DockPanel>
+            
         </StackPanel>
 
         <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,15,0,0">

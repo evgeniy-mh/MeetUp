@@ -7,6 +7,13 @@ namespace MeetUp.MeetingWindow
     {
         private MeetingWindowVM meetingWindowVM;
 
+        public Meeting Meeting {
+            get
+            {
+                return meetingWindowVM.Meeting;
+            }
+        }
+
         public MeetingWindowView()
         {
             InitializeComponent();
