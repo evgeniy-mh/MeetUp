@@ -11,6 +11,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace MeetUp.MeetingsControll
@@ -46,13 +47,6 @@ namespace MeetUp.MeetingsControll
             {
                 return addCommand ?? (addCommand = new RelayCommand(obj =>
                 {
-                    /*EmployeeWindowView window = new EmployeeWindowView();
-                    if (window.ShowDialog() == true)
-                    {
-                        EmployeeRepository.Create(window.Employee);
-                        Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
-                    }*/
-
                     MeetingWindowView window = new MeetingWindowView();
                     if (window.ShowDialog() == true)
                     {
@@ -70,13 +64,6 @@ namespace MeetUp.MeetingsControll
             {
                 return changeCommand ?? (changeCommand = new RelayCommand(obj =>
                 {
-                    /*EmployeeWindowView window = new EmployeeWindowView(SelectedEmployee);
-                    if (window.ShowDialog() == true)
-                    {
-                        EmployeeRepository.Update(window.Employee);
-                        Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
-                    }*/
-
                     MeetingWindowView window = new MeetingWindowView(SelectedMeeting);
                     if (window.ShowDialog() == true)
                     {
@@ -94,20 +81,18 @@ namespace MeetUp.MeetingsControll
             {
                 return removeCommand ?? (removeCommand = new RelayCommand(obj =>
                 {
-                    /*MessageBoxButton button = MessageBoxButton.OKCancel;
+                    MessageBoxButton button = MessageBoxButton.OKCancel;
                     MessageBoxImage icon = MessageBoxImage.Warning;
                     MessageBoxResult result = MessageBox.Show(
-                        String.Format("Вы действительно хотите удалить сотрудника {0} {1} {2} ?",
-                        SelectedEmployee.MiddleName,
-                        SelectedEmployee.FirstName,
-                        SelectedEmployee.LastName),
-                        "Удалить сотрудника?", button, icon);
+                        String.Format("Вы действительно хотите удалить заседание {0} ?",
+                        SelectedMeeting.Name),
+                        "Удалить заседание?", button, icon);
 
                     if (result == MessageBoxResult.OK)
                     {
-                        EmployeeRepository.Remove(SelectedEmployee);
-                        Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
-                    }*/
+                        MeetingRepository.Remove(SelectedMeeting);
+                        Meetings = new ObservableCollection<Meeting>(MeetingRepository.Get("Concil"));
+                    }
                 }, (obj) => { return SelectedMeeting != null; }));
             }
         }
