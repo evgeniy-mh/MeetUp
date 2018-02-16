@@ -25,7 +25,7 @@ namespace MeetUp.MeetingWindow
         public MeetingWindowVM(MeetingWindowView meetingWindowView)
         {
             this.meetingWindowView = meetingWindowView;
-            MeetingRepository = new MeetingRepository(new MeetUpContext());
+            MeetingRepository = new MeetingRepository();
             IsCreatingNewMeeting = true;
             Meeting = new Meeting();
         }
@@ -33,7 +33,7 @@ namespace MeetUp.MeetingWindow
         public MeetingWindowVM(MeetingWindowView meetingWindowView, Meeting meeting)
         {
             this.meetingWindowView = meetingWindowView;
-            MeetingRepository = new MeetingRepository(new MeetUpContext());
+            MeetingRepository = new MeetingRepository();
             IsCreatingNewMeeting = false;
             Meeting = new Meeting(meeting);
         }

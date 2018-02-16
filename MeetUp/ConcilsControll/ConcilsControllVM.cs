@@ -30,7 +30,7 @@ namespace MeetUp.ConcilsControll
 
         public ConcilsControllVM()
         {
-            ConcilRepository = new ConcilRepository(new MeetUpContext());
+            ConcilRepository = new ConcilRepository();
             Concils = new ObservableCollection<Concil>(ConcilRepository.GetAll());
         }
 

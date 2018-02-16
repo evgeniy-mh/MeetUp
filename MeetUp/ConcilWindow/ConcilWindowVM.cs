@@ -34,8 +34,8 @@ namespace MeetUp.ConcilWindow
 
         private ConcilWindowVM()
         {
-            EmployeeRepository = new EmployeeRepository(new MeetUpContext());
-            ConcilRepository = new ConcilRepository(new MeetUpContext());
+            EmployeeRepository = new EmployeeRepository();
+            ConcilRepository = new ConcilRepository();
         }
 
         public ConcilWindowVM(ConcilWindowView concilWindowView) : this()

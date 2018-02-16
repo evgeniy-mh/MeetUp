@@ -11,11 +11,6 @@ namespace MeetUp.DBRepositories
 {
     class EmployeeRepository : EFGenericRepository<Employee>
     {
-        public EmployeeRepository(DbContext context) : base(context)
-        {
-
-        }
-
         public IEnumerable<Employee> GetEmployeesForConcil(Concil concil)
         {
             return Get("Concils").Where((employee) =>

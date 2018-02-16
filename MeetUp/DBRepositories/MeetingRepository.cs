@@ -1,4 +1,5 @@
-﻿using MeetUp.DBEntityModels;
+﻿using MeetUp.DB;
+using MeetUp.DBEntityModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,21 +13,25 @@ namespace MeetUp.DBRepositories
     {
         private ConcilRepository ConcilRepository;
 
-        public MeetingRepository(DbContext context) : base(context)
+        public MeetingRepository()
         {
-            ConcilRepository = new ConcilRepository(context);
+            ConcilRepository = new ConcilRepository();
         }
 
 
         public void SetConcilForMeeting(Meeting meeting, Concil concil)
         {
-            Meeting resultMeeting = _dbSet.Include("Concil").SingleOrDefault(m => m.Id == meeting.Id);
-            Concil resultConcil = ConcilRepository.GetAll().SingleOrDefault(c => c.Id == concil.Id);
-
-            if (resultMeeting != null && resultConcil != null)
+            using (Context = new MeetUpContext())
             {
-                resultMeeting.Concil = resultConcil;
-                Context.SaveChanges();
+                _dbSet = Context.Set<Meeting>();
+                Meeting resultMeeting = _dbSet.Include("Concil").SingleOrDefault(m => m.Id == meeting.Id);
+                Concil resultConcil = ConcilRepository.GetAll().SingleOrDefault(c => c.Id == concil.Id);
+
+                if (resultMeeting != null && resultConcil != null)
+                {
+                    resultMeeting.Concil = resultConcil;
+                    Context.SaveChanges();
+                }
             }
         }
     }

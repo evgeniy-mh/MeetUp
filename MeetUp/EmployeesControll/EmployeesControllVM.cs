@@ -30,7 +30,7 @@ namespace MeetUp.EmployeesControl
 
         public EmployeesControllVM()
         {
-            EmployeeRepository = new EFGenericRepository<Employee>(new MeetUpContext());
+            EmployeeRepository = new EFGenericRepository<Employee>();
             Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
         }
 

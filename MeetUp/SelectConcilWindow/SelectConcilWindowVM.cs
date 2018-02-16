@@ -18,7 +18,7 @@ namespace MeetUp.SelectConcilWindow
         public SelectConcilWindowVM(SelectConcilWindowView selectConcilWindowView)
         {
             this.selectConcilWindowView = selectConcilWindowView;
-            ConcilRepository = new ConcilRepository(new MeetUpContext());
+            ConcilRepository = new ConcilRepository();
             Concils = new ObservableCollection<Concil>(ConcilRepository.GetAll());
         }
 

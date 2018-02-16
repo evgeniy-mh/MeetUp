@@ -36,7 +36,7 @@ namespace MeetUp.MeetingsControll
 
         public MeetingControllVM()
         {
-            MeetingRepository = new MeetingRepository(new MeetUpContext());
+            MeetingRepository = new MeetingRepository();
             Meetings = new ObservableCollection<Meeting>(MeetingRepository.Get("Concil"));
         }
 
