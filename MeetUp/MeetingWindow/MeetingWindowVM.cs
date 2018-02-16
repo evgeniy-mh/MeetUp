@@ -1,27 +1,32 @@
 ﻿using MeetUp.DBEntityModels;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace MeetUp.EmployeeWindow
+namespace MeetUp.MeetingWindow
 {
-    class EmployeeWindowVM : INotifyPropertyChanged
+    class MeetingWindowVM : INotifyPropertyChanged
     {
-        private EmployeeWindowView employeeWindowView;
+        private MeetingWindowView meetingWindowView;
 
-        public Employee Employee { get; set; }
+        public Meeting Meeting { get; set; }  
 
-        public EmployeeWindowVM(EmployeeWindowView employeeWindowView)
+        public MeetingWindowVM(MeetingWindowView meetingWindowView)
         {
-            this.employeeWindowView = employeeWindowView;
-            Employee = new Employee();
+            this.meetingWindowView = meetingWindowView;
+            Meeting = new Meeting();
         }
 
-        public EmployeeWindowVM(EmployeeWindowView employeeWindowView, Employee employee)
+        public MeetingWindowVM(MeetingWindowView meetingWindowView, Meeting meeting)
         {
-            this.employeeWindowView = employeeWindowView;
-            Employee = new Employee(employee);
+            this.meetingWindowView = meetingWindowView;
+            Meeting = new Meeting(meeting);
         }
 
         private RelayCommand accept_Click;
@@ -31,8 +36,8 @@ namespace MeetUp.EmployeeWindow
             {
                 return accept_Click ?? (accept_Click = new RelayCommand(obj =>
                 {
-                    employeeWindowView.DialogResult = true;
-                }, (obj) => { return IsAllFieldsValid(employeeWindowView.EmployeeInfoPanel); }));
+                    meetingWindowView.DialogResult = true;
+                }, (obj) => { return IsAllFieldsValid(meetingWindowView.MeetingInfoPanel); }));
             }
         }
 

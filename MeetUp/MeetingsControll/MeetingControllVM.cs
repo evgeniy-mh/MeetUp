@@ -1,6 +1,7 @@
 ﻿using MeetUp.DB;
 using MeetUp.DBEntityModels;
 using MeetUp.DBRepositories;
+using MeetUp.MeetingWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -51,6 +52,12 @@ namespace MeetUp.MeetingsControll
                         EmployeeRepository.Create(window.Employee);
                         Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
                     }*/
+
+                    MeetingWindowView window = new MeetingWindowView();
+                    if (window.ShowDialog() == true)
+                    {
+
+                    }
                 }));
             }
         }

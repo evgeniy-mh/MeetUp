@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MeetUp.DBEntityModels
 {
@@ -20,6 +21,18 @@ namespace MeetUp.DBEntityModels
         public Meeting()
         {
             Employees = new List<Employee>();
+        }
+
+        public Meeting(Meeting meeting)
+        {
+            Id = meeting.Id;
+            Name = meeting.Name;
+            Date = meeting.Date;
+            IsCarriedOut = meeting.IsCarriedOut; ;
+            Agenda = meeting.Agenda;
+            Concil = new Concil(meeting.Concil);
+            Employees = meeting.Employees.ToList();
+            Records = meeting.Records.ToList();
         }
     }
 }
