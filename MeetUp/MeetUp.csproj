@@ -106,6 +106,10 @@
       <DependentUpon>EmployeeWindowView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow\MainMenuItem.cs" />
+    <Compile Include="SelectConcilWindow\SelectConcilWindowView.xaml.cs">
+      <DependentUpon>SelectConcilWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SelectConcilWindow\SelectConcilWindowVM.cs" />
     <Compile Include="SelectEmployeeWindow\SelectEmployeeWindowView.xaml.cs">
       <DependentUpon>SelectEmployeeWindowView.xaml</DependentUpon>
     </Compile>
@@ -143,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MeetingWindow\MeetingWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SelectConcilWindow\SelectConcilWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

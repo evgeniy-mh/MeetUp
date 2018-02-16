@@ -23,8 +23,8 @@ namespace MeetUp.SelectEmployeeWindow
         public SelectEmployeeWindowVM(SelectEmployeeWindowView selectEmployeeWindowView)
         {
             this.selectEmployeeWindowView = selectEmployeeWindowView;
-            this.EmployeeRepository = new EmployeeRepository(new MeetUpContext());
-            this.Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
+            EmployeeRepository = new EmployeeRepository(new MeetUpContext());
+            Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
         }
 
         public SelectEmployeeWindowVM(SelectEmployeeWindowView selectEmployeeWindowView, IEnumerable<Employee> employees)

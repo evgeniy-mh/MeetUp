@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MeetUp.MeetingWindow"
         mc:Ignorable="d"
+        x:Name="MainMeetingWindowControll"
         Title="MeetingWindowView" Height="400" Width="350">
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -41,7 +42,7 @@
 
             <DockPanel Margin="0,5,0,0" >
                 <TextBlock Text="{Binding StringFormat=Проводящий совет: {0}, Path=Concil.Name}"/>
-                <Button HorizontalAlignment="Right">Выбрать совет</Button>
+                <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.SelectConcilCommand}" HorizontalAlignment="Right">Выбрать совет</Button>
             </DockPanel>
             
         </StackPanel>

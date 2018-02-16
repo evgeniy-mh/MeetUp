@@ -1,4 +1,5 @@
 ﻿using MeetUp.DBEntityModels;
+using MeetUp.SelectConcilWindow;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,6 +28,22 @@ namespace MeetUp.MeetingWindow
         {
             this.meetingWindowView = meetingWindowView;
             Meeting = new Meeting(meeting);
+        }
+
+        private RelayCommand selectConcilCommand;
+        public RelayCommand SelectConcilCommand
+        {
+            get
+            {
+                return selectConcilCommand ?? (selectConcilCommand = new RelayCommand(obj =>
+                  {
+                      SelectConcilWindowView window = new SelectConcilWindowView();
+                      if (window.ShowDialog() == true)
+                      {
+                          
+                      }
+                  }));
+            }
         }
 
         private RelayCommand accept_Click;
