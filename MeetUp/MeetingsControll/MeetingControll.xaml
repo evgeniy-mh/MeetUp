@@ -5,6 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MeetUp.MeetingsControll"
              mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <local:YesNoConverter x:Key="YesNoConverter"></local:YesNoConverter>
+    </UserControl.Resources>
+    
     <Grid Margin="5">
         <StackPanel Orientation="Vertical" >
             <ListView Height="268" VerticalAlignment="Top" ItemsSource="{Binding Meetings, Mode=TwoWay}" SelectedItem="{Binding SelectedMeeting}">
@@ -13,7 +18,7 @@
                         <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Path=Name}"/>
                         <GridViewColumn Header="Дата проведения" DisplayMemberBinding="{Binding Path=Date}"/>
                         <GridViewColumn Header="Проводится советом" DisplayMemberBinding="{Binding Path=Concil.Name}"/>
-                        <GridViewColumn Header="Проведено" DisplayMemberBinding="{Binding Path=IsCarriedOut}"/>
+                        <GridViewColumn Header="Проведено" DisplayMemberBinding="{Binding Path=IsCarriedOut, Converter={StaticResource YesNoConverter} }"/>
                     </GridView>
                 </ListView.View>
             </ListView>
