@@ -15,7 +15,7 @@ namespace MeetUp.MeetingsControll
     class MeetingControllVM : INotifyPropertyChanged
     {
         public Meeting SelectedMeeting { get; set; }
-        private EFGenericRepository<Meeting> MeetingRepository;
+        private MeetingRepository MeetingRepository;
         private ObservableCollection<Meeting> _meetings;
         public ObservableCollection<Meeting> Meetings
         {
@@ -32,8 +32,8 @@ namespace MeetUp.MeetingsControll
 
         public MeetingControllVM()
         {
-            MeetingRepository = new EFGenericRepository<Meeting>(new MeetUpContext());
-            Meetings = new ObservableCollection<Meeting>(MeetingRepository.GetAll());
+            MeetingRepository = new MeetingRepository(new MeetUpContext());
+            Meetings = new ObservableCollection<Meeting>(MeetingRepository.Get("Concil"));
         }
 
         private RelayCommand addCommand;

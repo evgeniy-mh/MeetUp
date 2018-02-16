@@ -13,6 +13,7 @@
                         <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Path=Name}"/>
                         <GridViewColumn Header="Дата проведения" DisplayMemberBinding="{Binding Path=Date}"/>
                         <GridViewColumn Header="Проводится советом" DisplayMemberBinding="{Binding Path=Concil.Name}"/>
+                        <GridViewColumn Header="Проведено" DisplayMemberBinding="{Binding Path=IsCarriedOut}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
