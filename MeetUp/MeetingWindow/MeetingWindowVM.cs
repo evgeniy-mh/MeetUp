@@ -1,4 +1,6 @@
-﻿using MeetUp.DBEntityModels;
+﻿using MeetUp.DB;
+using MeetUp.DBEntityModels;
+using MeetUp.DBRepositories;
 using MeetUp.SelectConcilWindow;
 using System;
 using System.Collections.Generic;
@@ -15,18 +17,24 @@ namespace MeetUp.MeetingWindow
     class MeetingWindowVM : INotifyPropertyChanged
     {
         private MeetingWindowView meetingWindowView;
+        private MeetingRepository MeetingRepository;
+        private bool IsCreatingNewMeeting;
 
-        public Meeting Meeting { get; set; }  
+        public Meeting Meeting { get; set; }
 
         public MeetingWindowVM(MeetingWindowView meetingWindowView)
         {
             this.meetingWindowView = meetingWindowView;
+            MeetingRepository = new MeetingRepository(new MeetUpContext());
+            IsCreatingNewMeeting = true;
             Meeting = new Meeting();
         }
 
         public MeetingWindowVM(MeetingWindowView meetingWindowView, Meeting meeting)
         {
             this.meetingWindowView = meetingWindowView;
+            MeetingRepository = new MeetingRepository(new MeetUpContext());
+            IsCreatingNewMeeting = false;
             Meeting = new Meeting(meeting);
         }
 
@@ -40,7 +48,15 @@ namespace MeetUp.MeetingWindow
                       SelectConcilWindowView window = new SelectConcilWindowView();
                       if (window.ShowDialog() == true)
                       {
-                          
+                          if (IsCreatingNewMeeting)
+                          {
+                              Meeting.Concil = window.SelectedConcil;
+                          }
+                          else
+                          {
+                              MeetingRepository.SetConcilForMeeting(Meeting, window.SelectedConcil);
+                              Meeting.Concil = window.SelectedConcil;
+                          }
                       }
                   }));
             }

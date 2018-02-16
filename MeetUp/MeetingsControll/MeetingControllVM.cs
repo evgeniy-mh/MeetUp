@@ -68,6 +68,7 @@ namespace MeetUp.MeetingsControll
                     if (window.ShowDialog() == true)
                     {
 
+                        Meetings = new ObservableCollection<Meeting>(MeetingRepository.Get("Concil"));
                     }
 
                 }, (obj) => { return SelectedMeeting != null; }));
