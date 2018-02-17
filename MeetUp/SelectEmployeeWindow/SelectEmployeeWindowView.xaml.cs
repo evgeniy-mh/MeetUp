@@ -21,6 +21,7 @@ namespace MeetUp.SelectEmployeeWindow
             InitializeComponent();
             selectEmployeeWindowVM = new SelectEmployeeWindowVM(this);
             DataContext = selectEmployeeWindowVM;
+            Closing += selectEmployeeWindowVM.OnWindowClosing;
         }
 
         public SelectEmployeeWindowView(IEnumerable<Employee> employees)
@@ -28,6 +29,7 @@ namespace MeetUp.SelectEmployeeWindow
             InitializeComponent();
             selectEmployeeWindowVM = new SelectEmployeeWindowVM(this, employees);
             DataContext = selectEmployeeWindowVM;
+            Closing += selectEmployeeWindowVM.OnWindowClosing;
         }
     }
 }

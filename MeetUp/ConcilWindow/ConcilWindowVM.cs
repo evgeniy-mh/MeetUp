@@ -33,8 +33,6 @@ namespace MeetUp.ConcilWindow
 
         private ConcilWindowVM()
         {
-            //EmployeeRepository = new EmployeeRepository();
-            //ConcilRepository = new ConcilRepository();
             unitOfWork = new UnitOfWork(); 
         }
 
@@ -50,7 +48,6 @@ namespace MeetUp.ConcilWindow
             this.concilWindowView = concilWindowView;
             IsCreatingNewConcil = false;
             this.Concil = new Concil(concil);
-            //ConcilEmployees = new ObservableCollection<Employee>(EmployeeRepository.GetEmployeesForConcil(this.Concil).ToList());
             ConcilEmployees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.GetEmployeesForConcil(this.Concil).ToList());
         }
 
@@ -113,6 +110,11 @@ namespace MeetUp.ConcilWindow
                 IsAllFieldsValid(element);
             }
             return true;
+        }
+
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            unitOfWork.Dispose();
         }
     }
 }

@@ -39,5 +39,10 @@ namespace MeetUp.SelectConcilWindow
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
+
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            unitOfWork.Dispose();
+        }
     }
 }

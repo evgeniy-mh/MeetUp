@@ -20,6 +20,7 @@ namespace MeetUp.SelectConcilWindow
             InitializeComponent();
             selectConcilWindowVM = new SelectConcilWindowVM(this);
             DataContext = selectConcilWindowVM;
+            Closing += selectConcilWindowVM.OnWindowClosing;
         }
     }
 }

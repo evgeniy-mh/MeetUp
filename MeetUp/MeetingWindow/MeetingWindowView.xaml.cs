@@ -19,6 +19,7 @@ namespace MeetUp.MeetingWindow
             InitializeComponent();
             meetingWindowVM = new MeetingWindowVM(this);
             DataContext = meetingWindowVM;
+            Closing += meetingWindowVM.OnWindowClosing;
         }
 
         public MeetingWindowView(Meeting meeting)
@@ -26,6 +27,7 @@ namespace MeetUp.MeetingWindow
             InitializeComponent();
             meetingWindowVM = new MeetingWindowVM(this, meeting);
             DataContext = meetingWindowVM;
+            Closing += meetingWindowVM.OnWindowClosing;
         }
     }
 }

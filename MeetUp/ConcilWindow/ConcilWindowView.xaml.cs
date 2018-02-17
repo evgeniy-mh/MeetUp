@@ -29,9 +29,10 @@ namespace MeetUp.ConcilWindow
 
         public ConcilWindowView()
         {
-            InitializeComponent();
+            InitializeComponent();            
             concilWindowVM = new ConcilWindowVM(this);
             DataContext = concilWindowVM;
+            Closing += concilWindowVM.OnWindowClosing;
         }
 
         public ConcilWindowView(Concil concil)

@@ -1,14 +1,8 @@
-﻿using MeetUp.DB;
-using MeetUp.DBEntityModels;
+﻿using MeetUp.DBEntityModels;
 using MeetUp.DBRepositories;
 using MeetUp.SelectConcilWindow;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -95,6 +89,11 @@ namespace MeetUp.MeetingWindow
                 IsAllFieldsValid(element);
             }
             return true;
+        }
+
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            unitOfWork.Dispose();
         }
     }
 }
