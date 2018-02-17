@@ -14,8 +14,7 @@ namespace MeetUp.ConcilWindow
     class ConcilWindowVM : INotifyPropertyChanged
     {
         private ConcilWindowView concilWindowView;
-        private EmployeeRepository EmployeeRepository;
-        private ConcilRepository ConcilRepository;
+        private UnitOfWork unitOfWork;
         private bool IsCreatingNewConcil;
 
         public Concil Concil { get; set; }
@@ -34,8 +33,9 @@ namespace MeetUp.ConcilWindow
 
         private ConcilWindowVM()
         {
-            EmployeeRepository = new EmployeeRepository();
-            ConcilRepository = new ConcilRepository();
+            //EmployeeRepository = new EmployeeRepository();
+            //ConcilRepository = new ConcilRepository();
+            unitOfWork = new UnitOfWork(); 
         }
 
         public ConcilWindowVM(ConcilWindowView concilWindowView) : this()
@@ -50,7 +50,8 @@ namespace MeetUp.ConcilWindow
             this.concilWindowView = concilWindowView;
             IsCreatingNewConcil = false;
             this.Concil = new Concil(concil);
-            ConcilEmployees = new ObservableCollection<Employee>(EmployeeRepository.GetEmployeesForConcil(this.Concil).ToList());
+            //ConcilEmployees = new ObservableCollection<Employee>(EmployeeRepository.GetEmployeesForConcil(this.Concil).ToList());
+            ConcilEmployees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.GetEmployeesForConcil(this.Concil).ToList());
         }
 
         private RelayCommand addCommand;
@@ -60,7 +61,7 @@ namespace MeetUp.ConcilWindow
             {
                 return addCommand ?? (addCommand = new RelayCommand(obj =>
                 {
-                    var freeEmployees = EmployeeRepository.GetAllFreeEmployeesForConcil(this.Concil);
+                    var freeEmployees = unitOfWork.EmployeeRepository.GetAllFreeEmployeesForConcil(this.Concil);
                     SelectEmployeeWindowView window = new SelectEmployeeWindowView(freeEmployees);
                     if (window.ShowDialog() == true)
                     {
@@ -71,8 +72,8 @@ namespace MeetUp.ConcilWindow
                         }
                         else
                         {
-                            ConcilRepository.AddEmployeeToConcil(this.Concil, window.SelectedEmployee);
-                            ConcilEmployees = new ObservableCollection<Employee>(EmployeeRepository.GetEmployeesForConcil(this.Concil).ToList());
+                            unitOfWork.ConcilRepository.AddEmployeeToConcil(this.Concil, window.SelectedEmployee);
+                            ConcilEmployees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.GetEmployeesForConcil(this.Concil).ToList());
                         }
                     }
                 }));

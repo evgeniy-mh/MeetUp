@@ -13,9 +13,9 @@ namespace MeetUp.DBRepositories
     {
         private EmployeeRepository EmployeeRepository;
 
-        public ConcilRepository()
+        public ConcilRepository(MeetUpContext context) : base(context)
         {
-            EmployeeRepository = new EmployeeRepository();
+            //EmployeeRepository = new EmployeeRepository();
         }
 
         public new void Create(Concil concil)
@@ -40,18 +40,15 @@ namespace MeetUp.DBRepositories
 
         public void AddEmployeeToConcil(Concil concil, Employee employee)
         {
-            using (Context = new MeetUpContext())
-            {
-                _dbSet = Context.Set<Concil>();
-                Concil resultConcil = _dbSet.Include("Employees").SingleOrDefault(c => c.Id == concil.Id);
-                Employee resultEmployee = EmployeeRepository.GetAllFreeEmployeesForConcil(resultConcil).FirstOrDefault(e => e.Id == employee.Id);
+            /*_dbSet = Context.Set<Concil>();
+            Concil resultConcil = _dbSet.Include("Employees").SingleOrDefault(c => c.Id == concil.Id);
+            Employee resultEmployee = EmployeeRepository.GetAllFreeEmployeesForConcil(resultConcil).FirstOrDefault(e => e.Id == employee.Id);
 
-                if (resultEmployee != null)
-                {
-                    resultConcil.Employees.Add(resultEmployee);
-                    Context.SaveChanges();
-                }
-            }
+            if (resultEmployee != null)
+            {
+                resultConcil.Employees.Add(resultEmployee);
+                Context.SaveChanges();
+            }*/
         }
 
         public class ConcilIdComparer : IEqualityComparer<Concil>

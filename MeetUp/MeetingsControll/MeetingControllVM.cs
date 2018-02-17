@@ -18,8 +18,8 @@ namespace MeetUp.MeetingsControll
 {
     class MeetingControllVM : INotifyPropertyChanged
     {
+        private UnitOfWork unitOfWork;
         public Meeting SelectedMeeting { get; set; }
-        private MeetingRepository MeetingRepository;
         private ObservableCollection<Meeting> _meetings;
         public ObservableCollection<Meeting> Meetings
         {
@@ -36,8 +36,8 @@ namespace MeetUp.MeetingsControll
 
         public MeetingControllVM()
         {
-            MeetingRepository = new MeetingRepository();
-            Meetings = new ObservableCollection<Meeting>(MeetingRepository.Get("Concil"));
+            unitOfWork = new UnitOfWork();
+            Meetings = new ObservableCollection<Meeting>(unitOfWork.MeetingRepository.Get("Concil"));
         }
 
         private RelayCommand addCommand;
@@ -50,8 +50,8 @@ namespace MeetUp.MeetingsControll
                     MeetingWindowView window = new MeetingWindowView();
                     if (window.ShowDialog() == true)
                     {
-                        MeetingRepository.Create(window.Meeting);
-                        Meetings = new ObservableCollection<Meeting>(MeetingRepository.Get("Concil"));
+                        unitOfWork.MeetingRepository.Create(window.Meeting);
+                        Meetings = new ObservableCollection<Meeting>(unitOfWork.MeetingRepository.Get("Concil"));
                     }
                 }));
             }
@@ -68,7 +68,7 @@ namespace MeetUp.MeetingsControll
                     if (window.ShowDialog() == true)
                     {
 
-                        Meetings = new ObservableCollection<Meeting>(MeetingRepository.Get("Concil"));
+                        Meetings = new ObservableCollection<Meeting>(unitOfWork.MeetingRepository.Get("Concil"));
                     }
 
                 }, (obj) => { return SelectedMeeting != null; }));
@@ -91,8 +91,8 @@ namespace MeetUp.MeetingsControll
 
                     if (result == MessageBoxResult.OK)
                     {
-                        MeetingRepository.Remove(SelectedMeeting);
-                        Meetings = new ObservableCollection<Meeting>(MeetingRepository.Get("Concil"));
+                        unitOfWork.MeetingRepository.Remove(SelectedMeeting);
+                        Meetings = new ObservableCollection<Meeting>(unitOfWork.MeetingRepository.Get("Concil"));
                     }
                 }, (obj) => { return SelectedMeeting != null; }));
             }

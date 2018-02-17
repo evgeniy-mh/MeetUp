@@ -15,7 +15,7 @@ namespace MeetUp.SelectEmployeeWindow
     class SelectEmployeeWindowVM : INotifyPropertyChanged
     {
         private SelectEmployeeWindowView selectEmployeeWindowView;
-        private EmployeeRepository EmployeeRepository;
+        private UnitOfWork unitOfWork;
 
         public ObservableCollection<Employee> Employees { get; set; }
         public Employee SelectedEmployee { get; set; }
@@ -23,8 +23,8 @@ namespace MeetUp.SelectEmployeeWindow
         public SelectEmployeeWindowVM(SelectEmployeeWindowView selectEmployeeWindowView)
         {
             this.selectEmployeeWindowView = selectEmployeeWindowView;
-            EmployeeRepository = new EmployeeRepository();
-            Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
+            unitOfWork = new UnitOfWork();
+            Employees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.GetAll());
         }
 
         public SelectEmployeeWindowVM(SelectEmployeeWindowView selectEmployeeWindowView, IEnumerable<Employee> employees)

@@ -13,26 +13,23 @@ namespace MeetUp.DBRepositories
     {
         private ConcilRepository ConcilRepository;
 
-        public MeetingRepository()
+        public MeetingRepository(MeetUpContext context) : base(context)
         {
-            ConcilRepository = new ConcilRepository();
+            //ConcilRepository = new ConcilRepository();
         }
 
 
         public void SetConcilForMeeting(Meeting meeting, Concil concil)
         {
-            using (Context = new MeetUpContext())
-            {
-                _dbSet = Context.Set<Meeting>();
-                Meeting resultMeeting = _dbSet.Include("Concil").SingleOrDefault(m => m.Id == meeting.Id);
-                Concil resultConcil = ConcilRepository.GetAll().SingleOrDefault(c => c.Id == concil.Id);
+            /*_dbSet = Context.Set<Meeting>();
+            Meeting resultMeeting = _dbSet.Include("Concil").SingleOrDefault(m => m.Id == meeting.Id);
+            Concil resultConcil = ConcilRepository.GetAll().SingleOrDefault(c => c.Id == concil.Id);
 
-                if (resultMeeting != null && resultConcil != null)
-                {
-                    resultMeeting.Concil = resultConcil;
-                    Context.SaveChanges();
-                }
-            }
+            if (resultMeeting != null && resultConcil != null)
+            {
+                resultMeeting.Concil = resultConcil;
+                Context.SaveChanges();
+            }*/
         }
     }
 }

@@ -82,6 +82,7 @@
     <Compile Include="DBRepositories\EmployeeRepository.cs" />
     <Compile Include="DBRepositories\IGenericRepository.cs" />
     <Compile Include="DBRepositories\MeetingRepository.cs" />
+    <Compile Include="DBRepositories\UnitOfWork.cs" />
     <Compile Include="DB\MeetUpContextInitializer.cs" />
     <Compile Include="EmployeesControll\EmployeesControllVM.cs" />
     <Compile Include="EmployeeWindow\EmployeeWindowVM.cs" />

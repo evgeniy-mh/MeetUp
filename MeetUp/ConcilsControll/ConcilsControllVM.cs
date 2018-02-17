@@ -12,8 +12,8 @@ namespace MeetUp.ConcilsControll
 {
     class ConcilsControllVM : INotifyPropertyChanged
     {
+        private UnitOfWork unitOfWork;
         public Concil SelectedConcil { get; set; }
-        private ConcilRepository ConcilRepository;
         private ObservableCollection<Concil> _concils;
         public ObservableCollection<Concil> Concils
         {
@@ -30,8 +30,10 @@ namespace MeetUp.ConcilsControll
 
         public ConcilsControllVM()
         {
-            ConcilRepository = new ConcilRepository();
-            Concils = new ObservableCollection<Concil>(ConcilRepository.GetAll());
+            unitOfWork = new UnitOfWork();
+            Concils= new ObservableCollection<Concil>(unitOfWork.ConcilRepository.GetAll());
+            //ConcilRepository = new ConcilRepository();
+            //Concils = new ObservableCollection<Concil>(ConcilRepository.GetAll());
         }
 
         private RelayCommand addCommand;
@@ -44,8 +46,9 @@ namespace MeetUp.ConcilsControll
                     ConcilWindowView window = new ConcilWindowView();
                     if (window.ShowDialog() == true)
                     {
-                        ConcilRepository.Create(window.Concil);
-                        Concils = new ObservableCollection<Concil>(ConcilRepository.GetAll());
+                        //ConcilRepository.Create(window.Concil);
+                        unitOfWork.ConcilRepository.Create(window.Concil);
+                        Concils = new ObservableCollection<Concil>(unitOfWork.ConcilRepository.GetAll());
                     }
                 }));
             }
@@ -61,8 +64,9 @@ namespace MeetUp.ConcilsControll
                     ConcilWindowView window = new ConcilWindowView(SelectedConcil);
                     if (window.ShowDialog() == true)
                     {
-                        ConcilRepository.Update(window.Concil);
-                        Concils = new ObservableCollection<Concil>(ConcilRepository.GetAll());
+                        //ConcilRepository.Update(window.Concil);
+                        unitOfWork.ConcilRepository.Update(window.Concil);
+                        Concils = new ObservableCollection<Concil>(unitOfWork.ConcilRepository.GetAll());
                     }
 
                 }, (obj) => { return SelectedConcil != null; }));
@@ -85,8 +89,9 @@ namespace MeetUp.ConcilsControll
 
                     if (result == MessageBoxResult.OK)
                     {
-                        ConcilRepository.Remove(SelectedConcil);
-                        Concils = new ObservableCollection<Concil>(ConcilRepository.GetAll());
+                        //ConcilRepository.Remove(SelectedConcil);
+                        unitOfWork.ConcilRepository.Remove(SelectedConcil);
+                        Concils = new ObservableCollection<Concil>(unitOfWork.ConcilRepository.GetAll());
                     }
                 }, (obj) => { return SelectedConcil != null; }));
             }

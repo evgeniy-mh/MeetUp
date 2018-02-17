@@ -16,24 +16,24 @@ namespace MeetUp.MeetingWindow
 {
     class MeetingWindowVM : INotifyPropertyChanged
     {
+        private UnitOfWork unitOfWork;
         private MeetingWindowView meetingWindowView;
-        private MeetingRepository MeetingRepository;
         private bool IsCreatingNewMeeting;
 
         public Meeting Meeting { get; set; }
 
         public MeetingWindowVM(MeetingWindowView meetingWindowView)
         {
+            unitOfWork = new UnitOfWork();
             this.meetingWindowView = meetingWindowView;
-            MeetingRepository = new MeetingRepository();
             IsCreatingNewMeeting = true;
             Meeting = new Meeting();
         }
 
         public MeetingWindowVM(MeetingWindowView meetingWindowView, Meeting meeting)
         {
+            unitOfWork = new UnitOfWork();
             this.meetingWindowView = meetingWindowView;
-            MeetingRepository = new MeetingRepository();
             IsCreatingNewMeeting = false;
             Meeting = new Meeting(meeting);
         }
@@ -54,7 +54,7 @@ namespace MeetUp.MeetingWindow
                           }
                           else
                           {
-                              MeetingRepository.SetConcilForMeeting(Meeting, window.SelectedConcil);
+                              unitOfWork.MeetingRepository.SetConcilForMeeting(Meeting, window.SelectedConcil);
                               Meeting.Concil = window.SelectedConcil;
                           }
                       }

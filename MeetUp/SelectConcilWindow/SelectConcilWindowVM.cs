@@ -10,7 +10,7 @@ namespace MeetUp.SelectConcilWindow
     class SelectConcilWindowVM : INotifyPropertyChanged
     {
         private SelectConcilWindowView selectConcilWindowView;
-        private ConcilRepository ConcilRepository;
+        private UnitOfWork unitOfWork;
 
         public ObservableCollection<Concil> Concils { get; set; }
         public Concil SelectedConcil { get; set; }
@@ -18,8 +18,8 @@ namespace MeetUp.SelectConcilWindow
         public SelectConcilWindowVM(SelectConcilWindowView selectConcilWindowView)
         {
             this.selectConcilWindowView = selectConcilWindowView;
-            ConcilRepository = new ConcilRepository();
-            Concils = new ObservableCollection<Concil>(ConcilRepository.GetAll());
+            unitOfWork = new UnitOfWork();
+            Concils = new ObservableCollection<Concil>(unitOfWork.ConcilRepository.GetAll());
         }
 
         private RelayCommand accept_Click;

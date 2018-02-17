@@ -12,8 +12,8 @@ namespace MeetUp.EmployeesControl
 {
     class EmployeesControllVM : INotifyPropertyChanged
     {
+        private UnitOfWork unitOfWork;
         public Employee SelectedEmployee { get; set; }
-        private EFGenericRepository<Employee> EmployeeRepository;
         private ObservableCollection<Employee> _employees;
         public ObservableCollection<Employee> Employees
         {
@@ -30,8 +30,8 @@ namespace MeetUp.EmployeesControl
 
         public EmployeesControllVM()
         {
-            EmployeeRepository = new EFGenericRepository<Employee>();
-            Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
+            unitOfWork = new UnitOfWork();
+            Employees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.GetAll());
         }
 
         private RelayCommand addCommand;
@@ -44,8 +44,10 @@ namespace MeetUp.EmployeesControl
                     EmployeeWindowView window = new EmployeeWindowView();
                     if (window.ShowDialog() == true)
                     {
-                        EmployeeRepository.Create(window.Employee);
-                        Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
+                        //EmployeeRepository.Create(window.Employee);
+                        unitOfWork.EmployeeRepository.Create(window.Employee);
+                        //Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
+                        Employees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.GetAll());
                     }
                 }));
             }
@@ -61,8 +63,8 @@ namespace MeetUp.EmployeesControl
                     EmployeeWindowView window = new EmployeeWindowView(SelectedEmployee);
                     if (window.ShowDialog() == true)
                     {
-                        EmployeeRepository.Update(window.Employee);
-                        Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
+                        unitOfWork.EmployeeRepository.Update(window.Employee);
+                        Employees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.GetAll());
                     }
                 }, (obj) => { return SelectedEmployee != null; }));
             }
@@ -86,8 +88,8 @@ namespace MeetUp.EmployeesControl
 
                     if (result == MessageBoxResult.OK)
                     {
-                        EmployeeRepository.Remove(SelectedEmployee);
-                        Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
+                        unitOfWork.EmployeeRepository.Remove(SelectedEmployee);
+                        Employees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.GetAll());
                     }
                 }, (obj) => { return SelectedEmployee != null; }));
             }
