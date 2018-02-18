@@ -1,0 +1,47 @@
+﻿<Window x:Class="MeetUp.RecordWindow.RecordWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MeetUp.RecordWindow"
+        mc:Ignorable="d"
+        x:Name="MainRecordWindowControll"
+        Title="RecordWindowView" Height="500" Width="600">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="RecordInfoPanel" DataContext="{Binding Meeting}">
+
+            <TextBlock>Название:</TextBlock>
+            <TextBox MinWidth="250">
+                <TextBox.Text>
+                    <Binding Path="Name">
+                        <!--<Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>-->
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <TextBlock>Содержание:</TextBlock>
+            <RichTextBox Height="290" ></RichTextBox>
+
+            <Button Command="{Binding ElementName=MainRecordWindowControll, Path=DataContext.SelectRecordCommand}" Margin="0,5,420,0">Выбрать документ</Button>
+
+                <!--<DockPanel Margin="0,5,0,0" >
+                <TextBlock Text="{Binding StringFormat=Проводящий совет: {0}, Path=Concil.Name}"/>
+                <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.SelectConcilCommand}" HorizontalAlignment="Right">Выбрать совет</Button>
+            </DockPanel>-->
+
+        </StackPanel>
+
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <!--<Button IsDefault="True" Click="Accept_Click" MinWidth="60" Margin="0,0,10,0">OK</Button>-->
+            <Button IsDefault="True" Command="{Binding Accept_Click}" MinWidth="60" Margin="0,0,10,0">OK</Button>
+            <Button IsCancel="True" MinWidth="60">Отмена</Button>
+        </WrapPanel>
+    </Grid>
+</Window>

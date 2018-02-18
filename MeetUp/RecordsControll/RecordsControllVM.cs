@@ -1,5 +1,6 @@
 ﻿using MeetUp.DBEntityModels;
 using MeetUp.DBRepositories;
+using MeetUp.RecordWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -48,6 +49,11 @@ namespace MeetUp.RecordsControll
                         unitOfWork.MeetingRepository.Create(window.Meeting);
                         Records = new ObservableCollection<Meeting>(unitOfWork.MeetingRepository.Get("Concil"));
                     }*/
+                    RecordWindowView window = new RecordWindowView();
+                    if (window.ShowDialog() == true)
+                    {
+                        
+                    }
                 }));
             }
         }

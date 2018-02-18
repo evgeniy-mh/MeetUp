@@ -101,6 +101,10 @@
       <DependentUpon>RecordControll.xaml</DependentUpon>
     </Compile>
     <Compile Include="RecordsControll\RecordsControllVM.cs" />
+    <Compile Include="RecordWindow\RecordWindowView.xaml.cs">
+      <DependentUpon>RecordWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RecordWindow\RecordWindowVM.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ConcilsControll\ConcilControll.xaml.cs">
       <DependentUpon>ConcilControll.xaml</DependentUpon>
@@ -157,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RecordsControll\RecordControll.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RecordWindow\RecordWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
