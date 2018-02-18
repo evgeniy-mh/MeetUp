@@ -60,7 +60,7 @@ namespace MeetUp.MeetingsControll
                     MeetingWindowView window = new MeetingWindowView(SelectedMeeting);
                     if (window.ShowDialog() == true)
                     {
-
+                        unitOfWork.MeetingRepository.Update(window.Meeting);
                         Meetings = new ObservableCollection<Meeting>(unitOfWork.MeetingRepository.Get("Concil"));
                     }
 

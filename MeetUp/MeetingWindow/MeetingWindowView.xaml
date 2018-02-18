@@ -38,10 +38,10 @@
             </TextBox>
 
             <TextBlock Margin="0,5,0,0">Дата проведения:</TextBlock>
-            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Path=Date}"/>
+            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Path=Date, Mode=TwoWay}"/>
 
             <DockPanel Margin="0,5,0,0" >
-                <TextBlock Text="{Binding StringFormat=Проводящий совет: {0}, Path=Concil.Name, Mode=TwoWay}"/>
+                <TextBlock Text="{Binding StringFormat=Проводящий совет: {0}, Path=Concil.Name}"/>
                 <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.SelectConcilCommand}" HorizontalAlignment="Right">Выбрать совет</Button>
             </DockPanel>
             

@@ -28,6 +28,19 @@ namespace MeetUp.DBRepositories
             Context.SaveChanges();
         }
 
+        public new void Update(Meeting meeting)
+        {
+            var m = Context.Meetings.Find(meeting.Id);
+            Context.Entry(m).CurrentValues.SetValues(meeting);
+            
+            if(meeting.Concil!=null)
+            {
+                var c = Context.Concils.Find(meeting.Concil.Id);
+                m.Concil = c;
+            }
+            Context.SaveChanges();
+        }
+
         public void SetConcilForMeeting(Meeting meeting, Concil concil)
         {
             var c = Context.Concils.Find(concil.Id);

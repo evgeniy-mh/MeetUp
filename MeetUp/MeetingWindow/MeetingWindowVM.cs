@@ -48,7 +48,7 @@ namespace MeetUp.MeetingWindow
                           }
                           else
                           {
-                              unitOfWork.MeetingRepository.SetConcilForMeeting(Meeting, window.SelectedConcil);
+                              //unitOfWork.MeetingRepository.SetConcilForMeeting(Meeting, window.SelectedConcil);
                               Meeting.Concil = window.SelectedConcil;
                           }
                       }
