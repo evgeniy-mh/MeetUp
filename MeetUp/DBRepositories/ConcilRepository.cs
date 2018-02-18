@@ -11,11 +11,8 @@ namespace MeetUp.DBRepositories
 {
     class ConcilRepository : EFGenericRepository<Concil>
     {
-        private EmployeeRepository EmployeeRepository;
-
         public ConcilRepository(MeetUpContext context) : base(context)
         {
-            //EmployeeRepository = new EmployeeRepository();
         }
 
         public new void Create(Concil concil)
@@ -23,32 +20,24 @@ namespace MeetUp.DBRepositories
             if (concil.Employees == null || concil.Employees.Count == 0)
             {
                 base.Create(concil);
-                //Context.SaveChanges();
             }
             else
             {
-                Concil c = new Concil { Name = concil.Name };
-                Create(c);
-
                 foreach (Employee e in concil.Employees)
                 {
-                    AddEmployeeToConcil(c, e);
+                    e.Concils.Clear();
+                    Context.Employees.Attach(e);
                 }
+                base.Create(concil);
             }
-
         }
 
         public void AddEmployeeToConcil(Concil concil, Employee employee)
         {
-            /*_dbSet = Context.Set<Concil>();
-            Concil resultConcil = _dbSet.Include("Employees").SingleOrDefault(c => c.Id == concil.Id);
-            Employee resultEmployee = EmployeeRepository.GetAllFreeEmployeesForConcil(resultConcil).FirstOrDefault(e => e.Id == employee.Id);
-
-            if (resultEmployee != null)
-            {
-                resultConcil.Employees.Add(resultEmployee);
-                Context.SaveChanges();
-            }*/
+            var c = Context.Concils.Find(concil.Id);
+            var e = Context.Employees.Find(employee.Id);
+            c.Employees.Add(e);
+            Context.SaveChanges();
         }
 
         public class ConcilIdComparer : IEqualityComparer<Concil>

@@ -22,13 +22,14 @@ namespace MeetUp.SelectEmployeeWindow
 
         public SelectEmployeeWindowVM(SelectEmployeeWindowView selectEmployeeWindowView)
         {
-            this.selectEmployeeWindowView = selectEmployeeWindowView;
             unitOfWork = new UnitOfWork();
+            this.selectEmployeeWindowView = selectEmployeeWindowView;            
             Employees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.GetAll());
         }
 
         public SelectEmployeeWindowVM(SelectEmployeeWindowView selectEmployeeWindowView, IEnumerable<Employee> employees)
         {
+            unitOfWork = new UnitOfWork();
             this.selectEmployeeWindowView = selectEmployeeWindowView;
             this.Employees = new ObservableCollection<Employee>(employees);
         }
