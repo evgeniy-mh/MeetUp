@@ -1,11 +1,6 @@
 ﻿using MeetUp.DB;
 using MeetUp.DBEntityModels;
-using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeetUp.DBRepositories
 {

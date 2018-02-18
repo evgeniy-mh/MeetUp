@@ -1,18 +1,11 @@
-﻿using MeetUp.DB;
-using MeetUp.DBEntityModels;
+﻿using MeetUp.DBEntityModels;
 using MeetUp.DBRepositories;
 using MeetUp.MeetingWindow;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 
 namespace MeetUp.MeetingsControll
 {

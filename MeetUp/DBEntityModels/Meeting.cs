@@ -31,10 +31,10 @@ namespace MeetUp.DBEntityModels
             Date = meeting.Date;
             IsCarriedOut = meeting.IsCarriedOut; ;
             Agenda = meeting.Agenda;
-            Concil = new Concil(meeting.Concil);
 
+            Concil = meeting.Concil == null ? null : new Concil(meeting.Concil);
             Employees = meeting.Employees == null ? new List<Employee>() : meeting.Employees.ToList();
-            Records = meeting.Records==null ? new List<Record>() : meeting.Records.ToList();
+            Records = meeting.Records == null ? new List<Record>() : meeting.Records.ToList();
         }
     }
 }

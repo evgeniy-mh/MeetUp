@@ -21,8 +21,8 @@ namespace MeetUp.DBEntityModels
         {
             Id = concil.Id;
             Name = concil.Name;
-            Employees = concil.Employees.ToList();
-            Meetings = concil.Meetings.ToList();
+            Employees = concil.Employees?.ToList();
+            Meetings = concil.Meetings?.ToList();
         }
     }
 }
