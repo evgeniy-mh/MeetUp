@@ -6,10 +6,8 @@ namespace MeetUp.DBRepositories
     class UnitOfWork : IDisposable
     {
         private MeetUpContext db = new MeetUpContext();
-        private ConcilRepository concilRepository;
-        private EmployeeRepository employeeRepository;
-        private MeetingRepository meetingRepository;
 
+        private ConcilRepository concilRepository;
         public ConcilRepository ConcilRepository
         {
             get
@@ -19,6 +17,7 @@ namespace MeetUp.DBRepositories
             }
         }
 
+        private EmployeeRepository employeeRepository;
         public EmployeeRepository EmployeeRepository
         {
             get
@@ -28,12 +27,23 @@ namespace MeetUp.DBRepositories
             }
         }
 
+        private MeetingRepository meetingRepository;
         public MeetingRepository MeetingRepository
         {
             get
             {
                 if (meetingRepository == null) meetingRepository = new MeetingRepository(db);
                 return meetingRepository;
+            }
+        }
+
+        private RecordRepository recordRepository;
+        public RecordRepository RecordRepository
+        {
+            get
+            {
+                if (recordRepository == null) recordRepository = new RecordRepository(db);
+                return recordRepository;
             }
         }
 
