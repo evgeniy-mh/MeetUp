@@ -1,33 +1,41 @@
 ﻿using MeetUp.DBEntityModels;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace MeetUp.RecordWindow
 {
     class RecordWindowVM
     {
         private RecordWindowView recordWindowView;
-        private bool IsCreatingNewRecord;
+        //private bool IsCreatingNewRecord;
 
         public Record Record { get; set; }
 
         public RecordWindowVM(RecordWindowView recordWindowView)
         {
             this.recordWindowView = recordWindowView;
-            IsCreatingNewRecord = true;
+            //IsCreatingNewRecord = true;
             Record = new Record();
         }
 
         public RecordWindowVM(RecordWindowView recordWindowView, Record record)
         {
             this.recordWindowView = recordWindowView;
-            IsCreatingNewRecord = false;
+            //IsCreatingNewRecord = false;
             Record = new Record(record);
+
+            if (Record.Content != null)
+            {
+                recordWindowView.recordContentRichTextBox.Document.Blocks.Add(new Paragraph(new Run(Record.Content)));
+            }
         }
 
         private RelayCommand selectRecordCommand;
@@ -50,6 +58,23 @@ namespace MeetUp.RecordWindow
                             Meeting.Concil = window.SelectedConcil;
                         }
                     }*/
+
+                    //if (IsCreatingNewRecord)
+                    //{
+                    OpenFileDialog openFileDialog = new OpenFileDialog();
+                    openFileDialog.Title = "Выберите документ протокола заседания";
+                    openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                    if (openFileDialog.ShowDialog() == true)
+                    {
+                        string text = File.ReadAllText(openFileDialog.FileName);
+                        Record.Content = text;
+
+                        MemoryStream stream = new MemoryStream(ASCIIEncoding.UTF8.GetBytes(Record.Content));
+                        recordWindowView.recordContentRichTextBox.Selection.Load(stream, DataFormats.Text);
+                    }
+                    //}
+
+
                 }));
             }
         }

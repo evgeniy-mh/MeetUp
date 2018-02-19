@@ -19,7 +19,7 @@
             Id = record.Id;
             Name = record.Name;
             Content = record.Content;
-            Meeting = new Meeting(record.Meeting);
+            Meeting = record.Meeting == null ? new Meeting() : new Meeting(record.Meeting);
         }
     }
 }

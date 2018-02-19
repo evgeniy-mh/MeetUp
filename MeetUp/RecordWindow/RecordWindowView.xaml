@@ -13,12 +13,12 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="RecordInfoPanel" DataContext="{Binding Meeting}">
+        <StackPanel x:Name="RecordInfoPanel" DataContext="{Binding Record}">
 
             <TextBlock>Название:</TextBlock>
             <TextBox MinWidth="250">
                 <TextBox.Text>
-                    <Binding Path="Name">
+                    <Binding Path="Name" Mode="TwoWay">
                         <!--<Binding.ValidationRules>
                             <DataErrorValidationRule />
                         </Binding.ValidationRules>-->
@@ -27,7 +27,7 @@
             </TextBox>
 
             <TextBlock>Содержание:</TextBlock>
-            <RichTextBox Height="290" ></RichTextBox>
+            <RichTextBox x:Name="RecordContentRichTextBox" Height="290" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsReadOnly="True"></RichTextBox>
 
             <Button Command="{Binding ElementName=MainRecordWindowControll, Path=DataContext.SelectRecordCommand}" Margin="0,5,420,0">Выбрать документ</Button>
 

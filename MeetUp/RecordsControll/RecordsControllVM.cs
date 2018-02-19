@@ -52,7 +52,8 @@ namespace MeetUp.RecordsControll
                     RecordWindowView window = new RecordWindowView();
                     if (window.ShowDialog() == true)
                     {
-                        
+                        unitOfWork.RecordRepository.Create(window.Record);
+                        Records = new ObservableCollection<Record>(unitOfWork.RecordRepository.Get("Meeting.Concil"));
                     }
                 }));
             }
@@ -71,7 +72,11 @@ namespace MeetUp.RecordsControll
                         unitOfWork.MeetingRepository.Update(window.Meeting);
                         Records = new ObservableCollection<Meeting>(unitOfWork.MeetingRepository.Get("Concil"));
                     }*/
-
+                    RecordWindowView window = new RecordWindowView(SelectedRecord);
+                    if (window.ShowDialog() == true)
+                    {
+                        
+                    }
                 }, (obj) => { return SelectedRecord != null; }));
             }
         }

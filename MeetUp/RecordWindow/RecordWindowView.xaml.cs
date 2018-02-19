@@ -27,6 +27,14 @@ namespace MeetUp.RecordWindow
             }
         }
 
+        public RichTextBox recordContentRichTextBox
+        {
+            get
+            {
+                return RecordContentRichTextBox;
+            }
+        }
+
         public RecordWindowView()
         {
             InitializeComponent();
