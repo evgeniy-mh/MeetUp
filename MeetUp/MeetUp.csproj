@@ -124,6 +124,10 @@
       <DependentUpon>SelectEmployeeWindowView.xaml</DependentUpon>
     </Compile>
     <Compile Include="SelectEmployeeWindow\SelectEmployeeWindowVM.cs" />
+    <Compile Include="SelectRecordWindow\SelectRecordWindowView.xaml.cs">
+      <DependentUpon>SelectRecordWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SelectRecordWindow\SelectRecordWindowVM.cs" />
     <Page Include="ConcilsControll\ConcilControll.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -173,6 +177,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SelectEmployeeWindow\SelectEmployeeWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SelectRecordWindow\SelectRecordWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

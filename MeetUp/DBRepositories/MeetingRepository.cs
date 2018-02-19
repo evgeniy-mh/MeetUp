@@ -22,7 +22,7 @@ namespace MeetUp.DBRepositories
             {
                 var c = Context.Concils.Find(meeting.Concil.Id);
                 meeting.Concil = c;
-            }            
+            }
 
             Context.Meetings.Add(meeting);
             Context.SaveChanges();
@@ -32,12 +32,22 @@ namespace MeetUp.DBRepositories
         {
             var m = Context.Meetings.Find(meeting.Id);
             Context.Entry(m).CurrentValues.SetValues(meeting);
-            
-            if(meeting.Concil!=null)
+
+            if (meeting.Concil != null)
             {
                 var c = Context.Concils.Find(meeting.Concil.Id);
                 m.Concil = c;
             }
+
+            if (meeting.Records != null && meeting.Records.Count != 0)
+            {
+                foreach (Record r in meeting.Records)
+                {
+                    var record = Context.Records.Find(r.Id);
+                    m.Records.Add(record);
+                }
+            }
+
             Context.SaveChanges();
         }
 

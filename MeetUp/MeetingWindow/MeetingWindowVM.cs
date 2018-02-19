@@ -1,6 +1,7 @@
 ﻿using MeetUp.DBEntityModels;
 using MeetUp.DBRepositories;
 using MeetUp.SelectConcilWindow;
+using MeetUp.SelectRecordWindow;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -38,21 +39,38 @@ namespace MeetUp.MeetingWindow
             get
             {
                 return selectConcilCommand ?? (selectConcilCommand = new RelayCommand(obj =>
-                  {
-                      SelectConcilWindowView window = new SelectConcilWindowView();
-                      if (window.ShowDialog() == true)
-                      {
-                          if (IsCreatingNewMeeting)
-                          {
-                              Meeting.Concil = window.SelectedConcil;
-                          }
-                          else
-                          {
-                              //unitOfWork.MeetingRepository.SetConcilForMeeting(Meeting, window.SelectedConcil);
-                              Meeting.Concil = window.SelectedConcil;
-                          }
-                      }
-                  }));
+                {
+                    SelectConcilWindowView window = new SelectConcilWindowView();
+                    if (window.ShowDialog() == true)
+                    {
+                        if (IsCreatingNewMeeting)
+                        {
+                            Meeting.Concil = window.SelectedConcil;
+                        }
+                        else
+                        {
+                            //unitOfWork.MeetingRepository.SetConcilForMeeting(Meeting, window.SelectedConcil);
+                            Meeting.Concil = window.SelectedConcil;
+                        }
+                    }
+                }));
+            }
+        }
+
+        private RelayCommand addRecordCommand;
+        public RelayCommand AddRecordCommand
+        {
+            get
+            {
+                return addRecordCommand ?? (addRecordCommand = new RelayCommand(obj =>
+                {
+                    var freeRecords = unitOfWork.RecordRepository.GetFreeRecords();
+                    SelectRecordWindowView window = new SelectRecordWindowView(freeRecords);
+                    if (window.ShowDialog() == true)
+                    {
+                        Meeting.Records.Add(window.SelectedRecord);
+                    }
+                }));
             }
         }
 

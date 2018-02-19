@@ -44,7 +44,11 @@
                 <TextBlock Text="{Binding StringFormat=Проводящий совет: {0}, Path=Concil.Name}"/>
                 <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.SelectConcilCommand}" HorizontalAlignment="Right">Выбрать совет</Button>
             </DockPanel>
-            
+
+            <DockPanel Margin="0,5,0,0" >
+                <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.AddRecordCommand}" HorizontalAlignment="Right">Прикрепить протокол</Button>
+            </DockPanel>
+
         </StackPanel>
 
         <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,15,0,0">
