@@ -16,5 +16,10 @@ namespace MeetUp.DBRepositories
         {
             return Context.Records.Where(r => r.Meeting == null).ToList();
         }
+
+        public IEnumerable<Record> GetRecordsForMeeting(Meeting meeting)
+        {
+            return Context.Records.Where(r => r.Meeting.Id == meeting.Id);
+        }
     }
 }

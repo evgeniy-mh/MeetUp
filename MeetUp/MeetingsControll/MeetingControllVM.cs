@@ -2,6 +2,7 @@
 using MeetUp.DBRepositories;
 using MeetUp.MeetingWindow;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -57,7 +58,8 @@ namespace MeetUp.MeetingsControll
             {
                 return changeCommand ?? (changeCommand = new RelayCommand(obj =>
                 {
-                    MeetingWindowView window = new MeetingWindowView(SelectedMeeting);
+                    SelectedMeeting.Records = new List<Record>(unitOfWork.RecordRepository.GetRecordsForMeeting(SelectedMeeting));
+                    MeetingWindowView window = new MeetingWindowView(SelectedMeeting);                    
                     if (window.ShowDialog() == true)
                     {
                         unitOfWork.MeetingRepository.Update(window.Meeting);
@@ -95,6 +97,6 @@ namespace MeetUp.MeetingsControll
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }        
+        }
     }
 }

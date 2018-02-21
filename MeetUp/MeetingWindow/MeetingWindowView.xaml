@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MeetUp.MeetingWindow"
         mc:Ignorable="d"
         x:Name="MainMeetingWindowControll"
-        Title="MeetingWindowView" Height="400" Width="350">
+        Title="MeetingWindowView" Height="500" Width="350">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -45,6 +45,14 @@
                 <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.SelectConcilCommand}" HorizontalAlignment="Right">Выбрать совет</Button>
             </DockPanel>
 
+            <ListView MinHeight="80" VerticalAlignment="Top" ItemsSource="{Binding Path=Records}" SelectedItem="{Binding SelectedRecord}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Название протокола" DisplayMemberBinding="{Binding Path=Name}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            
             <DockPanel Margin="0,5,0,0" >
                 <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.AddRecordCommand}" HorizontalAlignment="Right">Прикрепить протокол</Button>
             </DockPanel>
