@@ -74,6 +74,30 @@ namespace MeetUp.MeetingWindow
             }
         }
 
+        private RelayCommand removeRecordCommand;
+        public RelayCommand RemoveRecordCommand
+        {
+            get
+            {
+                return removeRecordCommand ?? (removeRecordCommand = new RelayCommand(obj =>
+                {
+                    
+                }));
+            }
+        }
+
+        private RelayCommand showRecordCommand;
+        public RelayCommand ShowRecordCommand
+        {
+            get
+            {
+                return showRecordCommand ?? (showRecordCommand = new RelayCommand(obj =>
+                {
+
+                }));
+            }
+        }
+
         private RelayCommand accept_Click;
         public RelayCommand Accept_Click
         {

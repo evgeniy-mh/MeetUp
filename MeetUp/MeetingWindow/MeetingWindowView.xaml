@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MeetUp.MeetingWindow"
         mc:Ignorable="d"
         x:Name="MainMeetingWindowControll"
-        Title="MeetingWindowView" Height="500" Width="350">
+        Title="Заседание" Height="500" Width="450">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -38,14 +38,14 @@
             </TextBox>
 
             <TextBlock Margin="0,5,0,0">Дата проведения:</TextBlock>
-            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Path=Date, Mode=TwoWay}"/>
+            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Path=Date, Mode=TwoWay}" FirstDayOfWeek="Monday"/>
 
             <DockPanel Margin="0,5,0,0" >
                 <TextBlock Text="{Binding StringFormat=Проводящий совет: {0}, Path=Concil.Name}"/>
                 <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.SelectConcilCommand}" HorizontalAlignment="Right">Выбрать совет</Button>
             </DockPanel>
 
-            <ListView MinHeight="80" VerticalAlignment="Top" ItemsSource="{Binding Path=Records}" SelectedItem="{Binding SelectedRecord}">
+            <ListView  Margin="0,5,0,0" Height="100" VerticalAlignment="Top" ItemsSource="{Binding Path=Records}" SelectedItem="{Binding SelectedRecord}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Название протокола" DisplayMemberBinding="{Binding Path=Name}"/>
@@ -53,9 +53,15 @@
                 </ListView.View>
             </ListView>
             
-            <DockPanel Margin="0,5,0,0" >
+            <!--<DockPanel Margin="0,5,0,0" >
                 <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.AddRecordCommand}" HorizontalAlignment="Right">Прикрепить протокол</Button>
-            </DockPanel>
+            </DockPanel>-->
+
+            <StackPanel Orientation="Horizontal">                
+                <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.AddRecordCommand}">Прикрепить протокол</Button>
+                <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.RemoveRecordCommand}" Margin="5,0,0,0" >Удалить протокол</Button>
+                <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.ShowRecordCommand}" Margin="5,0,0,0">Просмотреть протокол</Button>
+            </StackPanel>
 
         </StackPanel>
 
