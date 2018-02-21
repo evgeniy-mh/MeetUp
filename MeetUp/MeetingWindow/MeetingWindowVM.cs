@@ -2,6 +2,7 @@
 using MeetUp.DBRepositories;
 using MeetUp.SelectConcilWindow;
 using MeetUp.SelectRecordWindow;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -17,12 +18,17 @@ namespace MeetUp.MeetingWindow
 
         public Meeting Meeting { get; set; }
 
+        public ObservableCollection<Record> MeetingRecords { get; set; }
+
+        public Record SelectedRecord { get; set; }
+
         public MeetingWindowVM(MeetingWindowView meetingWindowView)
         {
             unitOfWork = new UnitOfWork();
             this.meetingWindowView = meetingWindowView;
             IsCreatingNewMeeting = true;
             Meeting = new Meeting();
+            //MeetingRecords = new ObservableCollection<Record>(Meeting.Records);
         }
 
         public MeetingWindowVM(MeetingWindowView meetingWindowView, Meeting meeting)
@@ -31,6 +37,7 @@ namespace MeetUp.MeetingWindow
             this.meetingWindowView = meetingWindowView;
             IsCreatingNewMeeting = false;
             Meeting = new Meeting(meeting);
+            MeetingRecords = new ObservableCollection<Record>(Meeting.Records);
         }
 
         private RelayCommand selectConcilCommand;
@@ -68,7 +75,7 @@ namespace MeetUp.MeetingWindow
                     SelectRecordWindowView window = new SelectRecordWindowView(freeRecords);
                     if (window.ShowDialog() == true)
                     {
-                        Meeting.Records.Add(window.SelectedRecord);
+                        MeetingRecords.Add(window.SelectedRecord);
                     }
                 }));
             }
@@ -81,8 +88,8 @@ namespace MeetUp.MeetingWindow
             {
                 return removeRecordCommand ?? (removeRecordCommand = new RelayCommand(obj =>
                 {
-                    
-                }));
+                    MeetingRecords.Remove(SelectedRecord);
+                }, (obj) => { return SelectedRecord != null; }));
             }
         }
 
@@ -94,7 +101,7 @@ namespace MeetUp.MeetingWindow
                 return showRecordCommand ?? (showRecordCommand = new RelayCommand(obj =>
                 {
 
-                }));
+                }, (obj) => { return SelectedRecord != null; }));
             }
         }
 
@@ -105,6 +112,8 @@ namespace MeetUp.MeetingWindow
             {
                 return accept_Click ?? (accept_Click = new RelayCommand(obj =>
                 {
+                    Meeting.Records = MeetingRecords;
+
                     meetingWindowView.DialogResult = true;
                 }, (obj) => { return IsAllFieldsValid(meetingWindowView.MeetingInfoPanel); }));
             }

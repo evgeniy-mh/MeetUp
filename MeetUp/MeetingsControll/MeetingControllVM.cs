@@ -59,7 +59,7 @@ namespace MeetUp.MeetingsControll
                 return changeCommand ?? (changeCommand = new RelayCommand(obj =>
                 {
                     SelectedMeeting.Records = new ObservableCollection<Record>(unitOfWork.RecordRepository.GetRecordsForMeeting(SelectedMeeting));
-                    MeetingWindowView window = new MeetingWindowView(SelectedMeeting);                    
+                    MeetingWindowView window = new MeetingWindowView(SelectedMeeting);
                     if (window.ShowDialog() == true)
                     {
                         unitOfWork.MeetingRepository.Update(window.Meeting);

@@ -30,21 +30,35 @@ namespace MeetUp.DBRepositories
 
         public new void Update(Meeting meeting)
         {
-            var m = Context.Meetings.Find(meeting.Id);
-            Context.Entry(m).CurrentValues.SetValues(meeting);
+            var dbMeeting = Context.Meetings.Find(meeting.Id);
+            Context.Entry(dbMeeting).CurrentValues.SetValues(meeting);
 
             if (meeting.Concil != null)
             {
-                var c = Context.Concils.Find(meeting.Concil.Id);
-                m.Concil = c;
+                var dbConcil = Context.Concils.Find(meeting.Concil.Id);
+                dbMeeting.Concil = dbConcil;
             }
 
             if (meeting.Records != null && meeting.Records.Count != 0)
             {
                 foreach (Record r in meeting.Records)
                 {
-                    var record = Context.Records.Find(r.Id);
-                    m.Records.Add(record);
+                    //добавить новые
+                    if (dbMeeting.Records.SingleOrDefault(record => record.Id == r.Id) == null)
+                    {
+                        var dbRecord = Context.Records.Find(r.Id);
+                        dbMeeting.Records.Add(dbRecord);
+                    }
+                }
+
+                foreach (Record r in dbMeeting.Records.ToList())
+                {
+                    //удалить старые
+                    if (meeting.Records.SingleOrDefault(record => record.Id == r.Id) == null)
+                    {
+                        var dbRecord = Context.Records.Find(r.Id);
+                        dbMeeting.Records.Remove(dbRecord);
+                    }
                 }
             }
 
@@ -56,6 +70,21 @@ namespace MeetUp.DBRepositories
             var c = Context.Concils.Find(concil.Id);
             var m = Context.Meetings.Find(meeting.Id);
             m.Concil = c;
+            Context.SaveChanges();
+        }
+
+        public void RemoveRecordFromMeeting(Meeting meeting, Record record)
+        {
+            var m = Context.Meetings.Find(meeting.Id);
+            Context.Entry(m).Collection(m2 => m2.Records).Load();
+
+            var r = Context.Records.Find(record.Id);
+
+            if (m.Records.Contains(r))
+            {
+                m.Records.Remove(r);
+            }
+
             Context.SaveChanges();
         }
     }
