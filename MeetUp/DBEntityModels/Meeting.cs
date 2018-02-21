@@ -9,10 +9,24 @@ namespace MeetUp.DBEntityModels
     public class Meeting : IHasId, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+
+        private string name;
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+                OnPropertyChanged("Name");
+            }
+        }
 
         private DateTime? date;
-        public DateTime? Date {
+        public DateTime? Date
+        {
             get
             {
                 return date;
@@ -24,13 +38,39 @@ namespace MeetUp.DBEntityModels
             }
         }
 
-        public bool IsCarriedOut { get; set; }
-        public string Agenda { get; set; }
+        private bool isCarriedOut;
+        public bool IsCarriedOut
+        {
+            get
+            {
+                return isCarriedOut;
+            }
+            set
+            {
+                isCarriedOut = value;
+                OnPropertyChanged("IsCarriedOut");
+            }
+        }
+
+        private string agenda;
+        public string Agenda
+        {
+            get
+            {
+                return agenda;
+            }
+            set
+            {
+                agenda = value;
+                OnPropertyChanged("Agenda");
+            }
+        }
 
         public int? ConcilId { get; set; }
 
         private Concil concil;
-        public Concil Concil {
+        public Concil Concil
+        {
             get
             {
                 return concil;
@@ -42,8 +82,33 @@ namespace MeetUp.DBEntityModels
             }
         }
 
-        public ICollection<Employee> Employees { get; set; }
-        public ICollection<Record> Records { get; set; }
+        private ICollection<Employee> employees;
+        public ICollection<Employee> Employees
+        {
+            get
+            {
+                return employees;
+            }
+            set
+            {
+                employees = value;
+                OnPropertyChanged("Employees");
+            }
+        }
+
+        private ICollection<Record> records;
+        public ICollection<Record> Records
+        {
+            get
+            {
+                return records;
+            }
+            set
+            {
+                records = value;
+                OnPropertyChanged("Records");
+            }
+        }
 
         public Meeting()
         {

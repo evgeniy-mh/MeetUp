@@ -2,22 +2,139 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace MeetUp.DBEntityModels
 {
-    public class Employee : IDataErrorInfo, IHasId
+    public class Employee : IDataErrorInfo, IHasId, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public string Position { get; set; }
-        public DateTime? BirthDate { get; set; }
-        public string TelephoneNumber { get; set; }
-        public string Email { get; set; }
 
-        public ICollection<Concil> Concils { get; set; }
-        public ICollection<Meeting> Meetings { get; set; }
+        private string firstName;
+        public string FirstName
+        {
+            get
+            {
+                return firstName;
+            }
+            set
+            {
+                firstName = value;
+                OnPropertyChanged("FirstName");
+            }
+        }
+
+        private string middleName;
+        public string MiddleName
+        {
+            get
+            {
+                return middleName;
+            }
+            set
+            {
+                middleName = value;
+                OnPropertyChanged("MiddleName");
+            }
+        }
+
+        private string lastName;
+        public string LastName
+        {
+            get
+            {
+                return lastName;
+            }
+            set
+            {
+                lastName = value;
+                OnPropertyChanged("LastName");
+            }
+        }
+
+        private string position;
+        public string Position
+        {
+            get
+            {
+                return position;
+            }
+            set
+            {
+                position = value;
+                OnPropertyChanged("Position");
+            }
+        }
+
+        private DateTime? birthDate;
+        public DateTime? BirthDate
+        {
+            get
+            {
+                return birthDate;
+            }
+            set
+            {
+                birthDate = value;
+                OnPropertyChanged("BirthDate");
+            }
+        }
+
+        private string telephoneNumber;
+        public string TelephoneNumber
+        {
+            get
+            {
+                return telephoneNumber;
+            }
+            set
+            {
+                telephoneNumber = value;
+                OnPropertyChanged("TelephoneNumber");
+            }
+        }
+
+        private string email;
+        public string Email
+        {
+            get
+            {
+                return email;
+            }
+            set
+            {
+                email = value;
+                OnPropertyChanged("Email");
+            }
+        }
+
+        private ICollection<Concil> concils;
+        public ICollection<Concil> Concils
+        {
+            get
+            {
+                return concils;
+            }
+            set
+            {
+                concils = value;
+                OnPropertyChanged("Concils");
+            }
+        }
+
+        private ICollection<Meeting> meetings;
+        public ICollection<Meeting> Meetings
+        {
+            get
+            {
+                return meetings;
+            }
+            set
+            {
+                meetings = value;
+                OnPropertyChanged("Meetings");
+            }
+        }
 
         public Employee()
         {
@@ -68,6 +185,12 @@ namespace MeetUp.DBEntityModels
                 }
                 return error;
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }
