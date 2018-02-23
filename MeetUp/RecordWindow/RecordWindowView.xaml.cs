@@ -19,6 +19,29 @@ namespace MeetUp.RecordWindow
     {
         private RecordWindowVM recordWindowVM;
 
+        private bool isEditableRecord;
+        public bool IsEditableRecord
+        {
+            get
+            {
+                return isEditableRecord;
+            }
+            set
+            {
+                isEditableRecord = value;
+                if (isEditableRecord)
+                {
+                    SelectRecordFileButton.Visibility = Visibility.Visible;
+                    RecordNameTextBox.IsReadOnly = false;
+                }
+                else
+                {
+                    SelectRecordFileButton.Visibility = Visibility.Collapsed;
+                    RecordNameTextBox.IsReadOnly = true;
+                }
+            }
+        }
+
         public Record Record
         {
             get

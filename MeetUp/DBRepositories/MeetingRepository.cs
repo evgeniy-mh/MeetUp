@@ -1,17 +1,11 @@
 ﻿using MeetUp.DB;
 using MeetUp.DBEntityModels;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeetUp.DBRepositories
 {
     class MeetingRepository : EFGenericRepository<Meeting>
     {
-
         public MeetingRepository(MeetUpContext context) : base(context)
         {
         }
@@ -70,6 +64,31 @@ namespace MeetUp.DBRepositories
             var c = Context.Concils.Find(concil.Id);
             var m = Context.Meetings.Find(meeting.Id);
             m.Concil = c;
+            Context.SaveChanges();
+        }
+
+        public new void Remove(Meeting meeting)
+        {
+            Remove(meeting, false);
+        }
+
+        public void Remove(Meeting meeting, bool deleteWithRecords)
+        {
+            var m = Context.Meetings.Find(meeting.Id);
+            Context.Entry(m).Collection(m2 => m2.Records).Load();
+
+            foreach (Record r in m.Records.ToList())
+            {
+                if (deleteWithRecords)
+                {
+                    Context.Records.Remove(r);
+                }
+                else
+                {
+                    r.Meeting = null;
+                }
+            }
+            Context.Meetings.Remove(m);
             Context.SaveChanges();
         }
 

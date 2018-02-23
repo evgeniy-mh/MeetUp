@@ -77,16 +77,28 @@ namespace MeetUp.MeetingsControll
             {
                 return removeCommand ?? (removeCommand = new RelayCommand(obj =>
                 {
-                    MessageBoxButton button = MessageBoxButton.OKCancel;
-                    MessageBoxImage icon = MessageBoxImage.Warning;
                     MessageBoxResult result = MessageBox.Show(
-                        String.Format("Вы действительно хотите удалить заседание {0} ?",
-                        SelectedMeeting.Name),
-                        "Удалить заседание?", button, icon);
+                        String.Format("Вы действительно хотите удалить заседание {0} ?", SelectedMeeting.Name),
+                        "Удалить заседание?",
+                        MessageBoxButton.OKCancel,
+                        MessageBoxImage.Warning);
 
                     if (result == MessageBoxResult.OK)
                     {
-                        unitOfWork.MeetingRepository.Remove(SelectedMeeting);
+                        MessageBoxResult isDeleteWithRecords = MessageBox.Show(
+                            "Удалить заседание вместе с его протоколами ?",
+                            "Удалить заседание вместе с его протоколами ?",
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.Warning);
+
+                        if (isDeleteWithRecords == MessageBoxResult.Yes)
+                        {
+                            unitOfWork.MeetingRepository.Remove(SelectedMeeting, true);
+                        }
+                        else
+                        {
+                            unitOfWork.MeetingRepository.Remove(SelectedMeeting, false);
+                        }
                         Meetings = new ObservableCollection<Meeting>(unitOfWork.MeetingRepository.Get("Concil"));
                     }
                 }, (obj) => { return SelectedMeeting != null; }));

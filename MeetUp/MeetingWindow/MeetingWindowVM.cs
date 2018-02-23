@@ -1,5 +1,6 @@
 ﻿using MeetUp.DBEntityModels;
 using MeetUp.DBRepositories;
+using MeetUp.RecordWindow;
 using MeetUp.SelectConcilWindow;
 using MeetUp.SelectRecordWindow;
 using System.Collections.ObjectModel;
@@ -28,7 +29,7 @@ namespace MeetUp.MeetingWindow
             this.meetingWindowView = meetingWindowView;
             IsCreatingNewMeeting = true;
             Meeting = new Meeting();
-            //MeetingRecords = new ObservableCollection<Record>(Meeting.Records);
+            MeetingRecords = new ObservableCollection<Record>();
         }
 
         public MeetingWindowVM(MeetingWindowView meetingWindowView, Meeting meeting)
@@ -100,7 +101,9 @@ namespace MeetUp.MeetingWindow
             {
                 return showRecordCommand ?? (showRecordCommand = new RelayCommand(obj =>
                 {
-
+                    RecordWindowView window = new RecordWindowView(SelectedRecord);
+                    window.IsEditableRecord = false;
+                    window.ShowDialog();
                 }, (obj) => { return SelectedRecord != null; }));
             }
         }

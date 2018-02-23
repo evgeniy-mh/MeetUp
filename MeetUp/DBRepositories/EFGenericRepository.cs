@@ -65,7 +65,8 @@ namespace MeetUp.DBRepositories
         public void Remove(TEntity item)
         {
             _dbSet = Context.Set<TEntity>();
-            _dbSet.Remove(item);
+            var i = _dbSet.Find(item.Id);
+            _dbSet.Remove(i);
             Context.SaveChanges();
         }
     }
