@@ -18,6 +18,16 @@ namespace MeetUp.DBRepositories
                 meeting.Concil = c;
             }
 
+            if (meeting.Records != null)
+            {
+                meeting.Records.Clear();
+            }
+
+            if (meeting.Employees != null)
+            {
+                meeting.Employees.Clear();
+            }
+
             Context.Meetings.Add(meeting);
             Context.SaveChanges();
         }
@@ -52,6 +62,29 @@ namespace MeetUp.DBRepositories
                     {
                         var dbRecord = Context.Records.Find(r.Id);
                         dbMeeting.Records.Remove(dbRecord);
+                    }
+                }
+            }
+
+            if (meeting.Employees != null && meeting.Employees.Count != 0)
+            {
+                foreach (Employee e in meeting.Employees)
+                {
+                    //добавить новые
+                    if (dbMeeting.Employees.SingleOrDefault(employee => employee.Id == e.Id) == null)
+                    {
+                        var dbRecord = Context.Employees.Find(e.Id);
+                        dbMeeting.Employees.Add(dbRecord);
+                    }
+                }
+
+                foreach (Employee e in dbMeeting.Employees.ToList())
+                {
+                    //удалить старые
+                    if (meeting.Employees.SingleOrDefault(employee => employee.Id == e.Id) == null)
+                    {
+                        var dbRecord = Context.Employees.Find(e.Id);
+                        dbMeeting.Employees.Remove(dbRecord);
                     }
                 }
             }

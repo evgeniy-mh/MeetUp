@@ -1,9 +1,11 @@
 ﻿using MeetUp.DBEntityModels;
 using MeetUp.DBRepositories;
 using MeetUp.RecordWindow;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace MeetUp.RecordsControll
 {
@@ -38,12 +40,6 @@ namespace MeetUp.RecordsControll
             {
                 return addCommand ?? (addCommand = new RelayCommand(obj =>
                 {
-                    /*MeetingWindowView window = new MeetingWindowView();
-                    if (window.ShowDialog() == true)
-                    {
-                        unitOfWork.MeetingRepository.Create(window.Meeting);
-                        Records = new ObservableCollection<Meeting>(unitOfWork.MeetingRepository.Get("Concil"));
-                    }*/
                     RecordWindowView window = new RecordWindowView();
                     if (window.ShowDialog() == true)
                     {
@@ -61,12 +57,6 @@ namespace MeetUp.RecordsControll
             {
                 return changeCommand ?? (changeCommand = new RelayCommand(obj =>
                 {
-                    /*MeetingWindowView window = new MeetingWindowView(SelectedRecord);
-                    if (window.ShowDialog() == true)
-                    {
-                        unitOfWork.MeetingRepository.Update(window.Meeting);
-                        Records = new ObservableCollection<Meeting>(unitOfWork.MeetingRepository.Get("Concil"));
-                    }*/
                     RecordWindowView window = new RecordWindowView(SelectedRecord);
                     if (window.ShowDialog() == true)
                     {
@@ -83,18 +73,17 @@ namespace MeetUp.RecordsControll
             {
                 return removeCommand ?? (removeCommand = new RelayCommand(obj =>
                 {
-                    /*MessageBoxButton button = MessageBoxButton.OKCancel;
-                    MessageBoxImage icon = MessageBoxImage.Warning;
                     MessageBoxResult result = MessageBox.Show(
-                        String.Format("Вы действительно хотите удалить заседание {0} ?",
-                        SelectedRecord.Name),
-                        "Удалить заседание?", button, icon);
+                        String.Format("Вы действительно хотите удалить протокол заседания {0} ?", SelectedRecord.Name),
+                        "Удалить заседание?", 
+                        MessageBoxButton.OKCancel, 
+                        MessageBoxImage.Warning);
 
                     if (result == MessageBoxResult.OK)
                     {
-                        unitOfWork.MeetingRepository.Remove(SelectedRecord);
-                        Records = new ObservableCollection<Meeting>(unitOfWork.MeetingRepository.Get("Concil"));
-                    }*/
+                        unitOfWork.RecordRepository.Remove(SelectedRecord);
+                        Records = new ObservableCollection<Record>(unitOfWork.RecordRepository.Get("Meeting.Concil"));
+                    }
                 }, (obj) => { return SelectedRecord != null; }));
             }
         }
