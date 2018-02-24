@@ -19,14 +19,26 @@ namespace MeetUp.DBRepositories
                 meeting.Concil = c;
             }
 
-            if (meeting.Records != null)
+            if (meeting.Records != null && meeting.Records.Count != 0)
             {
-                meeting.Records.Clear();
+                List<Record> dbRecords = new List<Record>();
+                foreach (Record r in meeting.Records)
+                {
+                    var dbRecord = Context.Records.Find(r.Id);
+                    dbRecords.Add(dbRecord);
+                }
+                meeting.Records = dbRecords;
             }
 
-            if (meeting.Employees != null)
+            if (meeting.Employees != null && meeting.Employees.Count != 0)
             {
-                meeting.Employees.Clear();
+                List<Employee> dbEmployees = new List<Employee>();
+                foreach (Employee e in meeting.Employees)
+                {
+                    var dbEmployee = Context.Employees.Find(e.Id);
+                    dbEmployees.Add(dbEmployee);
+                }
+                meeting.Employees = dbEmployees;
             }
 
             Context.Meetings.Add(meeting);
