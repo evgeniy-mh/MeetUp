@@ -20,8 +20,10 @@ namespace MeetUp.MeetingWindow
         public Meeting Meeting { get; set; }
 
         public ObservableCollection<Record> MeetingRecords { get; set; }
+        public ObservableCollection<Employee> MeetingEmployees { get; set; }
 
         public Record SelectedRecord { get; set; }
+        public Employee SelectedEmployee { get; set; }
 
         public MeetingWindowVM(MeetingWindowView meetingWindowView)
         {
@@ -30,6 +32,7 @@ namespace MeetUp.MeetingWindow
             IsCreatingNewMeeting = true;
             Meeting = new Meeting();
             MeetingRecords = new ObservableCollection<Record>();
+            MeetingEmployees = new ObservableCollection<Employee>();
         }
 
         public MeetingWindowVM(MeetingWindowView meetingWindowView, Meeting meeting)
@@ -39,6 +42,7 @@ namespace MeetUp.MeetingWindow
             IsCreatingNewMeeting = false;
             Meeting = new Meeting(meeting);
             MeetingRecords = new ObservableCollection<Record>(Meeting.Records);
+            MeetingEmployees = new ObservableCollection<Employee>(Meeting.Employees);
         }
 
         private RelayCommand selectConcilCommand;
@@ -57,7 +61,6 @@ namespace MeetUp.MeetingWindow
                         }
                         else
                         {
-                            //unitOfWork.MeetingRepository.SetConcilForMeeting(Meeting, window.SelectedConcil);
                             Meeting.Concil = window.SelectedConcil;
                         }
                     }
@@ -105,6 +108,42 @@ namespace MeetUp.MeetingWindow
                     window.IsEditableRecord = false;
                     window.ShowDialog();
                 }, (obj) => { return SelectedRecord != null; }));
+            }
+        }
+
+        private RelayCommand addEmployeeCommand;
+        public RelayCommand AddEmployeeCommand
+        {
+            get
+            {
+                return addEmployeeCommand ?? (addEmployeeCommand = new RelayCommand(obj =>
+                {
+                    
+                }));
+            }
+        }
+
+        private RelayCommand removeEmployeeCommand;
+        public RelayCommand RemoveEmployeeCommand
+        {
+            get
+            {
+                return removeEmployeeCommand ?? (removeEmployeeCommand = new RelayCommand(obj =>
+                {
+                    
+                }, (obj) => { return SelectedEmployee != null; }));
+            }
+        }
+
+        private RelayCommand showEmployeeCommand;
+        public RelayCommand ShowEmployeeCommand
+        {
+            get
+            {
+                return showEmployeeCommand ?? (showEmployeeCommand = new RelayCommand(obj =>
+                {
+                    
+                }, (obj) => { return SelectedEmployee != null; }));
             }
         }
 

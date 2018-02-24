@@ -34,8 +34,13 @@ namespace MeetUp.DBRepositories
                     return !employee.Concils.Contains(concil, new ConcilRepository.ConcilIdComparer());
                 });
             }
+        }
 
-
+        public IEnumerable<Employee> GetEmployeesForMeeting(Meeting meeting)
+        {
+            var m = Context.Meetings.Find(meeting.Id);
+            Context.Entry(m).Collection(m2 => m2.Employees).Load();
+            return m.Employees;
         }
     }
 }

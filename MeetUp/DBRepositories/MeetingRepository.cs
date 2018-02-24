@@ -88,17 +88,8 @@ namespace MeetUp.DBRepositories
                     }
                 }
             }
-
             Context.SaveChanges();
-        }
-
-        public void SetConcilForMeeting(Meeting meeting, Concil concil)
-        {
-            var c = Context.Concils.Find(concil.Id);
-            var m = Context.Meetings.Find(meeting.Id);
-            m.Concil = c;
-            Context.SaveChanges();
-        }
+        }        
 
         public new void Remove(Meeting meeting)
         {
@@ -124,6 +115,14 @@ namespace MeetUp.DBRepositories
             Context.Meetings.Remove(m);
             Context.SaveChanges();
         }
+
+        public void SetConcilForMeeting(Meeting meeting, Concil concil)
+        {
+            var c = Context.Concils.Find(concil.Id);
+            var m = Context.Meetings.Find(meeting.Id);
+            m.Concil = c;
+            Context.SaveChanges();
+        }       
 
         public void RemoveRecordFromMeeting(Meeting meeting, Record record)
         {

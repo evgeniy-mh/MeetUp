@@ -60,6 +60,8 @@ namespace MeetUp.MeetingsControll
                 return changeCommand ?? (changeCommand = new RelayCommand(obj =>
                 {
                     SelectedMeeting.Records = new ObservableCollection<Record>(unitOfWork.RecordRepository.GetRecordsForMeeting(SelectedMeeting));
+                    SelectedMeeting.Employees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.GetEmployeesForMeeting(SelectedMeeting));
+
                     MeetingWindowView window = new MeetingWindowView(SelectedMeeting);
                     if (window.ShowDialog() == true)
                     {
@@ -120,7 +122,7 @@ namespace MeetUp.MeetingsControll
                         unitOfWork.MeetingRepository.Update(SelectedMeeting);
                     }*/
 
-                }, (obj) => { return SelectedMeeting != null && !SelectedMeeting.IsCarriedOut; }));
+                }, (obj) => { return SelectedMeeting != null && !SelectedMeeting.IsCarriedOut && SelectedMeeting.Employees.Count != 0; }));
             }
         }
 

@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:MeetUp.MeetingWindow"
         mc:Ignorable="d"
         x:Name="MainMeetingWindowControll"
-        Title="Заседание" Height="500" Width="450">
+        Title="Заседание" Height="650" Width="550">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
         <StackPanel x:Name="MeetingInfoPanel" DataContext="{Binding Meeting}">
@@ -26,7 +26,7 @@
                 </TextBox.Text>
             </TextBox>
 
-            <TextBlock>Повестка дня:</TextBlock>
+            <TextBlock Margin="0,5,0,0">Повестка дня:</TextBlock>
             <TextBox MinWidth="250" Height="100" TextWrapping="Wrap" AcceptsReturn="True">
                 <TextBox.Text>
                     <Binding Path="Agenda">
@@ -40,41 +40,58 @@
             <TextBlock Margin="0,5,0,0">Дата проведения:</TextBlock>
             <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Path=Date, Mode=TwoWay}" FirstDayOfWeek="Monday"/>
 
-            <DockPanel Margin="0,5,0,0" >
-                <TextBlock Text="{Binding StringFormat=Проводящий совет: {0}, Path=Concil.Name}"/>
-                <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.SelectConcilCommand}" HorizontalAlignment="Right">Выбрать совет</Button>
-            </DockPanel>
+            <GroupBox Margin="0,5,0,0" Header="Совет проводящий заседание" >
+                <DockPanel>
+                    <TextBlock Text="{Binding StringFormat=Проводящий совет: {0}, Path=Concil.Name}"/>
+                    <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.SelectConcilCommand}" HorizontalAlignment="Right">Выбрать совет</Button>
+                </DockPanel>
+            </GroupBox>
 
-            <!--<ListView  Margin="0,5,0,0" Height="100" VerticalAlignment="Top" ItemsSource="{Binding Path=Records}" SelectedItem="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.SelectedRecord}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Название протокола" DisplayMemberBinding="{Binding Path=Name}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>-->
+            <GroupBox Header="Протоколы заседания">
+                <StackPanel Margin="0,5,0,0">
+                    <ListView Height="100" VerticalAlignment="Top" ItemsSource="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.MeetingRecords}" SelectedItem="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.SelectedRecord}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Название протокола" DisplayMemberBinding="{Binding Path=Name}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
 
-            <ListView  Margin="0,5,0,0" Height="100" VerticalAlignment="Top" ItemsSource="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.MeetingRecords}" SelectedItem="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.SelectedRecord}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Название протокола" DisplayMemberBinding="{Binding Path=Name}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.AddRecordCommand}">Прикрепить протокол</Button>
+                        <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.RemoveRecordCommand}" Margin="5,0,0,0" >Удалить протокол</Button>
+                        <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.ShowRecordCommand}" Margin="5,0,0,0">Просмотреть протокол</Button>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
 
-            <!--<DockPanel Margin="0,5,0,0" >
-                <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.AddRecordCommand}" HorizontalAlignment="Right">Прикрепить протокол</Button>
-            </DockPanel>-->
+            <GroupBox Header="Присутствующие на заседании">
+                <StackPanel Margin="0,5,0,0">
+                    <ListView Height="100" 
+                              ItemsSource="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.MeetingEmployees, Mode=TwoWay}" 
+                              SelectedItem="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.SelectedEmployee}">
+                        
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding Path=MiddleName}"/>
+                                <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Path=FirstName}"/>
+                                <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding Path=LastName}"/>
+                                <GridViewColumn Header="Должность" DisplayMemberBinding="{Binding Path=Position}"/>
+                                <GridViewColumn Header="Телефон" DisplayMemberBinding="{Binding Path=TelephoneNumber}"/>
+                                <GridViewColumn Header="E-mail" DisplayMemberBinding="{Binding Path=Email}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.AddEmployeeCommand}">Добавить человека</Button>
+                        <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.RemoveEmployeeCommand}" Margin="5,0,0,0" >Удалить человека</Button>
+                        <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.ShowEmployeeCommand}" Margin="5,0,0,0">Подробнее</Button>
+                    </StackPanel>
+                </StackPanel>    
+            </GroupBox>
+        </StackPanel>        
 
-            <StackPanel Orientation="Horizontal">                
-                <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.AddRecordCommand}">Прикрепить протокол</Button>
-                <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.RemoveRecordCommand}" Margin="5,0,0,0" >Удалить протокол</Button>
-                <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.ShowRecordCommand}" Margin="5,0,0,0">Просмотреть протокол</Button>
-            </StackPanel>
-
-        </StackPanel>
-
-        <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,15,0,0">
-            <!--<Button IsDefault="True" Click="Accept_Click" MinWidth="60" Margin="0,0,10,0">OK</Button>-->
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button IsDefault="True" Command="{Binding Accept_Click}" MinWidth="60" Margin="0,0,10,0">Сохранить</Button>
             <Button IsCancel="True" MinWidth="60">Отмена</Button>
         </WrapPanel>
