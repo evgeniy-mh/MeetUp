@@ -7,7 +7,7 @@ namespace MeetUp.MeetingsControll
         public MeetingControll()
         {
             InitializeComponent();
-            DataContext = new MeetingControllVM();
+            DataContext = new MeetingControllVM(this);
         }
     }
 }

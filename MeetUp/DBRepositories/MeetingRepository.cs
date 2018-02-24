@@ -1,5 +1,6 @@
 ﻿using MeetUp.DB;
 using MeetUp.DBEntityModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -150,6 +151,46 @@ namespace MeetUp.DBRepositories
             }
 
             Context.SaveChanges();
+        }
+
+        public IEnumerable<Meeting> SearchMeetings(string queryName, DateTime? queryFromDate, DateTime? queryToDate, bool? queryIsCarriedOut)
+        {
+            var meetings = GetAll();
+
+            if (queryName != null)
+            {
+                queryName = queryName.ToLower();
+                meetings = meetings.Where(m =>
+                 {
+                     return
+                     m.Name != null && m.Name.ToLower().Contains(queryName);
+                 });
+            }
+
+            if (queryFromDate != null)
+            {
+                meetings = meetings.Where(m =>
+                {
+                    return m.Date >= queryFromDate;
+                });
+            }
+
+            if (queryToDate != null)
+            {
+                meetings = meetings.Where(m =>
+                {
+                    return m.Date <= queryFromDate;
+                });
+            }
+
+            if (queryIsCarriedOut != null)
+            {
+                meetings = meetings.Where(m =>
+                {
+                    return m.IsCarriedOut == queryIsCarriedOut;
+                });
+            }
+            return meetings;
         }
 
         public class MeetingIdComparer : IEqualityComparer<Meeting>

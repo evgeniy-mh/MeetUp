@@ -64,7 +64,7 @@
             <TextBox Name="PositionBox" MinWidth="250" Text="{Binding Path=Position}"></TextBox>
 
             <TextBlock>Дата рождения:</TextBlock>
-            <DatePicker Name="BirthDatePicker" SelectedDateFormat="Short"  SelectedDate="{Binding Path=BirthDate}"/>
+            <DatePicker Name="BirthDatePicker" SelectedDateFormat="Short" FirstDayOfWeek="Monday" SelectedDate="{Binding Path=BirthDate}"/>
 
             <TextBlock>Номер телефона:</TextBlock>
             <TextBox Name="TelephoneNumberBox" MinWidth="250" Text="{Binding Path=TelephoneNumber}"></TextBox>

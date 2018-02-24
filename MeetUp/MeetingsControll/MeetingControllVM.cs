@@ -2,17 +2,16 @@
 using MeetUp.DBRepositories;
 using MeetUp.MeetingWindow;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Input;
 
 namespace MeetUp.MeetingsControll
 {
     class MeetingControllVM : INotifyPropertyChanged
     {
+        private MeetingControll meetingControllUserControll;
         private UnitOfWork unitOfWork;
         public Meeting SelectedMeeting { get; set; }
         private ObservableCollection<Meeting> _meetings;
@@ -29,8 +28,65 @@ namespace MeetUp.MeetingsControll
             }
         }
 
-        public MeetingControllVM()
+        private string searchString;
+        public string SearchString
         {
+            get
+            {
+                return searchString;
+            }
+            set
+            {
+                searchString = value;
+                Search(SearchString, SearchFromDate, SearchToDate, IsCarriedOutCheckBox);
+            }
+        }
+
+        private DateTime? searchFromDate;
+        public DateTime? SearchFromDate
+        {
+            get
+            {
+                return searchFromDate;
+            }
+            set
+            {
+                searchFromDate = value;
+                Search(SearchString, SearchFromDate, SearchToDate, IsCarriedOutCheckBox);
+            }
+        }
+
+        private DateTime? searchToDate;
+        public DateTime? SearchToDate
+        {
+            get
+            {
+                return searchToDate;
+            }
+            set
+            {
+                searchToDate = value;
+                Search(SearchString, SearchFromDate, SearchToDate, IsCarriedOutCheckBox);
+            }
+        }
+
+        private bool? isCarriedOutCheckBox;
+        public bool? IsCarriedOutCheckBox
+        {
+            get
+            {
+                return isCarriedOutCheckBox;
+            }
+            set
+            {
+                isCarriedOutCheckBox = value;
+                Search(SearchString, SearchFromDate, SearchToDate, IsCarriedOutCheckBox);
+            }
+        }
+
+        public MeetingControllVM(MeetingControll meetingControllUserControll)
+        {
+            this.meetingControllUserControll = meetingControllUserControll;
             unitOfWork = new UnitOfWork();
             Meetings = new ObservableCollection<Meeting>(unitOfWork.MeetingRepository.Get("Concil"));
         }
@@ -108,21 +164,47 @@ namespace MeetUp.MeetingsControll
             }
         }
 
-        private RelayCommand setAsCarriedOutCommand;
-        public RelayCommand SetAsCarriedOutCommand
+        private void Search(string queryName, DateTime? queryFromDate, DateTime? queryToDate, bool? queryIsCarriedOut)
+        {
+            Meetings = new ObservableCollection<Meeting>(unitOfWork.MeetingRepository.SearchMeetings(queryName, queryFromDate, queryToDate, queryIsCarriedOut));
+        }
+
+        private RelayCommand clearSearchStringCommand;
+        public RelayCommand ClearSearchStringCommand
         {
             get
             {
-                return setAsCarriedOutCommand ?? (setAsCarriedOutCommand = new RelayCommand(obj =>
+                return clearSearchStringCommand ?? (clearSearchStringCommand = new RelayCommand(query =>
                 {
-                    /*MeetingWindowView window = new MeetingWindowView(SelectedMeeting);
-                    if (window.ShowDialog() == true)
-                    {
-                        SelectedMeeting.IsCarriedOut = true;
-                        unitOfWork.MeetingRepository.Update(SelectedMeeting);
-                    }*/
+                    meetingControllUserControll.SearchTextBox.Text = "";
+                }, (obj) =>
+                {
+                    return meetingControllUserControll.SearchTextBox.Text.Length > 0;
+                }));
+            }
+        }
 
-                }, (obj) => { return SelectedMeeting != null && !SelectedMeeting.IsCarriedOut && SelectedMeeting.Employees.Count != 0; }));
+        private RelayCommand clearFromDateDatePicker;
+        public RelayCommand ClearFromDateDatePicker
+        {
+            get
+            {
+                return clearFromDateDatePicker ?? (clearFromDateDatePicker = new RelayCommand(obj =>
+                {
+                    meetingControllUserControll.fromDateDatePicker.SelectedDate = null;
+                }, (obj) => { return meetingControllUserControll.fromDateDatePicker.SelectedDate != null; }));
+            }
+        }
+
+        private RelayCommand clearToDateDatePicker;
+        public RelayCommand ClearToDateDatePicker
+        {
+            get
+            {
+                return clearToDateDatePicker ?? (clearToDateDatePicker = new RelayCommand(obj =>
+                {
+                    meetingControllUserControll.toDateDatePicker.SelectedDate = null;
+                }, (obj) => { return meetingControllUserControll.toDateDatePicker.SelectedDate != null; }));
             }
         }
 
