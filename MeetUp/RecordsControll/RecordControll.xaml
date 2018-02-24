@@ -8,6 +8,36 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Margin="5">
         <StackPanel Orientation="Vertical" >
+
+            <GroupBox Header="Поиск протоколов">
+                <StackPanel>
+                    <Grid Margin="0,5,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="70"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}" x:Name="SearchTextBox" Grid.Row="0" Grid.Column="0"></TextBox>
+                        <Button Grid.Row="0" Grid.Column="1" Command="{Binding ClearSearchStringCommand}">Очистить</Button>
+                    </Grid>
+
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <TextBlock Margin="0,5,5,0">Начиная с даты:</TextBlock>
+                        <DatePicker x:Name="fromDateDatePicker" SelectedDate="{Binding SearchFromDate}" Width="150" SelectedDateFormat="Short" FirstDayOfWeek="Monday"></DatePicker>
+                        <Button Margin="10,0,0,0" Command="{Binding ClearFromDateDatePicker}">Очистить</Button>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <TextBlock Margin="0,5,5,0">До даты:</TextBlock>
+                        <DatePicker x:Name="toDateDatePicker" SelectedDate="{Binding SearchToDate}" Width="150" SelectedDateFormat="Short" FirstDayOfWeek="Monday"></DatePicker>
+                        <Button Margin="10,0,0,0" Command="{Binding ClearToDateDatePicker}">Очистить</Button>
+                    </StackPanel>
+                    
+                </StackPanel>
+            </GroupBox>
+
             <ListView Height="268" VerticalAlignment="Top" ItemsSource="{Binding Records}" SelectedItem="{Binding SelectedRecord}">
                 <ListView.View>
                     <GridView>

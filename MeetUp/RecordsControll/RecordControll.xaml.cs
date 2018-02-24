@@ -7,7 +7,7 @@ namespace MeetUp.RecordsControll
         public RecordControll()
         {
             InitializeComponent();
-            DataContext = new RecordsControllVM();
+            DataContext = new RecordsControllVM(this);
         }
     }
 }

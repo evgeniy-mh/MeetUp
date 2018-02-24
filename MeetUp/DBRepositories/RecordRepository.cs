@@ -1,5 +1,6 @@
 ﻿using MeetUp.DB;
 using MeetUp.DBEntityModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,6 +28,38 @@ namespace MeetUp.DBRepositories
         public IEnumerable<Record> GetRecordsForMeeting(Meeting meeting)
         {
             return Context.Records.Where(r => r.Meeting.Id == meeting.Id);
+        }
+
+        public IEnumerable<Record> SearchRecords(string queryName, DateTime? queryFromDate, DateTime? queryToDate)
+        {
+            var records = Get("Meeting");
+
+            if (queryName != null)
+            {
+                queryName = queryName.ToLower();
+                records = records.Where(r =>
+                {
+                    return r.Name != null && r.Name.ToLower().Contains(queryName);
+                });
+            }
+
+            if (queryFromDate != null)
+            {
+                records = records.Where(r =>
+                {
+                    return r.Meeting.Date >= queryFromDate;
+                });
+            }
+
+            if (queryToDate != null)
+            {
+                records = records.Where(r =>
+                {
+                    return r.Meeting.Date <= queryFromDate;
+                });
+            }
+
+            return records;
         }
     }
 }

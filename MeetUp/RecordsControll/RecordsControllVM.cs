@@ -11,6 +11,7 @@ namespace MeetUp.RecordsControll
 {
     class RecordsControllVM : INotifyPropertyChanged
     {
+        private RecordControll recordControllUserControll;
         private UnitOfWork unitOfWork;
         public Record SelectedRecord { get; set; }
         private ObservableCollection<Record> _records;
@@ -27,8 +28,9 @@ namespace MeetUp.RecordsControll
             }
         }
 
-        public RecordsControllVM()
+        public RecordsControllVM(RecordControll recordControllUserControll)
         {
+            this.recordControllUserControll = recordControllUserControll;
             unitOfWork = new UnitOfWork();
             Records = new ObservableCollection<Record>(unitOfWork.RecordRepository.Get("Meeting.Concil"));
         }
@@ -76,8 +78,8 @@ namespace MeetUp.RecordsControll
                 {
                     MessageBoxResult result = MessageBox.Show(
                         String.Format("Вы действительно хотите удалить протокол заседания {0} ?", SelectedRecord.Name),
-                        "Удалить заседание?", 
-                        MessageBoxButton.OKCancel, 
+                        "Удалить заседание?",
+                        MessageBoxButton.OKCancel,
                         MessageBoxImage.Warning);
 
                     if (result == MessageBoxResult.OK)
@@ -86,6 +88,92 @@ namespace MeetUp.RecordsControll
                         Records = new ObservableCollection<Record>(unitOfWork.RecordRepository.Get("Meeting.Concil"));
                     }
                 }, (obj) => { return SelectedRecord != null; }));
+            }
+        }
+
+        private string searchString;
+        public string SearchString
+        {
+            get
+            {
+                return searchString;
+            }
+            set
+            {
+                searchString = value;
+                Search(SearchString, SearchFromDate, SearchToDate);
+            }
+        }
+
+        private DateTime? searchFromDate;
+        public DateTime? SearchFromDate
+        {
+            get
+            {
+                return searchFromDate;
+            }
+            set
+            {
+                searchFromDate = value;
+                Search(SearchString, SearchFromDate, SearchToDate);
+            }
+        }
+
+        private DateTime? searchToDate;
+        public DateTime? SearchToDate
+        {
+            get
+            {
+                return searchToDate;
+            }
+            set
+            {
+                searchToDate = value;
+                Search(SearchString, SearchFromDate, SearchToDate);
+            }
+        }
+
+        private void Search(string queryName, DateTime? queryFromDate, DateTime? queryToDate)
+        {
+            Records = new ObservableCollection<Record>(unitOfWork.RecordRepository.SearchRecords(queryName, queryFromDate, queryToDate));
+        }
+
+        private RelayCommand clearSearchStringCommand;
+        public RelayCommand ClearSearchStringCommand
+        {
+            get
+            {
+                return clearSearchStringCommand ?? (clearSearchStringCommand = new RelayCommand(query =>
+                {
+                    recordControllUserControll.SearchTextBox.Text = "";
+                }, (obj) =>
+                {
+                    return recordControllUserControll.SearchTextBox.Text.Length > 0;
+                }));
+            }
+        }
+
+        private RelayCommand clearFromDateDatePicker;
+        public RelayCommand ClearFromDateDatePicker
+        {
+            get
+            {
+                return clearFromDateDatePicker ?? (clearFromDateDatePicker = new RelayCommand(obj =>
+                {
+                    recordControllUserControll.fromDateDatePicker.SelectedDate = null;
+                }, (obj) => { return recordControllUserControll.fromDateDatePicker.SelectedDate != null; }));
+            }
+        }
+
+        private RelayCommand clearToDateDatePicker;
+        public RelayCommand ClearToDateDatePicker
+        {
+            get
+            {
+                return clearToDateDatePicker ?? (clearToDateDatePicker = new RelayCommand(obj =>
+                {
+                    recordControllUserControll.toDateDatePicker.SelectedDate = null;
+                }, (obj) => { return recordControllUserControll.toDateDatePicker.SelectedDate != null; }));
             }
         }
 
