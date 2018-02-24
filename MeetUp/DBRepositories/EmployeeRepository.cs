@@ -85,12 +85,6 @@ namespace MeetUp.DBRepositories
                 (e.TelephoneNumber != null && e.TelephoneNumber.ToLower().Contains(query)) ||
                 (e.Email != null && e.Email.ToLower().Contains(query));
             });
-
-            /*var employees = GetAll();
-            foreach (Employee e in employees)
-            {
-                Context.Entry.
-            }*/
         }
     }
 }

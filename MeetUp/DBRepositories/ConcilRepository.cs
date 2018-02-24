@@ -1,6 +1,7 @@
 ﻿using MeetUp.DB;
 using MeetUp.DBEntityModels;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MeetUp.DBRepositories
 {
@@ -33,6 +34,15 @@ namespace MeetUp.DBRepositories
             var e = Context.Employees.Find(employee.Id);
             c.Employees.Add(e);
             Context.SaveChanges();
+        }
+
+        public IEnumerable<Concil> SearchConcils(string query)
+        {
+            query = query.ToLower();
+            return GetAll().Where(c =>
+            {
+                return c.Name != null && c.Name.ToLower().Contains(query);
+            });
         }
 
         public class ConcilIdComparer : IEqualityComparer<Concil>

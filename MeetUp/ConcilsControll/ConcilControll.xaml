@@ -9,6 +9,21 @@
              x:Name="MainConcilControll">
     <Grid Margin="5">
         <StackPanel>
+
+            <GroupBox Header="Поиск советов">
+                <Grid Margin="0,5,0,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="70"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}" x:Name="SearchTextBox" Grid.Row="0" Grid.Column="0"></TextBox>
+                    <Button Grid.Row="0" Grid.Column="1" Command="{Binding ClearSearchStringCommand}">Очистить</Button>
+                </Grid>
+            </GroupBox>
+
             <ListBox Height="268" VerticalAlignment="Top" ItemsSource="{Binding Concils, Mode=TwoWay}" SelectedItem="{Binding SelectedConcil}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -22,8 +37,7 @@
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="{Binding Path=Name}" Grid.Column="0" Grid.Row="0"></TextBlock>
-                            <!--<Button Content="Подробнее..." Command="{Binding ElementName=MainConcilControll, Path=DataContext.MoreInfoCommand}" Grid.Column="1" Grid.Row="0" Margin="25,0,0,0" ></Button>-->
+                            <TextBlock Text="{Binding Path=Name}" Grid.Column="0" Grid.Row="0"></TextBlock>                          
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -34,9 +48,6 @@
                 <Button Content="Изменить совет" Command="{Binding ChangeCommand}"  Margin="5,0,0,0"/>
                 <Button Content="Удалить совет" Command="{Binding RemoveCommand}" Margin="5,0,0,0" />
             </StackPanel>
-
-            <Button Content="Подробнее..." Command="{Binding MoreInfoCommand}"/>
-
         </StackPanel>
     </Grid>
 </UserControl>

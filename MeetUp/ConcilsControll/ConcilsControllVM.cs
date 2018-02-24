@@ -1,5 +1,4 @@
 ﻿using MeetUp.ConcilWindow;
-using MeetUp.DB;
 using MeetUp.DBEntityModels;
 using MeetUp.DBRepositories;
 using System;
@@ -12,6 +11,7 @@ namespace MeetUp.ConcilsControll
 {
     class ConcilsControllVM : INotifyPropertyChanged
     {
+        private ConcilControll concilControllUserControll;
         private UnitOfWork unitOfWork;
         public Concil SelectedConcil { get; set; }
         private ObservableCollection<Concil> _concils;
@@ -28,12 +28,25 @@ namespace MeetUp.ConcilsControll
             }
         }
 
-        public ConcilsControllVM()
+        private string searchString;
+        public string SearchString
         {
+            get
+            {
+                return searchString;
+            }
+            set
+            {
+                searchString = value;
+                SearchCommand.Execute(searchString);
+            }
+        }
+
+        public ConcilsControllVM(ConcilControll concilControllUserControll)
+        {
+            this.concilControllUserControll = concilControllUserControll;
             unitOfWork = new UnitOfWork();
-            Concils= new ObservableCollection<Concil>(unitOfWork.ConcilRepository.GetAll());
-            //ConcilRepository = new ConcilRepository();
-            //Concils = new ObservableCollection<Concil>(ConcilRepository.GetAll());
+            Concils = new ObservableCollection<Concil>(unitOfWork.ConcilRepository.GetAll());
         }
 
         private RelayCommand addCommand;
@@ -46,7 +59,6 @@ namespace MeetUp.ConcilsControll
                     ConcilWindowView window = new ConcilWindowView();
                     if (window.ShowDialog() == true)
                     {
-                        //ConcilRepository.Create(window.Concil);
                         unitOfWork.ConcilRepository.Create(window.Concil);
                         Concils = new ObservableCollection<Concil>(unitOfWork.ConcilRepository.GetAll());
                     }
@@ -64,7 +76,6 @@ namespace MeetUp.ConcilsControll
                     ConcilWindowView window = new ConcilWindowView(SelectedConcil);
                     if (window.ShowDialog() == true)
                     {
-                        //ConcilRepository.Update(window.Concil);
                         unitOfWork.ConcilRepository.Update(window.Concil);
                         Concils = new ObservableCollection<Concil>(unitOfWork.ConcilRepository.GetAll());
                     }
@@ -89,7 +100,6 @@ namespace MeetUp.ConcilsControll
 
                     if (result == MessageBoxResult.OK)
                     {
-                        //ConcilRepository.Remove(SelectedConcil);
                         unitOfWork.ConcilRepository.Remove(SelectedConcil);
                         Concils = new ObservableCollection<Concil>(unitOfWork.ConcilRepository.GetAll());
                     }
@@ -97,24 +107,39 @@ namespace MeetUp.ConcilsControll
             }
         }
 
-        private RelayCommand moreInfoCommand;
-        public RelayCommand MoreInfoCommand
+        private RelayCommand searchCommand;
+        public RelayCommand SearchCommand
         {
             get
             {
-                return moreInfoCommand ?? (moreInfoCommand = new RelayCommand(obj =>
+                return searchCommand ?? (searchCommand = new RelayCommand(query =>
                 {
-                    /*EmployeeWindowView window = new EmployeeWindowView();
-                    if (window.ShowDialog() == true)
+                    if (query.ToString().Length == 0)
                     {
-                        EmployeeRepository.Create(window.Employee);
-                        Employees = new ObservableCollection<Employee>(EmployeeRepository.Get());
-                    }*/
-                    MessageBox.Show("asdasd");
-                }, (obj) => { return SelectedConcil != null; }));
+                        Concils = new ObservableCollection<Concil>(unitOfWork.ConcilRepository.GetAll());
+                    }
+                    else
+                    {
+                        Concils = new ObservableCollection<Concil>(unitOfWork.ConcilRepository.SearchConcils(query.ToString()));
+                    }
+                }));
             }
         }
 
+        private RelayCommand clearSearchStringCommand;
+        public RelayCommand ClearSearchStringCommand
+        {
+            get
+            {
+                return clearSearchStringCommand ?? (clearSearchStringCommand = new RelayCommand(query =>
+                {
+                    concilControllUserControll.SearchTextBox.Text = "";
+                }, (obj) =>
+                {
+                    return concilControllUserControll.SearchTextBox.Text.Length > 0;
+                }));
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
