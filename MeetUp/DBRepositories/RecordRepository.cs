@@ -1,6 +1,5 @@
 ﻿using MeetUp.DB;
 using MeetUp.DBEntityModels;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 

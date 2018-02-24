@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Input;
 
 namespace MeetUp.MeetingsControll
 {
@@ -102,6 +103,24 @@ namespace MeetUp.MeetingsControll
                         Meetings = new ObservableCollection<Meeting>(unitOfWork.MeetingRepository.Get("Concil"));
                     }
                 }, (obj) => { return SelectedMeeting != null; }));
+            }
+        }
+
+        private RelayCommand setAsCarriedOutCommand;
+        public RelayCommand SetAsCarriedOutCommand
+        {
+            get
+            {
+                return setAsCarriedOutCommand ?? (setAsCarriedOutCommand = new RelayCommand(obj =>
+                {
+                    /*MeetingWindowView window = new MeetingWindowView(SelectedMeeting);
+                    if (window.ShowDialog() == true)
+                    {
+                        SelectedMeeting.IsCarriedOut = true;
+                        unitOfWork.MeetingRepository.Update(SelectedMeeting);
+                    }*/
+
+                }, (obj) => { return SelectedMeeting != null && !SelectedMeeting.IsCarriedOut; }));
             }
         }
 
