@@ -148,7 +148,7 @@ namespace MeetUp.MeetingWindow
             {
                 return removeEmployeeCommand ?? (removeEmployeeCommand = new RelayCommand(obj =>
                 {
-
+                    MeetingEmployees.Remove(SelectedEmployee);
                 }, (obj) => { return SelectedEmployee != null; }));
             }
         }

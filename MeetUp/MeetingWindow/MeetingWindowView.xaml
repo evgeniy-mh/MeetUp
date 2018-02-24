@@ -85,7 +85,6 @@
                     <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
                         <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.AddEmployeeCommand}">Добавить человека</Button>
                         <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.RemoveEmployeeCommand}" Margin="5,0,0,0" >Удалить человека</Button>
-                        <Button Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.ShowEmployeeCommand}" Margin="5,0,0,0">Подробнее</Button>
                     </StackPanel>
                 </StackPanel>    
             </GroupBox>
