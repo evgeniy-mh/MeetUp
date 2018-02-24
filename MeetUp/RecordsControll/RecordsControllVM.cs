@@ -60,7 +60,8 @@ namespace MeetUp.RecordsControll
                     RecordWindowView window = new RecordWindowView(SelectedRecord);
                     if (window.ShowDialog() == true)
                     {
-                        
+                        unitOfWork.RecordRepository.Update(window.Record);
+                        Records = new ObservableCollection<Record>(unitOfWork.RecordRepository.Get("Meeting.Concil"));
                     }
                 }, (obj) => { return SelectedRecord != null; }));
             }

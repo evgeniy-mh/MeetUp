@@ -15,21 +15,18 @@ namespace MeetUp.RecordWindow
     class RecordWindowVM
     {
         private RecordWindowView recordWindowView;
-        //private bool IsCreatingNewRecord;
 
         public Record Record { get; set; }
 
         public RecordWindowVM(RecordWindowView recordWindowView)
         {
             this.recordWindowView = recordWindowView;
-            //IsCreatingNewRecord = true;
             Record = new Record();
         }
 
         public RecordWindowVM(RecordWindowView recordWindowView, Record record)
         {
             this.recordWindowView = recordWindowView;
-            //IsCreatingNewRecord = false;
             Record = new Record(record);
 
             if (Record.Content != null)
@@ -45,36 +42,18 @@ namespace MeetUp.RecordWindow
             {
                 return selectRecordCommand ?? (selectRecordCommand = new RelayCommand(obj =>
                 {
-                    /*SelectConcilWindowView window = new SelectConcilWindowView();
-                    if (window.ShowDialog() == true)
-                    {
-                        if (IsCreatingNewMeeting)
-                        {
-                            Meeting.Concil = window.SelectedConcil;
-                        }
-                        else
-                        {
-                            //unitOfWork.MeetingRepository.SetConcilForMeeting(Meeting, window.SelectedConcil);
-                            Meeting.Concil = window.SelectedConcil;
-                        }
-                    }*/
-
-                    //if (IsCreatingNewRecord)
-                    //{
                     OpenFileDialog openFileDialog = new OpenFileDialog();
                     openFileDialog.Title = "Выберите документ протокола заседания";
-                    openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                    openFileDialog.Filter = "All files (*.*)|*.*|txt files (*.txt)|*.txt";
                     if (openFileDialog.ShowDialog() == true)
                     {
                         string text = File.ReadAllText(openFileDialog.FileName);
                         Record.Content = text;
 
                         MemoryStream stream = new MemoryStream(ASCIIEncoding.UTF8.GetBytes(Record.Content));
+                        recordWindowView.recordContentRichTextBox.Selection.Text = "";
                         recordWindowView.recordContentRichTextBox.Selection.Load(stream, DataFormats.Text);
                     }
-                    //}
-
-
                 }));
             }
         }
@@ -102,7 +81,6 @@ namespace MeetUp.RecordWindow
                 {
                     return false;
                 }
-
                 IsAllFieldsValid(element);
             }
             return true;

@@ -51,9 +51,6 @@ namespace MeetUp.DBRepositories
         }
         public void Update(TEntity item)
         {
-            //Context.Entry(item).State = EntityState.Modified;
-            //Context.SaveChanges();
-
             _dbSet = Context.Set<TEntity>();
             var result = _dbSet.SingleOrDefault(e => e.Id == item.Id); ;
             if (result != null)

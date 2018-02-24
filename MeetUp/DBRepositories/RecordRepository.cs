@@ -11,6 +11,14 @@ namespace MeetUp.DBRepositories
         {
         }
 
+        public new void Update(Record record)
+        {
+            var r = Context.Records.Find(record.Id);
+            Context.Entry(r).CurrentValues.SetValues(record);
+            if (record.Meeting != null) r.Meeting = Context.Meetings.Find(record.Meeting.Id);
+            Context.SaveChanges();
+        }
+
         public IEnumerable<Record> GetFreeRecords()
         {
             return Context.Records.Where(r => r.Meeting == null).ToList();
