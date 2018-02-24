@@ -42,5 +42,34 @@ namespace MeetUp.DBRepositories
             Context.Entry(m).Collection(m2 => m2.Employees).Load();
             return m.Employees;
         }
+
+        //все employee что не входят в данный meeting
+        public IEnumerable<Employee> GetAllFreeEmployeesForMeeting(Meeting meeting)
+        {
+            if (meeting.Employees.Count == 0)
+            {
+                return Get("Meetings");
+            }
+            else
+            {
+                return Get("Meetings").Where(employee =>
+                {
+                    return !employee.Meetings.Contains(meeting, new MeetingRepository.MeetingIdComparer());
+                });
+            }
+        }
+
+        public class EmployeeIdComparer : IEqualityComparer<Employee>
+        {
+            public bool Equals(Employee x, Employee y)
+            {
+                return x.Id == y.Id;
+            }
+
+            public int GetHashCode(Employee obj)
+            {
+                return obj.GetHashCode();
+            }
+        }
     }
 }

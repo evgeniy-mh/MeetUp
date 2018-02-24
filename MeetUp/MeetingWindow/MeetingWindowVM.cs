@@ -2,9 +2,12 @@
 using MeetUp.DBRepositories;
 using MeetUp.RecordWindow;
 using MeetUp.SelectConcilWindow;
+using MeetUp.SelectEmployeeWindow;
 using MeetUp.SelectRecordWindow;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -118,7 +121,22 @@ namespace MeetUp.MeetingWindow
             {
                 return addEmployeeCommand ?? (addEmployeeCommand = new RelayCommand(obj =>
                 {
-                    
+                    IEnumerable<Employee> freeEmployees;
+                    if (IsCreatingNewMeeting)
+                    {
+                        freeEmployees = unitOfWork.EmployeeRepository.GetAll().Except(MeetingEmployees, new EmployeeRepository.EmployeeIdComparer());
+                    }
+                    else
+                    {
+                        freeEmployees = unitOfWork.EmployeeRepository.GetAllFreeEmployeesForMeeting(Meeting).Except(MeetingEmployees, new EmployeeRepository.EmployeeIdComparer());
+                    }
+
+                    SelectEmployeeWindowView window = new SelectEmployeeWindowView(freeEmployees);
+                    if (window.ShowDialog() == true)
+                    {
+                        MeetingEmployees.Add(window.SelectedEmployee);
+                    }
+
                 }));
             }
         }
@@ -130,7 +148,7 @@ namespace MeetUp.MeetingWindow
             {
                 return removeEmployeeCommand ?? (removeEmployeeCommand = new RelayCommand(obj =>
                 {
-                    
+
                 }, (obj) => { return SelectedEmployee != null; }));
             }
         }
@@ -142,7 +160,7 @@ namespace MeetUp.MeetingWindow
             {
                 return showEmployeeCommand ?? (showEmployeeCommand = new RelayCommand(obj =>
                 {
-                    
+
                 }, (obj) => { return SelectedEmployee != null; }));
             }
         }
@@ -155,6 +173,7 @@ namespace MeetUp.MeetingWindow
                 return accept_Click ?? (accept_Click = new RelayCommand(obj =>
                 {
                     Meeting.Records = MeetingRecords;
+                    Meeting.Employees = MeetingEmployees;
 
                     meetingWindowView.DialogResult = true;
                 }, (obj) => { return IsAllFieldsValid(meetingWindowView.MeetingInfoPanel); }));

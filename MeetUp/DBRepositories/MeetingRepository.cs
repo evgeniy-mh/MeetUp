@@ -1,5 +1,6 @@
 ﻿using MeetUp.DB;
 using MeetUp.DBEntityModels;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MeetUp.DBRepositories
@@ -89,7 +90,7 @@ namespace MeetUp.DBRepositories
                 }
             }
             Context.SaveChanges();
-        }        
+        }
 
         public new void Remove(Meeting meeting)
         {
@@ -122,7 +123,7 @@ namespace MeetUp.DBRepositories
             var m = Context.Meetings.Find(meeting.Id);
             m.Concil = c;
             Context.SaveChanges();
-        }       
+        }
 
         public void RemoveRecordFromMeeting(Meeting meeting, Record record)
         {
@@ -137,6 +138,19 @@ namespace MeetUp.DBRepositories
             }
 
             Context.SaveChanges();
+        }
+
+        public class MeetingIdComparer : IEqualityComparer<Meeting>
+        {
+            public bool Equals(Meeting x, Meeting y)
+            {
+                return x.Id == y.Id;
+            }
+
+            public int GetHashCode(Meeting obj)
+            {
+                return obj.GetHashCode();
+            }
         }
     }
 }
