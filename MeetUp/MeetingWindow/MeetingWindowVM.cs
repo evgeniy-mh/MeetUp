@@ -153,15 +153,15 @@ namespace MeetUp.MeetingWindow
             }
         }
 
-        private RelayCommand showEmployeeCommand;
-        public RelayCommand ShowEmployeeCommand
+        private RelayCommand toogleIsCarriedOut;
+        public RelayCommand ToogleIsCarriedOut
         {
             get
             {
-                return showEmployeeCommand ?? (showEmployeeCommand = new RelayCommand(obj =>
+                return toogleIsCarriedOut ?? (toogleIsCarriedOut = new RelayCommand(obj =>
                 {
-
-                }, (obj) => { return SelectedEmployee != null; }));
+                    Meeting.IsCarriedOut = meetingWindowView.IsCarriedOutCheckBox.IsChecked ?? false;
+                }));
             }
         }
 
