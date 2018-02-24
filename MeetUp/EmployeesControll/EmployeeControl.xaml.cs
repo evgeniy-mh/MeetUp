@@ -7,7 +7,7 @@ namespace MeetUp.EmployeesControl
         public EmployeeControl()
         {
             InitializeComponent();
-            DataContext = new EmployeesControllVM();
+            DataContext = new EmployeesControllVM(this);
         }
     }
 }

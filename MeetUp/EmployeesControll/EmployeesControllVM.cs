@@ -12,26 +12,40 @@ namespace MeetUp.EmployeesControl
 {
     class EmployeesControllVM : INotifyPropertyChanged
     {
+        private EmployeeControl employeeControlUserControll;
         private UnitOfWork unitOfWork;
         public Employee SelectedEmployee { get; set; }
-        private ObservableCollection<Employee> _employees;
+        private ObservableCollection<Employee> employees;
         public ObservableCollection<Employee> Employees
         {
             get
             {
-                return _employees;
+                return employees;
             }
             set
             {
-                _employees = value;
+                employees = value;
                 OnPropertyChanged("Employees");
             }
         }
 
-        public EmployeesControllVM()
+        public EmployeesControllVM(EmployeeControl employeeControlUserControll)
         {
+            this.employeeControlUserControll = employeeControlUserControll;
             unitOfWork = new UnitOfWork();
             Employees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.GetAll());
+        }
+
+        private RelayCommand searchCommand;
+        public RelayCommand SearchCommand
+        {
+            get
+            {
+                return searchCommand ?? (searchCommand = new RelayCommand(obj =>
+                {
+                    Employees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.SearchEmployees(employeeControlUserControll.SearchTextBox.Text));
+                }, (obj) => { return employeeControlUserControll.SearchTextBox.Text.Length != 0; }));
+            }
         }
 
         private RelayCommand addCommand;
@@ -44,9 +58,7 @@ namespace MeetUp.EmployeesControl
                     EmployeeWindowView window = new EmployeeWindowView();
                     if (window.ShowDialog() == true)
                     {
-                        //EmployeeRepository.Create(window.Employee);
                         unitOfWork.EmployeeRepository.Create(window.Employee);
-                        //Employees = new ObservableCollection<Employee>(EmployeeRepository.GetAll());
                         Employees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.GetAll());
                     }
                 }));

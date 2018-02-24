@@ -71,5 +71,26 @@ namespace MeetUp.DBRepositories
                 return obj.GetHashCode();
             }
         }
+
+        public IEnumerable<Employee> SearchEmployees(string query)
+        {
+            query = query.ToLower();
+            return GetAll().Where(e =>
+            {
+                return
+                (e.FirstName != null && e.FirstName.ToLower().Contains(query)) ||
+                (e.MiddleName != null && e.MiddleName.ToLower().Contains(query)) ||
+                (e.LastName != null && e.LastName.ToLower().Contains(query)) ||
+                (e.Position != null && e.Position.ToLower().Contains(query)) ||
+                (e.TelephoneNumber != null && e.TelephoneNumber.ToLower().Contains(query)) ||
+                (e.Email != null && e.Email.ToLower().Contains(query));
+            });
+
+            /*var employees = GetAll();
+            foreach (Employee e in employees)
+            {
+                Context.Entry.
+            }*/
+        }
     }
 }
