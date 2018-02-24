@@ -14,7 +14,23 @@ namespace MeetUp.EmployeesControl
     {
         private EmployeeControl employeeControlUserControll;
         private UnitOfWork unitOfWork;
+
         public Employee SelectedEmployee { get; set; }
+
+        private string searchString;
+        public string SearchString
+        {
+            get
+            {
+                return searchString;
+            }
+            set
+            {
+                searchString = value;
+                SearchCommand.Execute(searchString);
+            }
+        }
+
         private ObservableCollection<Employee> employees;
         public ObservableCollection<Employee> Employees
         {
@@ -41,10 +57,32 @@ namespace MeetUp.EmployeesControl
         {
             get
             {
-                return searchCommand ?? (searchCommand = new RelayCommand(obj =>
+                return searchCommand ?? (searchCommand = new RelayCommand(query =>
                 {
-                    Employees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.SearchEmployees(employeeControlUserControll.SearchTextBox.Text));
-                }, (obj) => { return employeeControlUserControll.SearchTextBox.Text.Length != 0; }));
+                    if (query.ToString().Length == 0)
+                    {
+                        Employees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.GetAll());
+                    }
+                    else
+                    {
+                        Employees = new ObservableCollection<Employee>(unitOfWork.EmployeeRepository.SearchEmployees(query.ToString()));
+                    }
+                }));
+            }
+        }
+
+        private RelayCommand clearSearchStringCommand;
+        public RelayCommand ClearSearchStringCommand
+        {
+            get
+            {
+                return clearSearchStringCommand ?? (clearSearchStringCommand = new RelayCommand(query =>
+                {
+                    employeeControlUserControll.SearchTextBox.Text = "";
+                }, (obj) =>
+                {
+                    return employeeControlUserControll.SearchTextBox.Text.Length > 0;
+                }));
             }
         }
 

@@ -6,23 +6,22 @@
              xmlns:local="clr-namespace:MeetUp.EmployeesControl"
              mc:Ignorable="d" >
     <Grid Margin="5">
+        
         <StackPanel Orientation="Vertical" >
-
+            <GroupBox Header="Поиск сотрудников">
             <Grid Margin="0,5,0,5">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="60"></ColumnDefinition>
+                    <ColumnDefinition Width="70"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-
-                <TextBox x:Name="SearchTextBox" Grid.Row="0" Grid.Column="0"></TextBox>
-                <Button Grid.Row="0" Grid.Column="1" Command="{Binding SearchCommand}">Поиск</Button>
-                
+                <TextBox Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}" x:Name="SearchTextBox" Grid.Row="0" Grid.Column="0"></TextBox>
+                <Button Grid.Row="0" Grid.Column="1" Command="{Binding ClearSearchStringCommand}">Очистить</Button>                
             </Grid>
-            
-            
+            </GroupBox>
+
             <ListView x:Name="UsersListView" Height="268" VerticalAlignment="Top" ItemsSource="{Binding Employees, Mode=TwoWay}" SelectedItem="{Binding SelectedEmployee}">
                 <ListView.View>
                     <GridView>
