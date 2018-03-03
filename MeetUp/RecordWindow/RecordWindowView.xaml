@@ -7,6 +7,20 @@
         mc:Ignorable="d"
         x:Name="MainRecordWindowControll"
         Title="RecordWindowView" Height="500" Width="600">
+
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip"
+                       Value="{Binding RelativeSource={RelativeSource Self},
+                       Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -19,9 +33,9 @@
             <TextBox x:Name="RecordNameTextBox" MinWidth="250">
                 <TextBox.Text>
                     <Binding Path="Name" Mode="TwoWay">
-                        <!--<Binding.ValidationRules>
+                        <Binding.ValidationRules>
                             <DataErrorValidationRule />
-                        </Binding.ValidationRules>-->
+                        </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
@@ -33,7 +47,6 @@
         </StackPanel>
 
         <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,15,0,0">
-            <!--<Button IsDefault="True" Click="Accept_Click" MinWidth="60" Margin="0,0,10,0">OK</Button>-->
             <Button IsDefault="True" Command="{Binding Accept_Click}" MinWidth="60" Margin="0,0,10,0">OK</Button>
             <Button IsCancel="True" MinWidth="60">Отмена</Button>
         </WrapPanel>

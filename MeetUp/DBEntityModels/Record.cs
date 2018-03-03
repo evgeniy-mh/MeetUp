@@ -1,14 +1,18 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace MeetUp.DBEntityModels
 {
-    public class Record : IHasId, INotifyPropertyChanged
+    public class Record : IHasId, INotifyPropertyChanged, IDataErrorInfo
     {
         public int Id { get; set; }
-
+        public int? MeetingId { get; set; }
 
         private string name;
+        private string content;
+        private Meeting meeting;
+
         public string Name
         {
             get
@@ -22,7 +26,6 @@ namespace MeetUp.DBEntityModels
             }
         }
 
-        private string content;
         public string Content
         {
             get
@@ -36,9 +39,6 @@ namespace MeetUp.DBEntityModels
             }
         }
 
-        public int? MeetingId { get; set; }
-
-        private Meeting meeting;
         public Meeting Meeting
         {
             get
@@ -52,10 +52,7 @@ namespace MeetUp.DBEntityModels
             }
         }
 
-        public Record()
-        {
-
-        }
+        public Record() { }
 
         public Record(Record record)
         {
@@ -63,6 +60,25 @@ namespace MeetUp.DBEntityModels
             Name = record.Name;
             Content = record.Content;
             Meeting = record.Meeting == null ? new Meeting() : new Meeting(record.Meeting);
+        }
+
+        public string Error => throw new NotImplementedException();
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = String.Empty;
+                switch (columnName)
+                {
+                    case "Name":
+                        if (Name == null || Name.Length == 0)
+                        {
+                            error = "Вы не ввели название протокола собрания";
+                        }
+                        break;
+                }
+                return error;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

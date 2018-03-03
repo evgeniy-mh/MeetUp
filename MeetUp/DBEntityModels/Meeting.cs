@@ -6,11 +6,19 @@ using System.Runtime.CompilerServices;
 
 namespace MeetUp.DBEntityModels
 {
-    public class Meeting : IHasId, INotifyPropertyChanged
+    public class Meeting : IHasId, INotifyPropertyChanged, IDataErrorInfo
     {
         public int Id { get; set; }
+        public int? ConcilId { get; set; }
 
         private string name;
+        private DateTime? date;
+        private bool isCarriedOut;
+        private string agenda;
+        private Concil concil;
+        private ICollection<Employee> employees;
+        private ICollection<Record> records;
+
         public string Name
         {
             get
@@ -23,8 +31,7 @@ namespace MeetUp.DBEntityModels
                 OnPropertyChanged("Name");
             }
         }
-
-        private DateTime? date;
+        
         public DateTime? Date
         {
             get
@@ -37,8 +44,7 @@ namespace MeetUp.DBEntityModels
                 OnPropertyChanged("Date");
             }
         }
-
-        private bool isCarriedOut;
+        
         public bool IsCarriedOut
         {
             get
@@ -51,8 +57,7 @@ namespace MeetUp.DBEntityModels
                 OnPropertyChanged("IsCarriedOut");
             }
         }
-
-        private string agenda;
+        
         public string Agenda
         {
             get
@@ -64,11 +69,8 @@ namespace MeetUp.DBEntityModels
                 agenda = value;
                 OnPropertyChanged("Agenda");
             }
-        }
-
-        public int? ConcilId { get; set; }
-
-        private Concil concil;
+        }        
+        
         public Concil Concil
         {
             get
@@ -81,8 +83,7 @@ namespace MeetUp.DBEntityModels
                 OnPropertyChanged("Concil");
             }
         }
-
-        private ICollection<Employee> employees;
+        
         public ICollection<Employee> Employees
         {
             get
@@ -95,8 +96,7 @@ namespace MeetUp.DBEntityModels
                 OnPropertyChanged("Employees");
             }
         }
-
-        private ICollection<Record> records;
+        
         public ICollection<Record> Records
         {
             get
@@ -127,6 +127,25 @@ namespace MeetUp.DBEntityModels
             Concil = meeting.Concil == null ? null : new Concil(meeting.Concil);
             Employees = meeting.Employees == null ? new List<Employee>() : meeting.Employees.ToList();
             Records = meeting.Records == null ? new List<Record>() : meeting.Records.ToList();
+        }
+
+        public string Error => throw new NotImplementedException();
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = String.Empty;
+                switch (columnName)
+                {
+                    case "Name":
+                        if (Name == null || Name.Length == 0)
+                        {
+                            error = "Вы не ввели название собрания";
+                        }
+                        break;
+                }
+                return error;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

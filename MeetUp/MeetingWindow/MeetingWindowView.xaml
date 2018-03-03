@@ -7,6 +7,20 @@
         mc:Ignorable="d"
         x:Name="MainMeetingWindowControll"
         Title="Заседание" Height="650" Width="550">
+
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip"
+                       Value="{Binding RelativeSource={RelativeSource Self},
+                       Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -19,9 +33,9 @@
             <TextBox MinWidth="250">
                 <TextBox.Text>
                     <Binding Path="Name">
-                        <!--<Binding.ValidationRules>
+                        <Binding.ValidationRules>
                             <DataErrorValidationRule />
-                        </Binding.ValidationRules>-->
+                        </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
@@ -29,21 +43,15 @@
             <TextBlock Margin="0,5,0,0">Повестка дня:</TextBlock>
             <TextBox MinWidth="250" Height="100" TextWrapping="Wrap" AcceptsReturn="True">
                 <TextBox.Text>
-                    <Binding Path="Agenda">
-                        <!--<Binding.ValidationRules>
-                            <DataErrorValidationRule />
-                        </Binding.ValidationRules>-->
-                    </Binding>
+                    <Binding Path="Agenda"/>
                 </TextBox.Text>
             </TextBox>
-
 
             <DockPanel Margin="0,5,0,0">
                 <TextBlock Margin="0,5,5,0">Дата проведения:</TextBlock>
                 <DatePicker Width="150" SelectedDateFormat="Short" SelectedDate="{Binding Path=Date, Mode=TwoWay}" FirstDayOfWeek="Monday"/>
                 <CheckBox x:Name="IsCarriedOutCheckBox" Command="{Binding ElementName=MainMeetingWindowControll, Path=DataContext.ToogleIsCarriedOut}" HorizontalAlignment="Right" Margin="15,5,5,0" IsChecked="{Binding Path=IsCarriedOut, Mode=TwoWay}">Заседание проведено</CheckBox>
             </DockPanel>
-
 
             <GroupBox Margin="0,5,0,0" Header="Совет проводящий заседание" >
                 <DockPanel>

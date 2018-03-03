@@ -6,42 +6,13 @@
         xmlns:local="clr-namespace:MeetUp.MainWindowView"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
-
-    <!--<Window.Resources>
-        <local1:EmployeesControllVM x:Key="EmployeesControllVM" />
-    </Window.Resources>-->
-
     <Grid>
-        <!--<TabControl>
-            <TabItem Header="Сотрудники" DataContext="{StaticResource EmployeesVM}">
-                <StackPanel Orientation="Vertical" >
-                    <ListView x:Name="UsersListView" Margin="5,0" Height="268" VerticalAlignment="Top" ItemsSource="{Binding Employees}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}"/>
-                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=FirstName}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <Button x:Name="AddEmployeeButton" Content="Добавить сотрудника" Command="{Binding AddCommand}" />
-                        <Button x:Name="DeleteEmployeeButton" Content="Удалить сотрудника" Command="{Binding RemoveCommand}" Margin="5,0,0,0" />
-                    </StackPanel>
-                </StackPanel>
-            </TabItem>
-
-            <TabItem Header="Совет">
-
-            </TabItem>
-        </TabControl>-->
-
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.4*" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
 
         <StackPanel Grid.Column="0">
             <ListBox x:Name="MenuItemsListBox" SelectionChanged="MenuSelector_OnSelectionChanged" >
