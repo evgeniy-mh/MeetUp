@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace MeetUp.DBEntityModels
 {
@@ -188,6 +189,14 @@ namespace MeetUp.DBEntityModels
                         {
                             error = "Вы не ввели должность сотрудника";
                         }
+                        break;
+                    case "TelephoneNumber":
+                        Regex regex = new Regex("[^0-9]");
+                        if (TelephoneNumber==null || regex.IsMatch(TelephoneNumber))
+                        {
+                            error = "Вы неправильно ввел номер сотрудника";
+                        }
+
                         break;
                 }
                 return error;

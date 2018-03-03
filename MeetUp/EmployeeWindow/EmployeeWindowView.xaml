@@ -61,13 +61,29 @@
             </TextBox>
 
             <TextBlock>Должность:</TextBlock>
-            <TextBox Name="PositionBox" MinWidth="250" Text="{Binding Path=Position}"></TextBox>
+            <TextBox Name="PositionBox" MinWidth="250">
+                <TextBox.Text>
+                    <Binding Path="Position">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBlock>Дата рождения:</TextBlock>
             <DatePicker Name="BirthDatePicker" SelectedDateFormat="Short" FirstDayOfWeek="Monday" SelectedDate="{Binding Path=BirthDate}"/>
 
             <TextBlock>Номер телефона:</TextBlock>
-            <TextBox Name="TelephoneNumberBox" MinWidth="250" Text="{Binding Path=TelephoneNumber}"></TextBox>
+            <TextBox Name="TelephoneNumberBox" MinWidth="250">
+                <TextBox.Text>
+                    <Binding Path="TelephoneNumber">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBlock>E-mail:</TextBlock>
             <TextBox Name="EmailBox" MinWidth="250" Text="{Binding Path=Email}"></TextBox>
