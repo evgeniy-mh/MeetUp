@@ -52,10 +52,10 @@ namespace MeetUp.DB
 
 
             List<Record> records = new List<Record> {
-                new Record{Name="Название протокола 1",Content="1 Содержание протокола собрания "},
-                new Record{Name="Название протокола 2",Content="2 Содержание протокола собрания "},
-                new Record{Name="Название протокола 3",Content="3 Содержание протокола собрания "},
-                new Record{Name="Название протокола 4",Content="Особо важный протокол собрания "}
+                new Record{Name="Протокол 1",Content="1 Содержание протокола собрания "},
+                new Record{Name="Протокол 2",Content="2 Содержание протокола собрания "},
+                new Record{Name="Протокол 3",Content="3 Содержание протокола собрания "},
+                new Record{Name="Протокол 4",Content="Особо важный протокол собрания "}
             };
             db.Records.AddRange(records);
 

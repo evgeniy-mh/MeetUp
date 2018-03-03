@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MeetUp.RecordWindow"
         mc:Ignorable="d"
         x:Name="MainRecordWindowControll"
-        Title="RecordWindowView" Height="500" Width="600">
+        Title="Протокол заседания" Height="500" Width="600">
 
     <Window.Resources>
         <Style TargetType="TextBox">
