@@ -1,15 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace MeetUp.DBEntityModels
 {
-    public class Concil : IHasId, INotifyPropertyChanged
+    public class Concil : IHasId, INotifyPropertyChanged, IDataErrorInfo
     {
         public int Id { get; set; }
 
         private string name;
+        private ICollection<Employee> employees;
+        private ICollection<Meeting> meetings;
+
         public string Name
         {
             get
@@ -22,8 +26,7 @@ namespace MeetUp.DBEntityModels
                 OnPropertyChanged("Name");
             }
         }
-
-        private ICollection<Employee> employees;
+        
         public ICollection<Employee> Employees
         {
             get
@@ -36,8 +39,7 @@ namespace MeetUp.DBEntityModels
                 OnPropertyChanged("Employees");
             }
         }
-
-        private ICollection<Meeting> meetings;
+        
         public ICollection<Meeting> Meetings
         {
             get
@@ -63,6 +65,25 @@ namespace MeetUp.DBEntityModels
             Name = concil.Name;
             Employees = concil.Employees?.ToList();
             Meetings = concil.Meetings?.ToList();
+        }
+
+        public string Error => throw new NotImplementedException();
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = String.Empty;
+                switch (columnName)
+                {
+                    case "Name":
+                        if (Name == null || Name.Length == 0)
+                        {
+                            error = "Вы не ввели название совета";
+                        }
+                        break;
+                }
+                return error;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

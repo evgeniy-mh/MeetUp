@@ -18,9 +18,9 @@
             <TextBox MinWidth="250">
                 <TextBox.Text>
                     <Binding Path="Name">
-                        <!--<Binding.ValidationRules>
+                        <Binding.ValidationRules>
                             <DataErrorValidationRule />
-                        </Binding.ValidationRules>-->
+                        </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>

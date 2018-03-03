@@ -194,7 +194,7 @@ namespace MeetUp.DBEntityModels
                         Regex regex = new Regex("[^0-9]");
                         if (TelephoneNumber==null || regex.IsMatch(TelephoneNumber))
                         {
-                            error = "Вы неправильно ввел номер сотрудника";
+                            error = "Вы неправильно ввели номер сотрудника";
                         }
 
                         break;
