@@ -11,6 +11,15 @@ namespace MeetUp.DBEntityModels
         public int Id { get; set; }
 
         private string firstName;
+        private string middleName;
+        private string lastName;
+        private string position;
+        private DateTime? birthDate;
+        private string telephoneNumber;
+        private string email;
+        private ICollection<Concil> concils;
+        private ICollection<Meeting> meetings;
+
         public string FirstName
         {
             get
@@ -23,8 +32,7 @@ namespace MeetUp.DBEntityModels
                 OnPropertyChanged("FirstName");
             }
         }
-
-        private string middleName;
+        
         public string MiddleName
         {
             get
@@ -37,8 +45,7 @@ namespace MeetUp.DBEntityModels
                 OnPropertyChanged("MiddleName");
             }
         }
-
-        private string lastName;
+        
         public string LastName
         {
             get
@@ -51,8 +58,7 @@ namespace MeetUp.DBEntityModels
                 OnPropertyChanged("LastName");
             }
         }
-
-        private string position;
+        
         public string Position
         {
             get
@@ -65,8 +71,7 @@ namespace MeetUp.DBEntityModels
                 OnPropertyChanged("Position");
             }
         }
-
-        private DateTime? birthDate;
+        
         public DateTime? BirthDate
         {
             get
@@ -79,8 +84,7 @@ namespace MeetUp.DBEntityModels
                 OnPropertyChanged("BirthDate");
             }
         }
-
-        private string telephoneNumber;
+        
         public string TelephoneNumber
         {
             get
@@ -93,8 +97,7 @@ namespace MeetUp.DBEntityModels
                 OnPropertyChanged("TelephoneNumber");
             }
         }
-
-        private string email;
+        
         public string Email
         {
             get
@@ -107,8 +110,7 @@ namespace MeetUp.DBEntityModels
                 OnPropertyChanged("Email");
             }
         }
-
-        private ICollection<Concil> concils;
+        
         public ICollection<Concil> Concils
         {
             get
@@ -121,8 +123,7 @@ namespace MeetUp.DBEntityModels
                 OnPropertyChanged("Concils");
             }
         }
-
-        private ICollection<Meeting> meetings;
+        
         public ICollection<Meeting> Meetings
         {
             get
@@ -180,6 +181,12 @@ namespace MeetUp.DBEntityModels
                         if (LastName == null || LastName.Length == 0)
                         {
                             error = "Вы не ввели отчество сотрудника";
+                        }
+                        break;
+                    case "Position":
+                        if (Position == null || Position.Length == 0)
+                        {
+                            error = "Вы не ввели должность сотрудника";
                         }
                         break;
                 }
